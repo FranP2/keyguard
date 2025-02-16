@@ -1,46 +1,41 @@
-
-
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
-from .models import Usuario, Chave, Autorizacao, Posse, Sala, StatusGeral
+from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['nome', 'cpf', 'email', 'senha', 'telefone']
+        fields = '__all__'
 
 class SalaForm(forms.ModelForm):
     class Meta:
         model = Sala
-        fields = ['numero', 'descricao']
+        fields = '__all__'
 
 class ChaveForm(forms.ModelForm):
     class Meta:
         model = Chave
-        fields = ['identificador', 'sala']
+        fields = '__all__'
 
 class AutorizacaoForm(forms.ModelForm):
     class Meta:
         model = Autorizacao
-        fields = ['usuario', 'chave']
+        fields = '__all__'
 
 class PosseForm(forms.ModelForm):
     class Meta:
         model = Posse
-        fields = ['usuario', 'chave', 'data_devolucao']
+        fields = '__all__'
 
 class StatusGeralForm(forms.ModelForm):
     class Meta:
         model = StatusGeral
-        fields = ['chave', 'disponivel']
+        fields = '__all__'
 
-class RegistroForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-
+class RegistroForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = Usuario
+        fields = ['nome', 'matricula', 'email', 'telefone', 'departamento', 'senha']
 
-class LoginForm(AuthenticationForm):
-    pass
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(widget=forms.PasswordInput)
