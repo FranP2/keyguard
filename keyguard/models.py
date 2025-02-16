@@ -39,15 +39,6 @@ class Autorizacao(models.Model):
     def __str__(self):
         return f"Autorização para {self.nome} - Sala {self.sala_numero}"
 
-class Posse(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    chave = models.ForeignKey(Chave, on_delete=models.CASCADE)
-    data_retirada = models.DateTimeField(auto_now_add=True)
-    data_devolucao = models.DateTimeField(blank=True, null=True)
-
-    def __str__(self):
-        return f"Posse de {self.usuario} - {self.chave}"
-
 class SolicitacaoPosseChave(models.Model):
     nome = models.CharField(max_length=100)
     matricula = models.CharField(max_length=20)
@@ -56,9 +47,19 @@ class SolicitacaoPosseChave(models.Model):
     email = models.EmailField()
     data_solicitacao = models.DateTimeField()
     telefone = models.CharField(max_length=15)
+    autorizacao = models.ForeignKey(Autorizacao, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"Solicitação de {self.nome} para {self.sala_numero}"
+
+class Posse(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    chave = models.ForeignKey(Chave, on_delete=models.CASCADE)
+    data_retirada = models.DateTimeField(auto_now_add=True)
+    data_devolucao = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Posse de {self.usuario} - {self.chave}"
 
 class StatusGeral(models.Model):
     historico_modificacoes = models.JSONField(default=list)  # Usando JSONField para armazenar o histórico de modificações
