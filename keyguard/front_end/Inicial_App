@@ -10,7 +10,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #595991; /* Cor de fundo semelhante à imagem */
+            background-color: #5f5f99; /* Cor de fundo semelhante à imagem */
         }
         .container {
 
