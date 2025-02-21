@@ -10,10 +10,10 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #9191D0; /* Cor de fundo semelhante à imagem */
+            background-color: #595991; /* Cor de fundo semelhante à imagem */
         }
         .container {
-            
+
             text-align: center;
         }
         .key-image {
@@ -31,7 +31,7 @@
         }
         .signup-link {
             text-decoration: none;
-            color: #007bff; /* Cor do link "cadastre-se" */
+            color: #e2e6eb; /* Cor do link "cadastre-se" */
         }
     </style>
 </head>
