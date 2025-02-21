@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicial App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #9191D0; /* Cor de fundo semelhante à imagem */
+        }
+        .container {
+            
+            text-align: center;
+        }
+        .key-image {
+            width: 80px; /* Tamanho da imagem da chave */
+            margin-bottom: 20px;
+        }
+        .login-button {
+            background-color: #e0e0e0; /* Cor de fundo do botão Login */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .signup-link {
+            text-decoration: none;
+            color: #007bff; /* Cor do link "cadastre-se" */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="chave.png" alt="Chave" class="key-image">
+        <h2>Key</h2>
+        <p>Guard</p>
+        <button class="login-button">Login</button>
+        <p>Não tem uma conta? <a href="#" class="signup-link">cadastre-se</a></p>
+    </div>
+</body>
+</html>
