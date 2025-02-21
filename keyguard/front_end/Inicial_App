@@ -31,7 +31,7 @@
         }
         .signup-link {
             text-decoration: none;
-            color: #e2e6eb; /* Cor do link "cadastre-se" */
+            color: #5d636b; /* Cor do link "cadastre-se" */
         }
     </style>
 </head>
