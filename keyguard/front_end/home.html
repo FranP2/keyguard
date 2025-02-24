@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .home-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-bar .search-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .grid-item img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="home-box">
+            <div class="search-bar">
+                <input type="text" placeholder="Pesquise">
+                <button class="search-button">Q</button>
+            </div>
+            <h1>Home</h1>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <img src="" alt="Sala">
+                    <span>sala</span>
+                </div>
+                <div class="grid-item">
+                    <img src="chave.png" alt="Chave">
+                    <span>chave</span>
+                </div>
+                <div class="grid-item">
+                    <img src="posse.png" alt="Posse">
+                    <span>posse</span>
+                </div>
+                <div class="grid-item">
+                    <img src="autorizar.png" alt="Autorizar">
+                    <span>autorizar</span>
+                </div>
+                <div class="grid-item">
+                    <img src="status.png" alt="Status">
+                    <span>status</span>
+                </div>
+                <div class="grid-item">
+                    <img src="usuario.png" alt="Usuário">
+                    <span>usuário</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
