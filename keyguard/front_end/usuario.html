@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página do Usuário</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+        }
+
+        /* Container principal */
+        .usuario-container {
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+            width: 100%;
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cabeçalho */
+        .usuario-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .icon-usuario {
+            width: 40px;
+            height: 40px;
+        }
+
+        .usuario-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00003c;
+        }
+
+        /* Estilo dos campos de entrada */
+        .usuario-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #303060;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            padding: 10px;
+            border: 1px solid #b3b3b3;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Botões */
+        .usuario-botoes {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: #4a4a6a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #8a8aab;
+        }
+    </style>
+</head>
+<body>
+    <div class="usuario-container">
+        <!-- Cabeçalho com ícone e título -->
+        <div class="usuario-header">
+            <img class="icon-usuario" src="usuario-icon.svg" alt="Ícone de Usuário" />
+            <div class="usuario-text">Usuário</div>
+        </div>
+
+        <!-- Campos do formulário -->
+        <div class="usuario-form">
+            <div class="input-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Nome completo">
+            </div>
+            <div class="input-group">
+                <label for="matricula">Matrícula</label>
+                <input type="text" id="matricula" placeholder="Matrícula">
+            </div>
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="exemplo@gmail.com">
+            </div>
+            <div class="input-group">
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" placeholder="Endereço">
+            </div>
+            <div class="input-group">
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" placeholder="(XX) XXXXX-XXXX">
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="usuario-botoes">
+            <button class="btn">Salvar</button>
+            <button class="btn">Editar</button>
+            <button class="btn">Novo</button>
+            <button class="btn">Excluir</button>
+        </div>
+    </div>
+</body>
+</html>

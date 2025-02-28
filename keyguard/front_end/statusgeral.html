@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Geral</title>
+    <!-- Link para a CDN do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset de estilos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos principais */
+        body {
+            font-family: 'Roboto', sans-serif;
+            height: 100vh; /* Ajusta a altura da tela */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden; /* Impede a rolagem extra */
+        }
+
+        .status-geral {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(236, 230, 240, 1) 0%, rgba(225, 220, 229, 1) 0.009999999747378752%, rgba(136, 132, 138, 1) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+            overflow: auto;
+        }
+
+        /* Título de Status Geral */
+        .status-geral3 {
+            color: #00003c;
+            font-family: "DmSans-Black", sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 30px; /* Espaço abaixo do título */
+        }
+
+        /* Ícone do título */
+        .status-geral3 i {
+            font-size: 40px;
+            color: #00003c;
+            margin-right: 10px;
+        }
+
+        /* Cards */
+        .card {
+            background: #ffffff;
+            border: 1px solid #9191d0;
+            width: 353px;
+            height: 66px;
+            margin-bottom: 15px; /* Espaço entre os cards */
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            transition: background 0.3s ease; /* Efeito suave ao passar o mouse */
+            display: flex;
+            align-items: center; /* Alinha o texto no centro verticalmente */
+            padding-left: 20px; /* Espaço à esquerda do texto */
+        }
+
+        .card:hover {
+            background-color: #f0f0f5; /* Cor leve ao passar o cursor */
+        }
+
+        /* Texto nos cards */
+        .card-text {
+            color: #1e1e1e;
+            font-family: "Roboto-SemiBold", sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* Links para os cards */
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Ícone de seta de retorno */
+        .arrow-back {
+            font-size: 20px; /* Tamanho reduzido da seta */
+            color: #00003c;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-geral">
+        <!-- Título com ícone -->
+        <div class="status-geral3">
+            <i class="fas fa-cogs"></i> Status Geral
+        </div>
+
+        <!-- Ícone de seta de retorno -->
+        <i class="fas fa-arrow-left arrow-back"></i>
+
+        <!-- Cards com links -->
+        <a href="pagina-chaves.html">
+            <div class="card">
+                <div class="card-text">Chaves</div>
+            </div>
+        </a>
+        <a href="pagina-usuarios.html">
+            <div class="card">
+                <div class="card-text">Usuários</div>
+            </div>
+        </a>
+        <a href="pagina-posse-chaves.html">
+            <div class="card">
+                <div class="card-text">Posse de Chaves</div>
+            </div>
+        </a>
+        <a href="pagina-salas.html">
+            <div class="card">
+                <div class="card-text">Salas</div>
+            </div>
+        </a>
+        <a href="pagina-autorizacao.html">
+            <div class="card">
+                <div class="card-text">Autorização</div>
+            </div>
+        </a>
+        <a href="pagina-historico.html">
+            <div class="card">
+                <div class="card-text">Histórico de modificações</div>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

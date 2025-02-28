@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página das Chaves</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+        }
+
+        /* Container principal */
+        .chaves {
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh; /* Garantir altura mínima para que tudo fique visível */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Parte superior com as informações das chaves */
+        .frame-9 {
+            background: #ffffff;
+            border-radius: 30px;
+            border: 1px solid #000000;
+            width: 100%;
+            max-width: 430px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .campo {
+            width: 100%;
+            height: 47px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .campo span {
+            color: #757575;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .campo input {
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        /* Parte inferior (botões) */
+        .frame-20 {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #4a4a6a;
+            border-radius: 20px;
+            box-shadow: 0px 4px 4px rgba(255, 255, 255, 1);
+            margin-top: auto; /* Garantir que os botões fiquem na parte inferior */
+        }
+
+        .base {
+            background: #8a8aab;
+            border-radius: 20px;
+            width: 30%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .base span {
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .eos-vpn-key-outlined {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px; /* Espaço para garantir que não sobreponha o formulário */
+        }
+
+        .vector {
+            font-size: 100px;
+            color: #00003c;
+        }
+
+        .chaves2 {
+            color: #00003c;
+            font-size: 40px;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="chaves">
+        <div class="eos-vpn-key-outlined">
+            <i class="fas fa-key vector"></i>
+            <div class="chaves2">Chaves</div>
+        </div>
+
+        <div class="frame-9">
+            <div class="campo">
+                <span>Nome completo</span>
+                <input type="text" placeholder="Digite o nome completo">
+            </div>
+            <div class="campo">
+                <span>Código das chaves</span>
+                <input type="text" placeholder="Digite o código">
+            </div>
+            <div class="campo">
+                <span>Número da sala</span>
+                <input type="text" placeholder="Digite o número da sala">
+            </div>
+            <div class="campo">
+                <span>Disponibilidade</span>
+                <input type="text" placeholder="Disponível / Indisponível">
+            </div>
+            <div class="campo">
+                <span>Cópias das chaves</span>
+                <input type="text" placeholder="Número de cópias">
+            </div>
+        </div>
+
+        <div class="frame-20">
+            <div class="base"><span>Editar</span></div>
+            <div class="base"><span>Excluir</span></div>
+            <div class="base"><span>Adicionar</span></div>
+        </div>
+    </div>
+</body>
+</html>

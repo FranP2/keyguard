@@ -5,74 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Login</title>
     <style>
+        :root {
+            /* Cores */
+            --primary-color: #9191d0;
+            --secondary-color: #f0f0f7;
+            --text-color: #2e2e71;
+            --background-color: #ffffff;
+            --border-color: #9191d0;
+            --placeholder-color: #a1a1a1;
+
+            /* Fontes */
+            --font-family-primary: "Roboto-Regular", sans-serif;
+            --font-family-semibold: "Roboto-SemiBold", sans-serif;
+            --font-family-medium: "Roboto-Medium", sans-serif;
+            --font-size-default: 18px;
+            --font-size-large: 36px;
+            --font-size-medium: 20px;
+            --font-weight-regular: 400;
+            --font-weight-semibold: 600;
+            --font-weight-medium: 500;
+
+            /* Efeitos */
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
         body {
-            font-family: sans-serif;
+            background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
+            border-radius: 55px 0px 0px 0px;
+            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: #5a5aa7;
+            justify-content: center;
+            margin: 0;
         }
 
-        .container {
-            width: 100%;
-            max-width: 400px; /* Ajuste conforme necessário */
-            padding: 20px;
-        }
-
-        .login-box {
-            background-color: #c5c0c0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .frame-1 {
+            background: var(--background-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 380px;
             padding: 30px;
-            text-align: center;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .login-box h1 {
+        .frame-1 img {
+            width: 120px;
+            height: auto;
             margin-bottom: 20px;
         }
 
-        .login-box input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 30px;
-            border: 1px solid #1c0349;
-            border-radius: 4px;
+        .login {
+            font-family: var(--font-family-semibold);
+            font-size: var(--font-size-large);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-color);
+            margin-bottom: 20px;
         }
 
-        .login-box .login-button {
-            background-color: white;
-            color: #111111;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .rectangle-5, .rectangle-3 {
+            background: var(--background-color);
+            border-radius: var(--border-radius);
             width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
         }
 
-        .login-box p {
+        .rectangle-5 {
+            border: 1px solid var(--border-color);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: var(--font-size-default);
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .esqueceu-a-senha {
+            font-size: var(--font-size-medium);
+            font-weight: var(--font-weight-semibold);
+            color: var(--primary-color);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .ainda-n-o-tem-conta {
+            font-size: var(--font-size-medium);
+            color: var(--text-color);
             margin-top: 20px;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
+        .cadastre-se {
+            font-size: var(--font-size-medium);
+            color: var(--primary-color);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .card {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .card-title {
+            font-family: var(--font-family-semibold);
+            font-size: var(--font-size-medium);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-default);
+            font-weight: var(--font-weight-regular);
         }
     </style>
+    <!-- Inclua a biblioteca de ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="login-box">
-            <h1>Login</h1>
-            <input type="text" placeholder="Nome">
-            <input type="email" placeholder="E-mail">
-            <input type="password" placeholder="Senha">
-            <input type="password" placeholder="Confirma Senha">
-            <button class="login-button">Login</button>
-            <p>Já tem uma conta? <a href="#">Login</a></p>
+    <div class="frame-1">
+        <img class="cadastro-de-chaves" src="cadastro-de-chaves0.svg" />
+        <div class="login">Login</div>
+        <div class="rectangle-5">
+            <input type="email" placeholder="Email" class="email-input" />
         </div>
+        <div class="rectangle-5">
+            <input type="password" placeholder="Senha" class="password-input" />
+        </div>
+        <div class="esqueceu-a-senha">Esqueceu a senha?</div>
+        <div class="rectangle-3">
+            <!-- Espaço para outros elementos -->
+        </div>
+        <div class="ainda-n-o-tem-conta">Ainda não tem conta?</div>
+        <div class="cadastre-se">Cadastre-se</div>
     </div>
 </body>
 </html>
-

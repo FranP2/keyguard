@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página da Sala</title>
+    <!-- Link para a CDN do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset de estilos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .sala {
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+            height: 100vh;
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Cabeçalho */
+        .arrow-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .sala2 {
+            color: #00003c;
+            font-size: 40px;
+            font-weight: 500;
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sala2 i {
+            margin-right: 10px;
+            font-size: 36px;
+        }
+
+        /* Formulário da sala */
+        .form-container {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-container label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .buttons-container button {
+            width: 32%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .new-btn {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .tipo-de-sala2 {
+            font-size: 16px;
+            color: #000000;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sala">
+        <!-- Botão de retorno -->
+        <div class="arrow-back">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+
+        <div class="sala2">
+            <i class="fas fa-home"></i> Sala
+        </div>
+
+        <!-- Formulário -->
+        <div class="form-container">
+            <div class="form-group">
+                <label for="nome-sala">Nome da Sala</label>
+                <input type="text" id="nome-sala" placeholder="Digite o nome da sala">
+            </div>
+
+            <div class="form-group">
+                <label for="tipo-sala">Tipo de Sala</label>
+                <select id="tipo-sala">
+                    <option value="aula">Aula</option>
+                    <option value="reuniao">Reunião</option>
+                    <option value="conferencia">Conferência</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="numero-sala">Número da Sala</label>
+                <input type="text" id="numero-sala" placeholder="Digite o número da sala">
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="buttons-container">
+                <button class="edit-btn" id="edit-btn">
+                    <i class="fas fa-pencil-alt"></i> Editar
+                </button>
+                <button class="new-btn" id="new-btn">
+                    <i class="fas fa-plus"></i> Novo
+                </button>
+                <button class="delete-btn" id="delete-btn">
+                    <i class="fas fa-trash-alt"></i> Excluir
+                </button>
+            </div>
+        </div>
+
+        <div class="tipo-de-sala2">
+            Tipo de sala selecionado: <span id="selected-type">Aula</span>
+        </div>
+    </div>
+
+    <script>
+        // Manipuladores dos botões
+        const editBtn = document.getElementById('edit-btn');
+        const newBtn = document.getElementById('new-btn');
+        const deleteBtn = document.getElementById('delete-btn');
+
+        const nomeSalaInput = document.getElementById('nome-sala');
+        const tipoSalaInput = document.getElementById('tipo-sala');
+        const numeroSalaInput = document.getElementById('numero-sala');
+        const selectedTypeSpan = document.getElementById('selected-type');
+
+        // Função de edição
+        editBtn.addEventListener('click', () => {
+            const nomeSala = nomeSalaInput.value;
+            const tipoSala = tipoSalaInput.value;
+            const numeroSala = numeroSalaInput.value;
+
+            if (nomeSala && tipoSala && numeroSala) {
+                alert(`Sala editada com sucesso!\nNome: ${nomeSala}\nTipo: ${tipoSala}\nNúmero: ${numeroSala}`);
+            } else {
+                alert('Preencha todos os campos para editar.');
+            }
+        });
+
+        // Função de novo
+        newBtn.addEventListener('click', () => {
+            nomeSalaInput.value = '';
+            tipoSalaInput.value = 'aula';
+            numeroSalaInput.value = '';
+            alert('Campos limpos para um novo cadastro.');
+        });
+
+        // Função de excluir
+        deleteBtn.addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja excluir esta sala?')) {
+                nomeSalaInput.value = '';
+                tipoSalaInput.value = 'aula';
+                numeroSalaInput.value = '';
+                alert('Sala excluída com sucesso.');
+            }
+        });
+
+        // Atualizar tipo de sala selecionado
+        tipoSalaInput.addEventListener('change', () => {
+            selectedTypeSpan.textContent = tipoSalaInput.value.charAt(0).toUpperCase() + tipoSalaInput.value.slice(1);
+        });
+    </script>
+</body>
+</html>
