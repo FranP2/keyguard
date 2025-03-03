@@ -3,59 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de  cadastro</title>
+    <title>Tela de Cadastro</title>
     <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: sans-serif;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #5a5aa7;
+            background: linear-gradient(135deg, #5a5aa7, #8a8ab3);
+            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 400px; /* Ajuste conforme necessário */
+            max-width: 400px;
             padding: 20px;
         }
 
         .login-box {
-            background-color: #c5c0c0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
             padding: 30px;
             text-align: center;
         }
 
         .login-box h1 {
+            color: #5a5aa7;
+            font-size: 24px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .login-box input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 30px;
-            border: 1px solid #1c0349;
-            border-radius: 4px;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .login-box input:focus {
+            border-color: #5a5aa7;
+            box-shadow: 0 0 5px rgba(90, 90, 167, 0.5);
         }
 
         .login-box .login-button {
-            background-color: white;
-            color: #111111;
-            padding: 10px 20px;
+            background-color: #5a5aa7;
+            color: #ffffff;
+            padding: 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
             width: 100%;
+        }
+
+        .login-box .login-button:hover {
+            background-color: #43437f;
         }
 
         .login-box p {
             margin-top: 20px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .login-box p a {
+            color: #5a5aa7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-box p a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 600px) {
             .container {
+                padding: 10px;
+            }
+
+            .login-box {
+                padding: 20px;
+            }
+
+            .login-box h1 {
+                font-size: 20px;
+            }
+
+            .login-box input {
+                font-size: 14px;
+            }
+
+            .login-box .login-button {
+                font-size: 14px;
                 padding: 10px;
             }
         }
@@ -64,15 +118,14 @@
 <body>
     <div class="container">
         <div class="login-box">
-            <h1></h1>
-            <input type="text" placeholder="Nome">
-            <input type="email" placeholder="E-mail">
-            <input type="password" placeholder="Senha">
-            <input type="password" placeholder="Confirma Senha">
-            <button class="login-button">Login</button>
-            <p>Já tem uma conta? <a href="#">Login</a></p>
+            <h1>Cadastro</h1>
+            <input type="text" placeholder="Nome completo" required>
+            <input type="email" placeholder="E-mail" required>
+            <input type="password" placeholder="Senha" required>
+            <input type="password" placeholder="Confirme a senha" required>
+            <button class="login-button">Cadastrar</button>
+            <p>Já tem uma conta? <a href="#">Faça login</a></p>
         </div>
     </div>
 </body>
 </html>
-

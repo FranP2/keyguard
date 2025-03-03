@@ -4,80 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Cadastro de Chaves</title>
+    <!-- Link para a biblioteca Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #9191d0, #f0f0f7); /* Fundo igual ao Status Geral */
             color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
+
         .container {
             width: 90%;
-            max-width: 400px;
-            background-color: #fff;
-            border-radius: 10px;
+            max-width: 450px;
+            background: #ffffff;
+            border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
             text-align: center;
-            color: #007bff;
+            color: #4a4a6a; /* Mesma cor do Status Geral */
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
+
+        h1 i {
+            font-size: 24px;
+            color: #4a4a6a; /* Ícone harmonizado */
+        }
+
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: #4a4a6a; /* Mesma cor de rótulos ajustada */
         }
+
         input {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid #9191d0;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+            background-color: #f9f9fc; /* Fundo claro ajustado */
         }
+
+        input:focus {
+            border-color: #4a4a6a;
+            box-shadow: 0 0 5px rgba(74, 74, 106, 0.5);
+        }
+
         .buttons {
             display: flex;
             justify-content: space-between;
+            gap: 10px;
         }
+
         button {
+            flex: 1;
             padding: 10px;
             border: none;
-            border-radius: 5px;
-            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .save { background-color: #28a745; }
-        .cancel { background-color: #ffc107; }
-        .back { background-color: #007bff; }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .save {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .save:hover {
+            background: #218838;
+        }
+
+        .cancel {
+            background: #ffc107;
+            color: #fff;
+        }
+
+        .cancel:hover {
+            background: #e0a800;
+        }
+
+        .back {
+            background: #007bff;
+            color: #fff;
+        }
+
+        .back:hover {
+            background: #0056b3;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Tela de Cadastro de Chaves</h1>
+        <h1><i class="fas fa-key"></i> Cadastro de Chaves</h1>
         <form>
             <label for="codigo">Código da Chave:</label>
-            <input type="text" id="codigo" name="codigo" required>
+            <input type="text" id="codigo" name="codigo" placeholder="Digite o código" required>
             
-            <label for="usuario">Usuário:</label>
-            <input type="text" id="usuario" name="usuario" required>
+            <label for="usuario">Departamento:</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Digite o nome do usuário" required>
             
             <label for="sala">N° Sala:</label>
-            <input type="text" id="sala" name="sala" required>
+            <input type="text" id="sala" name="sala" placeholder="Digite o número da sala" required>
             
             <label for="disponivel">Disponíveis:</label>
-            <input type="text" id="disponivel" name="disponivel" required>
+            <input type="text" id="disponivel" name="disponivel" placeholder="Quantas chaves disponíveis" required>
             
             <label for="copias">Cópias:</label>
-            <input type="text" id="copias" name="copias" required>
+            <input type="text" id="copias" name="copias" placeholder="Número de cópias" required>
             
             <div class="buttons">
-                <button class="save">Salvar</button>
-                <button type="reset" class="cancel">Cancelar</button>
-                <button type="button" class="back">Voltar</button>
+                <button class="save">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
+                <button type="reset" class="cancel">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="back">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
             </div>
         </form>
     </div>

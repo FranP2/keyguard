@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página do Usuário</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Biblioteca de Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Reset */
         * {
@@ -14,36 +15,46 @@
             font-family: "Roboto", sans-serif;
         }
 
+        /* Corpo principal */
+        body {
+            background: linear-gradient(to right, #9191d0, #f0f0f7); /* Fundo igual ao Status Geral */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
         /* Container principal */
         .usuario-container {
-            background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-                        linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+            background: #ffffff; /* Fundo branco */
             width: 100%;
             max-width: 450px;
-            margin: 50px auto;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra consistente */
         }
 
         /* Cabeçalho */
         .usuario-header {
             display: flex;
             align-items: center;
-            gap: 10px;
             justify-content: center;
+            gap: 15px; /* Espaçamento entre o texto e o ícone */
+            flex-wrap: wrap; /* Permite que os elementos se ajustem em múltiplas linhas */
             margin-bottom: 20px;
         }
 
         .icon-usuario {
-            width: 40px;
-            height: 40px;
+            font-size: 48px; /* Tamanho ajustado para visibilidade */
+            color: #4a4a6a; /* Ajustado para combinar */
         }
 
         .usuario-text {
-            font-size: 32px;
+            font-size: 28px; /* Tamanho ajustado para melhor proporção */
             font-weight: bold;
-            color: #00003c;
+            color: #4a4a6a; /* Cor do Status Geral */
+            text-align: center; /* Centralizado para dispositivos menores */
         }
 
         /* Estilo dos campos de entrada */
@@ -61,37 +72,67 @@
         .input-group label {
             font-size: 16px;
             font-weight: bold;
-            color: #303060;
+            color: #4a4a6a; /* Ajustado */
             margin-bottom: 5px;
         }
 
         .input-group input {
             padding: 10px;
-            border: 1px solid #b3b3b3;
+            border: 1px solid #9191d0; /* Ajustado */
             border-radius: 5px;
             font-size: 16px;
+            background-color: #f9f9fc; /* Fundo ajustado para combinar */
         }
 
         /* Botões */
         .usuario-botoes {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
             margin-top: 20px;
         }
 
         .btn {
-            background: #4a4a6a;
+            background: #4a4a6a; /* Fundo consistente */
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: 0.3s;
         }
 
         .btn:hover {
-            background: #8a8aab;
+            background: #8a8aab; /* Cor de hover */
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .usuario-header {
+                flex-direction: column; /* Empilha o ícone e texto em telas menores */
+                gap: 10px; /* Reduz o espaçamento */
+            }
+
+            .icon-usuario {
+                font-size: 36px; /* Reduz tamanho do ícone em dispositivos menores */
+            }
+
+            .usuario-text {
+                font-size: 24px;
+            }
+
+            .usuario-botoes {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -99,7 +140,7 @@
     <div class="usuario-container">
         <!-- Cabeçalho com ícone e título -->
         <div class="usuario-header">
-            <img class="icon-usuario" src="usuario-icon.svg" alt="Ícone de Usuário" />
+            <i class="fas fa-users icon-usuario"></i> <!-- Ícone de Usuário -->
             <div class="usuario-text">Usuário</div>
         </div>
 
@@ -129,10 +170,18 @@
 
         <!-- Botões -->
         <div class="usuario-botoes">
-            <button class="btn">Salvar</button>
-            <button class="btn">Editar</button>
-            <button class="btn">Novo</button>
-            <button class="btn">Excluir</button>
+            <button class="btn">
+                <i class="fas fa-save"></i> Salvar
+            </button>
+            <button class="btn">
+                <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn">
+                <i class="fas fa-plus"></i> Novo
+            </button>
+            <button class="btn">
+                <i class="fas fa-trash"></i> Excluir
+            </button>
         </div>
     </div>
 </body>

@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home App</title>
+    <!-- Link para a biblioteca de ícones Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f0f0;
+            margin: 0;
+            background: linear-gradient(to right, #9191d0, #f0f0f7); /* Fundo ajustado para cores do Status Geral */
         }
 
         .container {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 20px;
         }
 
         .home-box {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Mesma sombra do Status Geral */
             padding: 30px;
             text-align: center;
         }
@@ -35,19 +38,24 @@
         }
 
         .search-bar input {
-            width: calc(100% - 40px);
+            width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px 0 0 4px;
+            border: 2px solid #4a4a6a; /* Cor ajustada */
+            border-radius: 8px 0 0 8px;
+            outline: none;
         }
 
         .search-bar .search-button {
-            background-color: #007bff;
-            color: #fff;
+            background-color: #4a4a6a; /* Cor ajustada */
+            color: white;
             padding: 10px 15px;
             border: none;
-            border-radius: 0 4px 4px 0;
+            border-radius: 0 8px 8px 0;
             cursor: pointer;
+        }
+
+        .search-bar .search-button:hover {
+            background-color: #7171b3; /* Cor ajustada para hover */
         }
 
         .grid-container {
@@ -61,20 +69,38 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #f0f0f0;
-            border-radius: 8px;
+            background: linear-gradient(to right, #ffffff, #f9f9fc); /* Gradiente do Status Geral */
+            border-radius: 10px;
             padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
-        .grid-item img {
-            width: 40px;
-            height: 40px;
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Hover com profundidade */
+        }
+
+        .grid-item i {
+            font-size: 40px;
+            color: #4a4a6a; /* Cor dos ícones ajustada */
             margin-bottom: 10px;
         }
 
+        .grid-item span {
+            font-size: 14px;
+            color: #4a4a6a; /* Cor do texto ajustada */
+            text-transform: capitalize;
+        }
+
         @media (max-width: 600px) {
-            .container {
-                padding: 10px;
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-item i {
+                font-size: 30px;
             }
         }
     </style>
@@ -84,37 +110,39 @@
         <div class="home-box">
             <div class="search-bar">
                 <input type="text" placeholder="Pesquise">
-                <button class="search-button">Q</button>
+                <button class="search-button">🔍</button>
             </div>
             <h1>Home</h1>
             <div class="grid-container">
-                <div class="grid-item">
-                    <img src="" alt="Sala">
+                <div class="grid-item" onclick="alert('Clicou na Sala!')">
+                    <i class="fas fa-door-open"></i>
                     <span>sala</span>
                 </div>
-                <div class="grid-item">
-                    <img src="chave.png" alt="Chave">
+                <div class="grid-item" onclick="alert('Clicou na Chave!')">
+                    <i class="fas fa-key"></i>
                     <span>chave</span>
                 </div>
-                <div class="grid-item">
-                    <img src="posse.png" alt="Posse">
+                <div class="grid-item" onclick="alert('Clicou na Posse!')">
+                    <i class="fas fa-user-tag"></i>
                     <span>posse</span>
                 </div>
-                <div class="grid-item">
-                    <img src="autorizar.png" alt="Autorizar">
+                <div class="grid-item" onclick="alert('Clicou em Autorizar!')">
+                    <i class="fas fa-check-circle"></i>
                     <span>autorizar</span>
                 </div>
-                <div class="grid-item">
-                    <img src="status.png" alt="Status">
+                <div class="grid-item" onclick="alert('Clicou em Status!')">
+                    <i class="fas fa-info-circle"></i>
                     <span>status</span>
                 </div>
-                <div class="grid-item">
-                    <img src="usuario.png" alt="Usuário">
+                <div class="grid-item" onclick="alert('Clicou em Usuário!')">
+                    <i class="fas fa-user"></i>
                     <span>usuário</span>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Script para ativar ícones do Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
-

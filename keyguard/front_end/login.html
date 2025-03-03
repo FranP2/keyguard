@@ -4,40 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Login</title>
+    <!-- Biblioteca de Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            /* Cores */
+            /* Paleta de cores */
             --primary-color: #9191d0;
             --secondary-color: #f0f0f7;
             --text-color: #2e2e71;
             --background-color: #ffffff;
             --border-color: #9191d0;
-            --placeholder-color: #a1a1a1;
 
             /* Fontes */
-            --font-family-primary: "Roboto-Regular", sans-serif;
-            --font-family-semibold: "Roboto-SemiBold", sans-serif;
-            --font-family-medium: "Roboto-Medium", sans-serif;
-            --font-size-default: 18px;
+            --font-family: 'Roboto', sans-serif;
+            --font-size-small: 14px;
+            --font-size-medium: 18px;
             --font-size-large: 36px;
-            --font-size-medium: 20px;
-            --font-weight-regular: 400;
-            --font-weight-semibold: 600;
-            --font-weight-medium: 500;
 
-            /* Efeitos */
+            /* Estilos Gerais */
             --border-radius: 12px;
             --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         body {
-            background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
-            border-radius: 55px 0px 0px 0px;
-            height: 100vh;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 100vh;
             margin: 0;
+            font-family: var(--font-family);
         }
 
         .frame-1 {
@@ -46,120 +42,138 @@
             box-shadow: var(--box-shadow);
             width: 380px;
             padding: 30px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center;
         }
 
-        .frame-1 img {
-            width: 120px;
-            height: auto;
+        .icon {
+            font-size: 80px; /* Tamanho do ícone */
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
 
-        .login {
-            font-family: var(--font-family-semibold);
+        .login-title {
             font-size: var(--font-size-large);
-            font-weight: var(--font-weight-semibold);
+            font-weight: bold;
             color: var(--text-color);
             margin-bottom: 20px;
         }
 
-        .rectangle-5, .rectangle-3 {
-            background: var(--background-color);
-            border-radius: var(--border-radius);
-            width: 100%;
-            padding: 10px;
+        .input-container {
             margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-
-        .rectangle-5 {
-            border: 1px solid var(--border-color);
-        }
-
-        input {
+            position: relative;
             width: 100%;
-            padding: 10px;
-            font-size: var(--font-size-default);
-            border-radius: var(--border-radius);
-            border: 1px solid #ddd;
-            outline: none;
-            transition: all 0.3s ease;
         }
 
-        input:focus {
+        .input-container i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--border-color);
+            font-size: 16px;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 10px 10px 10px 35px;
+            font-size: var(--font-size-medium);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-container input:focus {
             border-color: var(--primary-color);
         }
 
-        .esqueceu-a-senha {
-            font-size: var(--font-size-medium);
-            font-weight: var(--font-weight-semibold);
+        .forgot-password {
+            font-size: var(--font-size-small);
             color: var(--primary-color);
             text-decoration: underline;
             cursor: pointer;
             margin-top: 10px;
+            display: block;
         }
 
-        .ainda-n-o-tem-conta {
+        .signup {
             font-size: var(--font-size-medium);
-            color: var(--text-color);
             margin-top: 20px;
+            color: var(--text-color);
         }
 
-        .cadastre-se {
-            font-size: var(--font-size-medium);
+        .signup a {
             color: var(--primary-color);
-            font-weight: var(--font-weight-semibold);
+            font-weight: bold;
             text-decoration: underline;
-            cursor: pointer;
-            margin-top: 5px;
         }
 
-        .card {
-            background: var(--background-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 15px;
-            width: 100%;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
+        @media (max-width: 600px) {
+            .frame-1 {
+                width: 90%;
+                padding: 20px;
+            }
 
-        .card-title {
-            font-family: var(--font-family-semibold);
-            font-size: var(--font-size-medium);
-            font-weight: var(--font-weight-semibold);
-            margin-bottom: 10px;
-        }
+            .login-title {
+                font-size: 24px;
+            }
 
-        .card-content {
-            font-family: var(--font-family-primary);
-            font-size: var(--font-size-default);
-            font-weight: var(--font-weight-regular);
+            .input-container input {
+                font-size: 16px;
+            }
+
+            .forgot-password, .signup {
+                font-size: 14px;
+            }
+
+            .icon {
+                font-size: 60px;
+            }
         }
     </style>
-    <!-- Inclua a biblioteca de ícones Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="frame-1">
-        <img class="cadastro-de-chaves" src="cadastro-de-chaves0.svg" />
-        <div class="login">Login</div>
-        <div class="rectangle-5">
-            <input type="email" placeholder="Email" class="email-input" />
+        <!-- Ícone substituindo o logo -->
+        <i class="fas fa-user-circle icon"></i> <!-- Ícone representativo -->
+        <div class="login-title">Login</div>
+        
+        <!-- Campo Email -->
+        <div class="input-container">
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="Email">
         </div>
-        <div class="rectangle-5">
-            <input type="password" placeholder="Senha" class="password-input" />
+        
+        <!-- Campo Senha -->
+        <div class="input-container">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Senha">
         </div>
-        <div class="esqueceu-a-senha">Esqueceu a senha?</div>
-        <div class="rectangle-3">
-            <!-- Espaço para outros elementos -->
-        </div>
-        <div class="ainda-n-o-tem-conta">Ainda não tem conta?</div>
-        <div class="cadastre-se">Cadastre-se</div>
+        
+        <!-- Link Esqueceu a Senha -->
+        <div class="forgot-password">Esqueceu a senha?</div>
+        
+        <!-- Botão Entrar -->
+        <button style="
+            width: 100%;
+            padding: 12px;
+            font-size: var(--font-size-medium);
+            color: #ffffff;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: var(--box-shadow);
+            transition: background-color 0.3s ease;
+        " 
+        onmouseover="this.style.backgroundColor='#7171b3'"
+        onmouseout="this.style.backgroundColor='#9191d0'">
+            Entrar
+        </button>
+
+        <!-- Mensagem de criar conta -->
+        <div class="signup">Ainda não tem conta? <a href="#">Cadastre-se</a></div>
     </div>
 </body>
 </html>

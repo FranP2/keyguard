@@ -18,134 +18,120 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-                        linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.95));
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 10px;
         }
 
         .autoriza-o {
-            width: 430px;
-            height: 932px;
-            position: relative;
-            background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-                        linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+            width: 100%;
+            max-width: 430px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
+            border-radius: 20px;
             overflow: hidden;
+            position: relative;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Estilo para a seta de voltar */
         .arrow-back {
             font-size: 30px;
             color: #00003c;
-            position: absolute;
-            top: 20px;
-            left: 20px;
             cursor: pointer;
+            margin-bottom: 20px;
         }
 
         /* Estilo do título */
         .autoriza-o2 {
             color: #00003c;
             font-family: "Roboto-Medium", sans-serif;
-            font-size: 40px;
+            font-size: 32px;
             font-weight: 500;
-            position: absolute;
-            left: 112px;
-            top: 300px;
-        }
-
-        /* Estilo para os cards de entrada */
-        .frame-20 {
-            background: #4a4a6a;
-            width: 435px;
-            height: 62px;
-            position: absolute;
-            left: 0;
-            top: 870px;
-            box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        /* Estilos para as bases dos cards */
-        .base, .base2, .base3 {
-            background: #8a8aab;
-            border-radius: 20px;
-            width: 25%;
-            height: 80%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-        }
-
-        .user, .user2, .user3 {
-            color: #ffffff;
-            font-family: "DmSans-Bold", sans-serif;
-            font-size: 20px;
-            font-weight: 700;
             text-align: center;
+            margin-bottom: 30px;
         }
 
         /* Campos de entrada */
-        .input-card {
-            margin: 10px 0;
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .campo input {
             width: 100%;
             padding: 10px;
-            font-size: 18px;
-            border-radius: 5px;
+            font-size: 16px;
             border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
         }
 
-        /* Labels de texto */
-        .data, .matricula, .sala-n, .motivo, .nome {
-            font-family: "Roboto-SemiBold", sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: #000000;
-            position: absolute;
+        .campo input:focus {
+            border-color: #4a4a6a;
+            box-shadow: 0 0 5px rgba(74, 74, 106, 0.5);
         }
 
-        /* Corrigir posição da Data e Sala */
-        .data { top: 759px; right: 64px; }
-        .matricula { top: 678px; left: 64px; }
-        .sala-n { top: 610px; left: 64px; }
-        .motivo { top: 511px; left: 64px; }
-        .nome { top: 436px; left: 64px; }
-
-        .sala-n span {
-            font-family: "Roboto-SemiBold", sans-serif;
-            font-weight: 600;
+        /* Botões */
+        .frame-20 {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
         }
 
-        /* Estilo para as imagens retangulares */
-        .rectangle-33, .rectangle-34, .rectangle-35, .rectangle-36 {
-            width: 353px;
-            height: 41px;
-            position: absolute;
-            border-radius: 0px;
+        .base {
+            flex: 1;
+            background: #4a4a6a;
+            color: #fff;
+            border-radius: 15px;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 5px;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .rectangle-33 { top: 710px; left: 37px; }
-        .rectangle-34 { top: 637px; left: 35px; }
-        .rectangle-35 { top: 544px; left: 35px; }
-        .rectangle-36 { top: 461px; left: 37px; }
-
-        /* Ajustes para garantir que o campo de Sala não sobreponha o card */
-        .rectangle-33, .rectangle-34, .rectangle-35, .rectangle-36 {
-            z-index: 1;
+        .base:hover {
+            background: #333;
+            transform: scale(1.05);
         }
 
-        /* Garantir que o conteúdo da "Sala" fique embaixo do card */
-        .sala-n span {
-            z-index: 2;
-            position: relative;
-        }
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .arrow-back {
+                font-size: 24px;
+            }
 
+            .autoriza-o2 {
+                font-size: 26px;
+            }
+
+            .campo label {
+                font-size: 16px;
+            }
+
+            .campo input {
+                font-size: 14px;
+            }
+
+            .base {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -157,43 +143,37 @@
         <!-- Título da página -->
         <div class="autoriza-o2">Autorização</div>
 
-        <!-- Cards com campos de entrada -->
-
-        <!-- Card Data -->
-        <div class="data">Data</div>
-        <div class="rectangle-33">
-            <input class="input-card" type="text" placeholder="Digite a data">
+        <!-- Campos de entrada -->
+        <div class="campo">
+            <label for="data">Data</label>
+            <input id="data" type="text" placeholder="Digite a data">
         </div>
 
-        <!-- Card Matrícula -->
-        <div class="matricula">Matrícula</div>
-        <div class="rectangle-34">
-            <input class="input-card" type="text" placeholder="Digite a matrícula">
+        <div class="campo">
+            <label for="matricula">Matrícula</label>
+            <input id="matricula" type="text" placeholder="Digite a matrícula">
         </div>
 
-        <!-- Card Sala -->
-        <div class="sala-n">
-            <span>Sala</span>
-            <input class="input-card" type="text" placeholder="Digite a sala">
+        <div class="campo">
+            <label for="sala">Sala</label>
+            <input id="sala" type="text" placeholder="Digite a sala">
         </div>
 
-        <!-- Card Motivo -->
-        <div class="motivo">Motivo</div>
-        <div class="rectangle-35">
-            <input class="input-card" type="text" placeholder="Digite o motivo">
+        <div class="campo">
+            <label for="motivo">Motivo</label>
+            <input id="motivo" type="text" placeholder="Digite o motivo">
         </div>
 
-        <!-- Card Nome -->
-        <div class="nome">Nome</div>
-        <div class="rectangle-36">
-            <input class="input-card" type="text" placeholder="Digite o nome">
+        <div class="campo">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" placeholder="Digite o nome">
         </div>
 
-        <!-- Opções de editar, adicionar, excluir -->
+        <!-- Botões -->
         <div class="frame-20">
-            <div class="base"><div class="user">Editar</div></div>
-            <div class="base2"><div class="user2">Adicionar</div></div>
-            <div class="base3"><div class="user3">Excluir</div></div>
+            <div class="base">Editar</div>
+            <div class="base">Adicionar</div>
+            <div class="base">Excluir</div>
         </div>
     </div>
 

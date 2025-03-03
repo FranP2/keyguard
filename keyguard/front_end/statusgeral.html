@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Status Geral</title>
-    <!-- Link para a CDN do Font Awesome -->
+    <!-- Link para a biblioteca Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Reset de estilos */
@@ -12,131 +12,164 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
         }
 
-        /* Estilos principais */
         body {
-            font-family: 'Roboto', sans-serif;
-            height: 100vh; /* Ajusta a altura da tela */
+            background: linear-gradient(to right, #9191d0, #f0f0f7); /* Fundo gradiente */
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
-            overflow: hidden; /* Impede a rolagem extra */
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
         }
 
         .status-geral {
+            background: #fff; /* Fundo branco */
             width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(236, 230, 240, 1) 0%, rgba(225, 220, 229, 1) 0.009999999747378752%, rgba(136, 132, 138, 1) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 40px;
-            overflow: auto;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto; /* Ativa barra de rolagem se necessário */
         }
 
-        /* Título de Status Geral */
+        /* Personalização da barra de rolagem */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #9191d0;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f0f0f7;
+        }
+
+        /* Título */
         .status-geral3 {
-            color: #00003c;
-            font-family: "DmSans-Black", sans-serif;
-            font-size: 40px;
-            font-weight: 900;
+            color: #4a4a6a;
+            font-size: 36px;
+            font-weight: bold;
             text-align: center;
-            margin-bottom: 30px; /* Espaço abaixo do título */
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        /* Ícone do título */
         .status-geral3 i {
             font-size: 40px;
-            color: #00003c;
-            margin-right: 10px;
+            color: #4a4a6a;
         }
 
         /* Cards */
         .card {
-            background: #ffffff;
-            border: 1px solid #9191d0;
-            width: 353px;
-            height: 66px;
-            margin-bottom: 15px; /* Espaço entre os cards */
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            transition: background 0.3s ease; /* Efeito suave ao passar o mouse */
+            background: linear-gradient(to right, #ffffff, #f9f9fc);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            padding: 15px 20px;
             display: flex;
-            align-items: center; /* Alinha o texto no centro verticalmente */
-            padding-left: 20px; /* Espaço à esquerda do texto */
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none; /* Remove sublinhado do link */
+            color: inherit; /* Herda a cor padrão */
         }
 
         .card:hover {
-            background-color: #f0f0f5; /* Cor leve ao passar o cursor */
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Texto nos cards */
         .card-text {
-            color: #1e1e1e;
-            font-family: "Roboto-SemiBold", sans-serif;
+            color: #4a4a6a;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card i {
             font-size: 20px;
-            font-weight: 600;
+            color: #8a8aab;
         }
 
-        /* Links para os cards */
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Ícone de seta de retorno */
+        /* Ícone de retorno */
         .arrow-back {
-            font-size: 20px; /* Tamanho reduzido da seta */
-            color: #00003c;
+            font-size: 24px;
+            color: #4a4a6a;
             position: absolute;
-            left: 20px;
             top: 20px;
+            left: 40px; /* Espaço adicional para destaque */
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .arrow-back:hover {
+            transform: translateX(-5px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .status-geral {
+                padding: 20px;
+            }
+
+            .status-geral3 {
+                font-size: 28px;
+            }
+
+            .status-geral3 i {
+                font-size: 32px;
+            }
+
+            .card-text {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="status-geral">
-        <!-- Título com ícone -->
+        <!-- Ícone de seta de retorno -->
+        <i class="fas fa-arrow-left arrow-back"></i>
+
+        <!-- Título -->
         <div class="status-geral3">
             <i class="fas fa-cogs"></i> Status Geral
         </div>
 
-        <!-- Ícone de seta de retorno -->
-        <i class="fas fa-arrow-left arrow-back"></i>
-
-        <!-- Cards com links -->
-        <a href="pagina-chaves.html">
-            <div class="card">
-                <div class="card-text">Chaves</div>
-            </div>
-        </a>
-        <a href="pagina-usuarios.html">
-            <div class="card">
-                <div class="card-text">Usuários</div>
-            </div>
-        </a>
-        <a href="pagina-posse-chaves.html">
-            <div class="card">
-                <div class="card-text">Posse de Chaves</div>
-            </div>
-        </a>
-        <a href="pagina-salas.html">
-            <div class="card">
-                <div class="card-text">Salas</div>
-            </div>
-        </a>
-        <a href="pagina-autorizacao.html">
-            <div class="card">
-                <div class="card-text">Autorização</div>
-            </div>
-        </a>
-        <a href="pagina-historico.html">
-            <div class="card">
-                <div class="card-text">Histórico de modificações</div>
-            </div>
-        </a>
+        <!-- Cards -->
+        <div class="card">
+            <span class="card-text">Chaves</span>
+            <i class="fas fa-key"></i>
+        </div>
+        <div class="card">
+            <span class="card-text">Usuários</span>
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="card">
+            <span class="card-text">Posse de Chaves</span>
+            <i class="fas fa-hand-holding"></i>
+        </div>
+        <div class="card">
+            <span class="card-text">Salas</span>
+            <i class="fas fa-door-open"></i>
+        </div>
+        <div class="card">
+            <span class="card-text">Autorização</span>
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="card">
+            <span class="card-text">Histórico de Modificações</span>
+            <i class="fas fa-history"></i>
+        </div>
     </div>
 </body>
 </html>

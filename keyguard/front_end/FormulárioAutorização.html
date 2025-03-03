@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Autorização</title>
+    <!-- Link para Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,38 +18,49 @@
             height: 100vh;
         }
         form {
-            background-color: #ffffff;
-            color: #333;
+            background: linear-gradient(to bottom, #6a67b6, #2d2b4d);
+            color: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             max-width: 400px;
             width: 100%;
         }
         h1 {
             text-align: center;
-            color: #6a11cb;
+            color: #ffffff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 i {
+            margin-right: 10px;
         }
         label {
             display: block;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-top: 5px;
         }
         input, textarea {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: none;
             border-radius: 5px;
             font-size: 14px;
+            background-color: #ddd;
         }
         button {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
             padding: 10px;
-            margin-top: 10px;
-            background-color: #6a11cb;
-            color: #fff;
+            margin-top: 5px;
+            background-color: #444;
+            color: white;
             border: none;
             border-radius: 5px;
             font-size: 16px;
@@ -56,34 +69,38 @@
         button:hover {
             background-color: #5a0fb0;
         }
+        button i {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
     <form>
-        <h1>Formulário de Autorização</h1>
+        <h1><i class="fas fa-file-alt"></i>Formulário de Autorização</h1>
+        
         <label for="nome">Nome completo:</label>
-        <input type="text" id="nome" name="nome" required>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
         
         <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" name="matricula" required>
+        <input type="text" id="matricula" name="matricula" placeholder="Digite sua matrícula" required>
         
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" placeholder="Digite seu email">
         
         <label for="telefone">Telefone:</label>
-        <input type="tel" id="telefone" name="telefone">
+        <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone">
         
         <label for="sala">Sala n°:</label>
-        <input type="text" id="sala" name="sala">
+        <input type="text" id="sala" name="sala" placeholder="Número da sala">
         
         <label for="data">Retirada da chave:</label>
         <input type="date" id="data" name="data">
         
         <label for="motivo">Descreva o motivo:</label>
-        <textarea id="motivo" name="motivo"></textarea>
+        <textarea id="motivo" name="motivo" placeholder="Informe o motivo da autorização"></textarea>
         
-        <button type="submit">Enviar</button>
-        <button type="button">Voltar</button>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Enviar</button>
+        <button type="button"><i class="fas fa-arrow-left"></i> Voltar</button>
     </form>
 </body>
 </html>
