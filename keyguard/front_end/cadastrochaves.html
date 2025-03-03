@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Cadastro de Chaves</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .save { background-color: #28a745; }
+        .cancel { background-color: #ffc107; }
+        .back { background-color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tela de Cadastro de Chaves</h1>
+        <form>
+            <label for="codigo">Código da Chave:</label>
+            <input type="text" id="codigo" name="codigo" required>
+            
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" name="usuario" required>
+            
+            <label for="sala">N° Sala:</label>
+            <input type="text" id="sala" name="sala" required>
+            
+            <label for="disponivel">Disponíveis:</label>
+            <input type="text" id="disponivel" name="disponivel" required>
+            
+            <label for="copias">Cópias:</label>
+            <input type="text" id="copias" name="copias" required>
+            
+            <div class="buttons">
+                <button class="save">Salvar</button>
+                <button type="reset" class="cancel">Cancelar</button>
+                <button type="button" class="back">Voltar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

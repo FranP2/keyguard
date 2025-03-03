@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuário Cadastrado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Usuário Cadastrado</h1>
+    <form>
+        <label>Nome: <input type="text" name="nome" required></label>
+        <label>Matrícula: <input type="text" name="matricula" required></label>
+        <label>Email: <input type="email" name="email"></label>
+        <label>Senha: <input type="password" name="senha"></label>
+        <label>Confirmar senha: <input type="password" name="confirmar_senha"></label>
+        <button type="submit">Salvar</button>
+        <button type="reset">Cancelar</button>
+        <button type="button">Voltar</button>
+    </form>
+</body>
+</html>
