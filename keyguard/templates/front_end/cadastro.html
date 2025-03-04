@@ -119,12 +119,12 @@
     <div class="container">
         <div class="login-box">
             <h1>Cadastro</h1>
-            <input type="text" placeholder="Nome completo" required>
-            <input type="email" placeholder="E-mail" required>
-            <input type="password" placeholder="Senha" required>
-            <input type="password" placeholder="Confirme a senha" required>
-            <button class="login-button">Cadastrar</button>
-            <p>Já tem uma conta? <a href="#">Faça login</a></p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="login-button">Cadastrar</button>
+            </form>
+            <p>Já tem uma conta? <a href="{% url 'login_usuario' %}">Faça login</a></p>
         </div>
     </div>
 </body>

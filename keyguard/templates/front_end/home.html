@@ -14,7 +14,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(to right, #9191d0, #f0f0f7); /* Fundo ajustado para cores do Status Geral */
+            background: linear-gradient(to right, #9191d0, #f0f0f7);
         }
 
         .container {
@@ -26,7 +26,7 @@
         .home-box {
             background: #fff;
             border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Mesma sombra do Status Geral */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             padding: 30px;
             text-align: center;
         }
@@ -40,13 +40,13 @@
         .search-bar input {
             width: 100%;
             padding: 10px;
-            border: 2px solid #4a4a6a; /* Cor ajustada */
+            border: 2px solid #4a4a6a;
             border-radius: 8px 0 0 8px;
             outline: none;
         }
 
         .search-bar .search-button {
-            background-color: #4a4a6a; /* Cor ajustada */
+            background-color: #4a4a6a;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -55,7 +55,7 @@
         }
 
         .search-bar .search-button:hover {
-            background-color: #7171b3; /* Cor ajustada para hover */
+            background-color: #7171b3;
         }
 
         .grid-container {
@@ -69,7 +69,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(to right, #ffffff, #f9f9fc); /* Gradiente do Status Geral */
+            background: linear-gradient(to right, #ffffff, #f9f9fc);
             border-radius: 10px;
             padding: 20px;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -79,18 +79,18 @@
 
         .grid-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Hover com profundidade */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
         .grid-item i {
             font-size: 40px;
-            color: #4a4a6a; /* Cor dos ícones ajustada */
+            color: #4a4a6a;
             margin-bottom: 10px;
         }
 
         .grid-item span {
             font-size: 14px;
-            color: #4a4a6a; /* Cor do texto ajustada */
+            color: #4a4a6a;
             text-transform: capitalize;
         }
 
@@ -114,27 +114,27 @@
             </div>
             <h1>Home</h1>
             <div class="grid-container">
-                <div class="grid-item" onclick="alert('Clicou na Sala!')">
+                <div class="grid-item" onclick="navigateTo('sala.html')">
                     <i class="fas fa-door-open"></i>
                     <span>sala</span>
                 </div>
-                <div class="grid-item" onclick="alert('Clicou na Chave!')">
+                <div class="grid-item" onclick="navigateTo('chave.html')">
                     <i class="fas fa-key"></i>
                     <span>chave</span>
                 </div>
-                <div class="grid-item" onclick="alert('Clicou na Posse!')">
+                <div class="grid-item" onclick="navigateTo('posse.html')">
                     <i class="fas fa-user-tag"></i>
                     <span>posse</span>
                 </div>
-                <div class="grid-item" onclick="alert('Clicou em Autorizar!')">
+                <div class="grid-item" onclick="navigateTo('autorizar.html')">
                     <i class="fas fa-check-circle"></i>
                     <span>autorizar</span>
                 </div>
-                <div class="grid-item" onclick="alert('Clicou em Status!')">
+                <div class="grid-item" onclick="navigateTo('status.html')">
                     <i class="fas fa-info-circle"></i>
                     <span>status</span>
                 </div>
-                <div class="grid-item" onclick="alert('Clicou em Usuário!')">
+                <div class="grid-item" onclick="navigateTo('usuario.html')">
                     <i class="fas fa-user"></i>
                     <span>usuário</span>
                 </div>
@@ -144,5 +144,11 @@
 
     <!-- Script para ativar ícones do Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // Função para navegação
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
 </body>
 </html>

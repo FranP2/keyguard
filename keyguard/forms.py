@@ -38,29 +38,33 @@ class StatusGeralForm(forms.ModelForm):
         fields = '__all__'
 
 # Formulário de Registro de Usuário
-class RegistroForm(forms.ModelForm):
-    senha = forms.CharField(widget=forms.PasswordInput, label="Senha")
-    confirmar_senha = forms.CharField(widget=forms.PasswordInput, label="Confirme a Senha")
+from django import forms
+from .models import Usuario
+
+class UsuarioForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput, label="Senha")
+    confirma_senha = forms.CharField(widget=forms.PasswordInput, label="Confirme a senha")
 
     class Meta:
         model = Usuario
-        fields = ['nome', 'matricula', 'email', 'telefone', 'departamento', 'senha']
+        fields = ['nome', 'email', 'password']
 
     def clean(self):
         cleaned_data = super().clean()
-        senha = cleaned_data.get("senha")
-        confirmar_senha = cleaned_data.get("confirmar_senha")
+        password = cleaned_data.get('password')
+        confirma_senha = cleaned_data.get('confirma_senha')
 
-        if senha != confirmar_senha:
-            raise forms.ValidationError("As senhas não coincidem!")
+        if password != confirma_senha:
+            raise forms.ValidationError('As senhas não coincidem.')
         return cleaned_data
 
     def save(self, commit=True):
-        usuario = super().save(commit=False)
-        usuario.set_password(self.cleaned_data["senha"])
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])  # Criptografa a senha
         if commit:
-            usuario.save()
-        return usuario
+            user.save()
+        return user
+
 
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm

@@ -287,26 +287,31 @@ def login_usuario(request):
             messages.error(request, "Usuário ou senha inválidos.")  # Mensagem de erro
     else:
         form = AuthenticationForm()
-    return render(request, 'keyguard/login.html', {'form': form})
+    return render(request, 'front_end/login.html', {'form': form})
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+from django.shortcuts import render, redirect
+from .forms import UsuarioForm
+
+from django.shortcuts import render, redirect
+from .forms import UsuarioForm  # Certifique-se de que o formulário para registro existe
+
 def registro_usuario(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)  # Formulário de criação de usuário
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
         if form.is_valid():
-            usuario = form.save()  # Salva o novo usuário
-            login(request, usuario)  # Faz login automático após registro
-            messages.success(request, "Cadastro realizado com sucesso!")
-            return redirect('login_usuario')  # Redireciona para a página protegida
-        else:
-            messages.error(request, "Erro no cadastro. Verifique os campos.")  # Mensagem de erro
+            form.save()  # Salva o usuário no banco de dados
+            return redirect('login_usuario')  # Redireciona para a página de login ou outro local
     else:
-        form = UserCreationForm()
-    return render(request, 'keyguard/registro.html', {'form': form})
+        form = UsuarioForm()
+
+    return render(request, 'front_end/cadastro.html', {'form': form})
+
+
 def logout_usuario(request):
     logout(request)  # Faz logout
     messages.success(request, "Você saiu com sucesso.")

@@ -4,42 +4,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuário Cadastrado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
         }
-        h1 {
+
+        body {
+            background: linear-gradient(to right, #9191d0, #f0f0f7);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .usuario-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .usuario-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .icon-usuario {
+            font-size: 48px;
+            color: #4a4a6a;
+        }
+
+        .usuario-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a4a6a;
             text-align: center;
         }
-        form {
-            max-width: 400px;
-            margin: 0 auto;
+
+        .usuario-form {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        label {
+
+        .input-group {
             display: flex;
             flex-direction: column;
-            font-weight: bold;
         }
-        button {
-            margin-top: 10px;
+
+        .input-group label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4a4a6a;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            padding: 10px;
+            border: 1px solid #9191d0;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #f9f9fc;
+        }
+
+        .usuario-botoes {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: #4a4a6a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #8a8aab;
+        }
+
+        @media (max-width: 600px) {
+            .usuario-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .icon-usuario {
+                font-size: 36px;
+            }
+
+            .usuario-text {
+                font-size: 24px;
+            }
+
+            .usuario-botoes {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Usuário Cadastrado</h1>
-    <form>
-        <label>Nome: <input type="text" name="nome" required></label>
-        <label>Matrícula: <input type="text" name="matricula" required></label>
-        <label>Email: <input type="email" name="email"></label>
-        <label>Senha: <input type="password" name="senha"></label>
-        <label>Confirmar senha: <input type="password" name="confirmar_senha"></label>
-        <button type="submit">Salvar</button>
-        <button type="reset">Cancelar</button>
-        <button type="button">Voltar</button>
-    </form>
+    <div class="usuario-container">
+        <div class="usuario-header">
+            <i class="fas fa-user-check icon-usuario"></i>
+            <div class="usuario-text">Usuário Cadastrado</div>
+        </div>
+
+        <div class="usuario-form">
+            <div class="input-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Nome completo" required>
+            </div>
+            <div class="input-group">
+                <label for="matricula">Matrícula</label>
+                <input type="text" id="matricula" placeholder="Matrícula" required>
+            </div>
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="exemplo@gmail.com">
+            </div>
+            <div class="input-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Senha">
+            </div>
+            <div class="input-group">
+                <label for="confirmar_senha">Confirmar Senha</label>
+                <input type="password" id="confirmar_senha" placeholder="Confirmar Senha">
+            </div>
+        </div>
+
+        <div class="usuario-botoes">
+            <button class="btn">
+                <i class="fas fa-save"></i> Salvar
+            </button>
+            <button class="btn">
+                <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button class="btn">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for chaves project.
 
@@ -51,11 +53,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'chaves.urls'
-
+BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'keyguard' / 'templates' / 'front_end'],
+        'DIRS': [os.path.join(BASE_DIR, 'keyguard/templates/front_end')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,6 +129,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'keyguard.settings')
 LOGIN_URL = 'login_usuario'  # Rota usada para redirecionar usuários não autenticados
+AUTH_USER_MODEL = 'keyguard.Usuario'
+  # Substitua 'seu_app' pelo nome do seu app
