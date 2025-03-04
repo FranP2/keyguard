@@ -1,15 +1,52 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-class Usuario(models.Model):
-    nome = models.CharField(max_length=100)
-    matricula = models.CharField(max_length=20, unique=True)
+
+# Gerenciador Personalizado para o Modelo de Usuário
+class UsuarioManager(BaseUserManager):
+    def create_user(self, email, nome, password=None):
+        if not email:
+            raise ValueError('O endereço de e-mail deve ser fornecido')
+        email = self.normalize_email(email)
+        user = self.model(email=email, nome=nome)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, nome, password=None):
+        user = self.create_user(email, nome, password)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+
+# Modelo de Usuário Personalizado
+class Usuario(AbstractBaseUser):
     email = models.EmailField(unique=True)
+    nome = models.CharField(max_length=255)
+    matricula = models.CharField(max_length=20, unique=True)
     telefone = models.CharField(max_length=15, blank=True, null=True)
     departamento = models.CharField(max_length=50)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    objects = UsuarioManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nome', 'matricula']
 
     def __str__(self):
-        return self.nome
+        return self.email
 
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+
+# Modelo de Sala
 class Sala(models.Model):
     numero = models.CharField(max_length=10, unique=True)
     nome = models.CharField(max_length=100)
@@ -19,6 +56,8 @@ class Sala(models.Model):
     def __str__(self):
         return self.numero
 
+
+# Modelo de Chave
 class Chave(models.Model):
     codigo = models.CharField(max_length=50, unique=True)
     sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
@@ -28,21 +67,25 @@ class Chave(models.Model):
     def __str__(self):
         return self.codigo
 
+
+# Modelo de Autorização
 class Autorizacao(models.Model):
     nome = models.CharField(max_length=100)
     matricula = models.CharField(max_length=20)
-    sala_numero = models.CharField(max_length=10)
+    sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
     motivo = models.TextField()
     data_retirada = models.DateTimeField()
     data_devolucao = models.DateTimeField()
 
     def __str__(self):
-        return f"Autorização para {self.nome} - Sala {self.sala_numero}"
+        return f"Autorização para {self.nome} - Sala {self.sala.numero}"
 
+
+# Modelo de Solicitação de Posse de Chave
 class SolicitacaoPosseChave(models.Model):
     nome = models.CharField(max_length=100)
     matricula = models.CharField(max_length=20)
-    sala_numero = models.CharField(max_length=10)
+    sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
     motivo_solicitacao = models.TextField()
     email = models.EmailField()
     data_solicitacao = models.DateTimeField()
@@ -50,8 +93,10 @@ class SolicitacaoPosseChave(models.Model):
     autorizacao = models.ForeignKey(Autorizacao, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"Solicitação de {self.nome} para {self.sala_numero}"
+        return f"Solicitação de {self.nome} para {self.sala.numero}"
 
+
+# Modelo de Posse
 class Posse(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     chave = models.ForeignKey(Chave, on_delete=models.CASCADE)
@@ -59,15 +104,17 @@ class Posse(models.Model):
     data_devolucao = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"Posse de {self.usuario} - {self.chave}"
+        return f"Posse de {self.usuario.nome} - {self.chave.codigo}"
 
+
+# Modelo de Status Geral
 class StatusGeral(models.Model):
-    historico_modificacoes = models.JSONField(default=list)  # Usando JSONField para armazenar o histórico de modificações
+    historico_modificacoes = models.JSONField(default=list)  # Armazena histórico de modificações
     autorizacao = models.ForeignKey(Autorizacao, on_delete=models.CASCADE)
-    salas = models.ForeignKey(Sala, on_delete=models.CASCADE)
-    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     posse_chaves = models.ForeignKey(Posse, on_delete=models.CASCADE)
-    chaves = models.ForeignKey(Chave, on_delete=models.CASCADE)
+    chave = models.ForeignKey(Chave, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Status Geral para {self.chaves}"
+        return f"Status Geral para Chave {self.chave.codigo}"

@@ -55,7 +55,7 @@ ROOT_URLCONF = 'chaves.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'keyguard' / 'templates' / 'front_end'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,7 +63,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+                'django.template.context_processors.csrf',
+            ]
         },
     },
 ]
@@ -76,8 +77,12 @@ WSGI_APPLICATION = 'chaves.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'keyguard',
+        'USER': 'root',
+        'PASSWORD': '1fp1',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -123,4 +128,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nome_do_seu_projeto.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'keyguard.settings')
+LOGIN_URL = 'login_usuario'  # Rota usada para redirecionar usuários não autenticados

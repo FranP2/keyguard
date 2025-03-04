@@ -1,12 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import login, authenticate
+from django.core.paginator import Paginator
+from django.contrib.auth import login, authenticate, logout
 from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral
 from .forms import UsuarioForm, SalaForm, ChaveForm, AutorizacaoForm, PosseForm, StatusGeralForm, RegistroForm, LoginForm
-#Vou adicionar a paginação, filtros e exportação de dados à sua implementação existente. Aqui está o código completo:
+
+
+
+
+def home(request):
+    # Renderiza o template base diretamente sem qualquer herança
+    return render(request, 'home.html')
+
+# ============================
 # Views para Usuários
+# ============================
 def lista_usuarios(request):
-    usuarios = Usuario.objects.all()
-    return render(request, 'keyguard/lista_usuarios.html', {'usuarios': usuarios})
+    query = request.GET.get('q', '')  # Busca dinâmica
+    usuarios = Usuario.objects.filter(nome__icontains=query) if query else Usuario.objects.all()
+    paginator = Paginator(usuarios, 10)  # Paginação
+    page = request.GET.get('page')
+    usuarios = paginator.get_page(page)
+    return render(request, 'keyguard/lista_usuarios.html', {'usuarios': usuarios, 'query': query})
 
 def detalhes_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
@@ -38,10 +52,17 @@ def deletar_usuario(request, pk):
     usuario.delete()
     return redirect('lista_usuarios')
 
+
+# ============================
 # Views para Salas
+# ============================
 def lista_salas(request):
-    salas = Sala.objects.all()
-    return render(request, 'keyguard/lista_salas.html', {'salas': salas})
+    query = request.GET.get('q', '')  # Busca dinâmica
+    salas = Sala.objects.filter(nome__icontains=query) if query else Sala.objects.all()
+    paginator = Paginator(salas, 10)  # Paginação
+    page = request.GET.get('page')
+    salas = paginator.get_page(page)
+    return render(request, 'keyguard/lista_salas.html', {'salas': salas, 'query': query})
 
 def detalhes_sala(request, pk):
     sala = get_object_or_404(Sala, pk=pk)
@@ -73,10 +94,17 @@ def deletar_sala(request, pk):
     sala.delete()
     return redirect('lista_salas')
 
+
+# ============================
 # Views para Chaves
+# ============================
 def lista_chaves(request):
-    chaves = Chave.objects.all()
-    return render(request, 'keyguard/lista_chaves.html', {'chaves': chaves})
+    query = request.GET.get('q', '')  # Busca dinâmica
+    chaves = Chave.objects.filter(codigo__icontains=query) if query else Chave.objects.all()
+    paginator = Paginator(chaves, 10)  # Paginação
+    page = request.GET.get('page')
+    chaves = paginator.get_page(page)
+    return render(request, 'keyguard/lista_chaves.html', {'chaves': chaves, 'query': query})
 
 def detalhes_chave(request, pk):
     chave = get_object_or_404(Chave, pk=pk)
@@ -108,10 +136,17 @@ def deletar_chave(request, pk):
     chave.delete()
     return redirect('lista_chaves')
 
+
+# ============================
 # Views para Autorizações
+# ============================
 def lista_autorizacoes(request):
-    autorizacoes = Autorizacao.objects.all()
-    return render(request, 'keyguard/lista_autorizacoes.html', {'autorizacoes': autorizacoes})
+    query = request.GET.get('q', '')  # Busca dinâmica
+    autorizacoes = Autorizacao.objects.filter(nome__icontains=query) if query else Autorizacao.objects.all()
+    paginator = Paginator(autorizacoes, 10)
+    page = request.GET.get('page')
+    autorizacoes = paginator.get_page(page)
+    return render(request, 'keyguard/lista_autorizacoes.html', {'autorizacoes': autorizacoes, 'query': query})
 
 def detalhes_autorizacao(request, pk):
     autorizacao = get_object_or_404(Autorizacao, pk=pk)
@@ -143,10 +178,17 @@ def deletar_autorizacao(request, pk):
     autorizacao.delete()
     return redirect('lista_autorizacoes')
 
+
+# ============================
 # Views para Posses
+# ============================
 def lista_posses(request):
-    posses = Posse.objects.all()
-    return render(request, 'keyguard/lista_posses.html', {'posses': posses})
+    query = request.GET.get('q', '')
+    posses = Posse.objects.filter(usuario__nome__icontains=query) if query else Posse.objects.all()
+    paginator = Paginator(posses, 10)
+    page = request.GET.get('page')
+    posses = paginator.get_page(page)
+    return render(request, 'keyguard/lista_posses.html', {'posses': posses, 'query': query})
 
 def detalhes_posse(request, pk):
     posse = get_object_or_404(Posse, pk=pk)
@@ -178,10 +220,17 @@ def deletar_posse(request, pk):
     posse.delete()
     return redirect('lista_posses')
 
-# Views para StatusGeral
+
+# ============================
+# Views para Status Geral
+# ============================
 def lista_status_geral(request):
-    status_geral = StatusGeral.objects.all()
-    return render(request, 'keyguard/lista_status_geral.html', {'status_geral': status_geral})
+    query = request.GET.get('q', '')  # Busca dinâmica
+    status_geral = StatusGeral.objects.filter(autorizacao__nome__icontains=query) if query else StatusGeral.objects.all()
+    paginator = Paginator(status_geral, 10)  # Paginação com 10 itens por página
+    page = request.GET.get('page')
+    status_geral = paginator.get_page(page)
+    return render(request, 'keyguard/lista_status_geral.html', {'status_geral': status_geral, 'query': query})
 
 def detalhes_status_geral(request, pk):
     status = get_object_or_404(StatusGeral, pk=pk)
@@ -213,17 +262,52 @@ def deletar_status_geral(request, pk):
     status.delete()
     return redirect('lista_status_geral')
 
-# Views de registro e login
+
+# ============================
+# Views de Registro e Login
+# ============================
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+def login_usuario(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)  # Formulário de autenticação padrão do Django
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)  # Loga o usuário
+            return redirect('/home/')  # Redireciona para a tela de home
+        else:
+            messages.error(request, "Usuário ou senha inválidos.")  # Mensagem de erro
+    else:
+        form = AuthenticationForm()
+    return render(request, 'keyguard/login.html', {'form': form})
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
 def registro_usuario(request):
     if request.method == "POST":
-        form = RegistroForm(request.POST)
+        form = UserCreationForm(request.POST)  # Formulário de criação de usuário
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('lista_usuarios')
+            usuario = form.save()  # Salva o novo usuário
+            login(request, usuario)  # Faz login automático após registro
+            messages.success(request, "Cadastro realizado com sucesso!")
+            return redirect('login_usuario')  # Redireciona para a página protegida
+        else:
+            messages.error(request, "Erro no cadastro. Verifique os campos.")  # Mensagem de erro
     else:
-        form = RegistroForm()
-    return render(request, 'keyguard/registro.html', {'form': form})    
+        form = UserCreationForm()
+    return render(request, 'keyguard/registro.html', {'form': form})
+def logout_usuario(request):
+    logout(request)  # Faz logout
+    messages.success(request, "Você saiu com sucesso.")
+    return redirect('login_usuario')  # Redireciona para a tela de login

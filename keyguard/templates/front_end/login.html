@@ -138,42 +138,55 @@
         <i class="fas fa-user-circle icon"></i> <!-- Ícone representativo -->
         <div class="login-title">Login</div>
         
-        <!-- Campo Email -->
-        <div class="input-container">
-            <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Email">
-        </div>
+        <!-- Formulário de Login -->
+        <form method="POST" action="{% url 'login_usuario' %}">
+            {% csrf_token %}
+            <!-- Campo Email -->
+            <div class="input-container">
+                <i class="fas fa-envelope"></i>
+                <input type="text" name="username" placeholder="Usuário ou Email" required>
+            </div>
+            
+            <!-- Campo Senha -->
+            <div class="input-container">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Senha" required>
+            </div>
+            
+            <!-- Botão Entrar -->
+            <button type="submit" style="
+                width: 100%;
+                padding: 12px;
+                font-size: var(--font-size-medium);
+                color: #ffffff;
+                background-color: var(--primary-color);
+                border: none;
+                border-radius: var(--border-radius);
+                cursor: pointer;
+                margin-top: 20px;
+                box-shadow: var(--box-shadow);
+                transition: background-color 0.3s ease;
+            " 
+            onmouseover="this.style.backgroundColor='#7171b3'"
+            onmouseout="this.style.backgroundColor='#9191d0'">
+                Entrar
+            </button>
+        </form>
         
-        <!-- Campo Senha -->
-        <div class="input-container">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Senha">
-        </div>
-        
-        <!-- Link Esqueceu a Senha -->
-        <div class="forgot-password">Esqueceu a senha?</div>
-        
-        <!-- Botão Entrar -->
-        <button style="
-            width: 100%;
-            padding: 12px;
-            font-size: var(--font-size-medium);
-            color: #ffffff;
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            margin-top: 20px;
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease;
-        " 
-        onmouseover="this.style.backgroundColor='#7171b3'"
-        onmouseout="this.style.backgroundColor='#9191d0'">
-            Entrar
-        </button>
+        <!-- Exibição de Mensagens -->
+        {% if messages %}
+            <ul style="margin-top: 10px;">
+                {% for message in messages %}
+                <li style="color:{% if message.tags == 'error' %} red { %else%} green{%endif%};">
+
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
         <!-- Mensagem de criar conta -->
-        <div class="signup">Ainda não tem conta? <a href="#">Cadastre-se</a></div>
+        <div class="signup">Ainda não tem conta? <a href="{% url 'registro_usuario' %}">Cadastre-se</a></div>
     </div>
 </body>
 </html>

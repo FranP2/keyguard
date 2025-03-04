@@ -106,6 +106,17 @@
             }
         }
     </style>
+    <script>
+        // Função para redirecionar para a página de login
+        function redirectToLogin() {
+            window.location.href = 'login.html'; // Substitua pelo caminho do arquivo de login
+        }
+
+        // Função para redirecionar para a página de cadastro
+        function redirectToSignup() {
+            window.location.href = 'cadastro.html'; // Substitua pelo caminho do arquivo de cadastro
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -113,8 +124,10 @@
         <i class="fas fa-key key-icon"></i>
         <h2 class="title">Key Guard</h2>
         <p class="subtitle">Proteja o que é importante</p>
-        <button class="login-button">Login</button>
-        <p>Não tem uma conta? <a href="#" class="signup-link">Cadastre-se</a></p>
+        <!-- Botão de login com interação JavaScript -->
+        <button class="login-button" onclick="redirectToLogin()">Login</button>
+        <!-- Link para página de cadastro com interação JavaScript -->
+        <p>Não tem uma conta? <a href="#" class="signup-link" onclick="redirectToSignup()">Cadastre-se</a></p>
     </div>
 </body>
 </html>
