@@ -37,6 +37,30 @@
             color: #4a4a6a;
             margin-bottom: 20px;
         }
+        .novo-btn {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+        .btn-novo {
+            background: #4a4a6a;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-novo i {
+            font-size: 16px;
+        }
+        .btn-novo:hover {
+            background: #8a8aab;
+        }
         .table-container {
             overflow-x: auto;
         }
@@ -54,24 +78,33 @@
             background: #4a4a6a;
             color: white;
         }
-        .btn {
-            background: #4a4a6a;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
+        .acoes-btns {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .acoes-btns i {
+            font-size: 18px;
+            color: #4a4a6a;
             cursor: pointer;
             transition: 0.3s;
         }
-        .btn:hover {
-            background: #8a8aab;
+        .acoes-btns i:hover {
+            color: #8a8aab;
         }
     </style>
 </head>
 <body>
     <div class="usuario-container">
         <div class="usuario-header">Lista de Usuários</div>
+
+        <!-- Botão Novo -->
+        <div class="novo-btn">
+            <button class="btn-novo">
+                <i class="fas fa-plus"></i> Novo
+            </button>
+        </div>
+
         <div class="table-container">
             <table class="usuario-lista">
                 <thead>
@@ -92,8 +125,10 @@
                         <td>(11) 98765-4321</td>
                         <td>TI</td>
                         <td>
-                            <button class="btn">Editar</button>
-                            <button class="btn">Excluir</button>
+                            <div class="acoes-btns">
+                                <i class="fas fa-edit" title="Editar"></i>
+                                <i class="fas fa-trash-alt" title="Excluir"></i>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -103,8 +138,10 @@
                         <td>(21) 99876-5432</td>
                         <td>RH</td>
                         <td>
-                            <button class="btn">Editar</button>
-                            <button class="btn">Excluir</button>
+                            <div class="acoes-btns">
+                                <i class="fas fa-edit" title="Editar"></i>
+                                <i class="fas fa-trash-alt" title="Excluir"></i>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

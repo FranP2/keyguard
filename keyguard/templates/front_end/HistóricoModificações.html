@@ -1,67 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histórico de Modificações</title>
+    <title>Histórico Geral de Modificações</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+
         h1 {
             text-align: center;
+            margin-bottom: 20px;
         }
+
         input {
             display: block;
             width: 100%;
             max-width: 400px;
-            margin: 10px auto;
+            margin: 0 auto 20px auto;
             padding: 10px;
             font-size: 16px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
+
         th, td {
             border: 1px solid #000;
             padding: 10px;
             text-align: left;
         }
+
+        th {
+            background-color: #f0f0f7;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
         button {
-            margin-top: 10px;
+            margin: 20px auto;
             display: block;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #9191d0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #7171b3;
+        }
+
+        .filter {
+            margin-bottom: 10px;
+        }
+
+        .filter select {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
         }
     </style>
 </head>
+
 <body>
-    <h1>Histórico de Modificações</h1>
-    <input type="text" placeholder="Pesquisar..." name="search">
+    <h1>Histórico Geral de Modificações</h1>
+
+    <!-- Campo de busca -->
+    <input type="text" id="search" placeholder="Pesquisar..." oninput="filtrarHistorico()">
+
+    <!-- Filtro por entidade -->
+    <div class="filter" style="text-align: center;">
+        <label for="categoriaFiltro">Filtrar por Categoria:</label>
+        <select id="categoriaFiltro" onchange="filtrarHistorico()">
+            <option value="todos">Todos</option>
+            <option value="posse">Posse</option>
+            <option value="sala">Sala</option>
+            <option value="chave">Chave</option>
+            <option value="usuario">Usuário</option>
+            <option value="autorizacao">Autorização</option>
+        </select>
+    </div>
+
+    <!-- Tabela com histórico -->
     <table>
         <thead>
             <tr>
+                <th>Entidade</th>
                 <th>Nome</th>
                 <th>Data</th>
                 <th>Hora</th>
-                <th>tipo</th>
-                <th>Descricao</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Exemplo Usuário</td>
-                <td>2025-03-02</td>
-                <td>10:30</td>
-                <td>edição</td>
-                <td>????</td>
-            </tr>
+        <tbody id="historico-tbody">
+            <!-- Registros dinâmicos -->
         </tbody>
     </table>
-    <button>Carregar mais</button>
+
+    <!-- Botão para carregar mais registros -->
+    <button onclick="carregarMais()">Carregar Mais</button>
+
+    <script>
+        // Dados iniciais do histórico
+        const historico = [
+            { entidade: "posse", nome: "João", data: "2025-03-02", hora: "10:30", tipo: "edição", descricao: "Alterou posse de chave Sala 101" },
+            { entidade: "sala", nome: "Maria", data: "2025-03-03", hora: "11:00", tipo: "criação", descricao: "Sala 202 criada" },
+            { entidade: "chave", nome: "Carlos", data: "2025-03-04", hora: "09:00", tipo: "exclusão", descricao: "Chave duplicada removida" },
+            { entidade: "usuario", nome: "Ana", data: "2025-03-05", hora: "14:00", tipo: "atualização", descricao: "Senha redefinida pelo administrador" },
+            { entidade: "autorizacao", nome: "Pedro", data: "2025-03-06", hora: "15:30", tipo: "criação", descricao: "Autorização para uso da Sala 103" }
+        ];
+
+        // Função para filtrar registros
+        function filtrarHistorico() {
+            const search = document.getElementById("search").value.toLowerCase();
+            const categoria = document.getElementById("categoriaFiltro").value;
+            const tbody = document.getElementById("historico-tbody");
+            tbody.innerHTML = ""; // Limpa a tabela
+
+            historico.forEach(item => {
+                const matchSearch =
+                    item.nome.toLowerCase().includes(search) ||
+                    item.data.includes(search) ||
+                    item.hora.includes(search) ||
+                    item.tipo.toLowerCase().includes(search) ||
+                    item.descricao.toLowerCase().includes(search);
+
+                const matchCategoria = categoria === "todos" || item.entidade === categoria;
+
+                if (matchSearch && matchCategoria) {
+                    const row = `
+                        <tr>
+                            <td>${item.entidade}</td>
+                            <td>${item.nome}</td>
+                            <td>${item.data}</td>
+                            <td>${item.hora}</td>
+                            <td>${item.tipo}</td>
+                            <td>${item.descricao}</td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                }
+            });
+        }
+
+        // Simulação do botão "Carregar Mais"
+        function carregarMais() {
+            historico.push(
+                { entidade: "sala", nome: "Cláudio", data: "2025-03-07", hora: "10:00", tipo: "adição", descricao: "Nova sala cadastrada" },
+                { entidade: "usuario", nome: "Paula", data: "2025-03-08", hora: "13:15", tipo: "edição", descricao: "Atualizou email do usuário" }
+            );
+            filtrarHistorico(); // Atualiza a tabela com os novos dados
+        }
+
+        // Inicializa a tabela ao carregar
+        filtrarHistorico();
+    </script>
 </body>
+
 </html>

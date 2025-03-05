@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Autorizações</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #9191d0;
+            --secondary-color: #f0f0f7;
+            --text-color: #2e2e71;
+            --background-color: #ffffff;
+            --border-color: #9191d0;
+            --font-family: 'Roboto', sans-serif;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: var(--font-family);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: var(--background-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+            flex: 1;
+            text-align: center;
+        }
+
+        .list-container {
+            margin-top: 20px;
+        }
+
+        .list-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .list-item .details {
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .list-item .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .list-item .actions button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .list-item .actions button:hover {
+            background-color: #7171b3;
+        }
+
+        .add-container {
+            margin-top: 20px;
+        }
+
+        .add-container button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .add-container button:hover {
+            background-color: #7171b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Lista de Autorizações</h2>
+        </div>
+        <div class="list-container" id="listaAutorizacoes">
+            <!-- Lista de autorizações será gerada dinamicamente -->
+        </div>
+        <div class="add-container">
+            <button onclick="adicionarAutorizacao()">Cadastrar Nova Autorização</button>
+        </div>
+    </div>
+    <script>
+        const autorizacoes = [
+            {
+                nome: "João Silva",
+                matricula: "123456",
+                sala: "Sala 101",
+                motivo: "Reunião",
+                data: "2023-10-01"
+            }
+        ]; // Dados iniciais
+
+        function adicionarAutorizacao() {
+            const nome = prompt("Digite o nome:");
+            const matricula = prompt("Digite a matrícula:");
+            const sala = prompt("Digite o número da sala:");
+            const motivo = prompt("Digite o motivo:");
+            const data = prompt("Digite a data (YYYY-MM-DD):");
+
+            if (nome && matricula && sala && motivo && data) {
+                autorizacoes.push({ nome, matricula, sala, motivo, data });
+                atualizarLista();
+                alert("Nova autorização cadastrada com sucesso!");
+            } else {
+                alert("Todos os campos devem ser preenchidos!");
+            }
+        }
+
+        function consultarAutorizacao(index) {
+            const autorizacao = autorizacoes[index];
+            alert(`
+                Detalhes da Autorização:
+                Nome: ${autorizacao.nome}
+                Matrícula: ${autorizacao.matricula}
+                Sala: ${autorizacao.sala}
+                Motivo: ${autorizacao.motivo}
+                Data: ${autorizacao.data}
+            `);
+        }
+
+        function proximaAutorizacao(index) {
+            if (index + 1 < autorizacoes.length) {
+                consultarAutorizacao(index + 1);
+            } else {
+                alert("Não há mais autorizações.");
+            }
+        }
+
+        function atualizarLista() {
+            const lista = document.getElementById("listaAutorizacoes");
+            lista.innerHTML = "";
+
+            autorizacoes.forEach((autorizacao, index) => {
+                const item = document.createElement("div");
+                item.className = "list-item";
+                item.innerHTML = `
+                    <div class="details">
+                        <strong>${autorizacao.nome}</strong><br>
+                        <small>Matrícula: ${autorizacao.matricula}</small><br>
+                        <small>Sala: ${autorizacao.sala}</small><br>
+                        <small>Motivo: ${autorizacao.motivo}</small><br>
+                        <small>Data: ${autorizacao.data}</small>
+                    </div>
+                    <div class="actions">
+                        <button onclick="consultarAutorizacao(${index})">Detalhar</button>
+                        <button onclick="proximaAutorizacao(${index})">Próximo</button>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        atualizarLista();
+    </script>
+</body>
+
+</html>
