@@ -79,3 +79,11 @@ class RegistroForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']  # Campos do registro
+
+from django import forms
+from .models import SolicitacaoPosseChave
+
+class SolicitacaoPosseChaveForm(forms.ModelForm):
+    class Meta:
+        model = SolicitacaoPosseChave
+        fields = ['nome', 'matricula', 'sala', 'motivo_solicitacao', 'email', 'telefone']

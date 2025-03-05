@@ -60,7 +60,7 @@ class Chave(models.Model):
 # Modelo de Autorização
 class Autorizacao(models.Model):
     nome = models.CharField(max_length=100)
-    matricula = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    matricula = models.CharField(max_length=20, blank=True, null=True)
     sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
     motivo = models.TextField()
     data_retirada = models.DateTimeField()
@@ -72,7 +72,7 @@ class Autorizacao(models.Model):
 # Modelo de Solicitação de Posse de Chave
 class SolicitacaoPosseChave(models.Model):
     nome = models.CharField(max_length=100)
-    matricula = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    matricula = models.CharField(max_length=20, blank=True, null=True)
     sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
     motivo_solicitacao = models.TextField()
     email = models.EmailField()

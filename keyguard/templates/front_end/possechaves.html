@@ -287,8 +287,8 @@ Biblioteca de Ícones Font Awesome
 
         .list-item .actions {
             display: flex;
-            gap: 10px; /* Espaçamento entre os botões */
-            flex-wrap: wrap; /* Permite que os botões ocupem a próxima linha, se necessário */
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .list-item .actions button {
@@ -349,18 +349,7 @@ Biblioteca de Ícones Font Awesome
         }
 
         function adicionarPosse() {
-            const nome = prompt("Digite o nome do responsável pela chave:");
-            const chave = prompt("Digite o identificador da chave (ex: Sala 101):");
-            const telefone = prompt("Digite o telefone de contato:");
-            const motivo = prompt("Digite o motivo da posse:");
-
-            if (nome && chave && telefone && motivo) {
-                posses.push({ nome, chave, telefone, motivo });
-                atualizarLista();
-                alert("Nova posse cadastrada com sucesso!");
-            } else {
-                alert("Todos os campos devem ser preenchidos!");
-            }
+            window.location.href = "cadastrPosse.html"; // Redireciona para a página de cadastro
         }
 
         function transferirPosse(index) {
@@ -372,11 +361,6 @@ Biblioteca de Ícones Font Awesome
                 alert("Posse transferida com sucesso!");
                 atualizarLista();
             }
-        }
-
-        function consultarPosse(index) {
-            const posse = posses[index];
-            alert(`Detalhes da Posse:\n\nNome: ${posse.nome}\nChave: ${posse.chave}\nTelefone: ${posse.telefone}\nMotivo: ${posse.motivo}`);
         }
 
         function solicitarTransferencia(index) {
@@ -398,7 +382,6 @@ Biblioteca de Ícones Font Awesome
                         <small>Motivo: ${posse.motivo}</small>
                     </div>
                     <div class="actions">
-                        <button onclick="consultarPosse(${index})">Consultar</button>
                         <button onclick="transferirPosse(${index})">Transferir</button>
                         <button onclick="solicitarTransferencia(${index})">Solicitar Transferência</button>
                     </div>
@@ -412,4 +395,3 @@ Biblioteca de Ícones Font Awesome
 </body>
 
 </html>
-

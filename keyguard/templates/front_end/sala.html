@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página da Sala</title>
-    <!-- Link para a CDN do Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Reset de estilos */
         * {
             margin: 0;
             padding: 0;
@@ -16,7 +14,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #9191d0, #f0f0f7); /* Mesma cor da tela de posse */
+            background: linear-gradient(to right, #9191d0, #f0f0f7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -62,7 +60,8 @@
         }
 
         .form-container input,
-        .form-container select {
+        .form-container select,
+        .form-container datalist {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -109,12 +108,16 @@
             background-color: #f44336;
             color: white;
         }
+
+        .save-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="sala">
-        <!-- Botão de retorno -->
-        <div class="arrow-back">
+        <div class="arrow-back" onclick="voltarListaSalas()">
             <i class="fas fa-arrow-left"></i>
         </div>
 
@@ -122,7 +125,6 @@
             <i class="fas fa-home"></i> Sala
         </div>
 
-        <!-- Formulário -->
         <div class="form-container">
             <div class="form-group">
                 <label for="nome-sala">Nome da Sala</label>
@@ -131,11 +133,12 @@
 
             <div class="form-group">
                 <label for="tipo-sala">Tipo de Sala</label>
-                <select id="tipo-sala">
-                    <option value="aula">Aula</option>
-                    <option value="reuniao">Reunião</option>
-                    <option value="conferencia">Conferência</option>
-                </select>
+                <input list="tipos-salas" id="tipo-sala" placeholder="Escolha ou digite o tipo de sala">
+                <datalist id="tipos-salas">
+                    <option value="Aula">
+                    <option value="Reunião">
+                    <option value="Conferência">
+                </datalist>
             </div>
 
             <div class="form-group">
@@ -143,19 +146,54 @@
                 <input type="text" id="numero-sala" placeholder="Digite o número da sala">
             </div>
 
-            <!-- Botões de Ação -->
             <div class="buttons-container">
-                <button class="edit-btn">
+                <button class="save-btn" onclick="salvarSala()">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
+                <button class="edit-btn" onclick="editarSala()">
                     <i class="fas fa-pencil-alt"></i> Editar
                 </button>
-                <button class="new-btn">
-                    <i class="fas fa-plus"></i> Novo
-                </button>
-                <button class="delete-btn">
+                <button class="delete-btn" onclick="excluirSala()">
                     <i class="fas fa-trash-alt"></i> Excluir
                 </button>
             </div>
         </div>
     </div>
+
+    <script>
+        let salas = []; // Array para armazenar as salas cadastradas
+
+        function voltarListaSalas() {
+            window.location.href = "lista_salas.html"; // Redireciona para a página de lista de salas
+        }
+
+        function salvarSala() {
+            const nome = document.getElementById("nome-sala").value;
+            const tipo = document.getElementById("tipo-sala").value;
+            const numero = document.getElementById("numero-sala").value;
+
+            if (nome && tipo && numero) {
+                salas.push({ nome, tipo, numero });
+                alert("Sala cadastrada com sucesso!");
+                limparFormulario(); // Limpa o formulário após salvar
+            } else {
+                alert("Todos os campos devem ser preenchidos!");
+            }
+        }
+
+        function editarSala() {
+            alert("Função de editar ainda não implementada.");
+        }
+
+        function excluirSala() {
+            alert("Função de excluir ainda não implementada.");
+        }
+
+        function limparFormulario() {
+            document.getElementById("nome-sala").value = "";
+            document.getElementById("tipo-sala").value = "";
+            document.getElementById("numero-sala").value = "";
+        }
+    </script>
 </body>
 </html>

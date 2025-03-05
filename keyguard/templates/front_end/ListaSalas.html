@@ -79,6 +79,7 @@
             <ul id="salaLista"></ul>
         </div>
         <div class="buttons-container">
+            <!-- Alteração para chamar a função abrirFormulario e redirecionar -->
             <button onclick="abrirFormulario()">
                 <i class="fas fa-plus-circle"></i>
                 <span>Cadastrar</span>
@@ -102,17 +103,7 @@
         }
 
         function abrirFormulario() {
-            const nome = prompt("Digite o nome da sala:");
-            const numero = prompt("Digite o número da sala:");
-            const tipo = prompt("Digite o tipo da sala:");
-
-            if (nome && numero && tipo) {
-                salas.push({ nome, numero, tipo }); // Adiciona a sala ao array
-                alert("Sala cadastrada com sucesso!");
-                atualizarLista(); // Atualiza a lista exibida
-            } else {
-                alert("Todos os campos devem ser preenchidos!");
-            }
+            window.location.href = "sala.html";  // Redireciona para a página de sala (cadastro)
         }
 
         function atualizarLista() {

@@ -15,6 +15,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .container {
             width: 90%;
             max-width: 600px;
@@ -23,29 +24,35 @@
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
             color: #0056b3;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
+
         th {
             background-color: #0056b3;
             color: #fff;
         }
+
         .buttons {
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
         }
+
         button {
             padding: 10px 15px;
             border: none;
@@ -53,6 +60,7 @@
             color: #fff;
             cursor: pointer;
         }
+
         .edit { background-color: #ffc107; }
         .add { background-color: #28a745; }
         .delete { background-color: #dc3545; }
@@ -61,7 +69,7 @@
 <body>
     <div class="container">
         <h1>Lista de Chaves</h1>
-        <table>
+        <table id="tableChaves">
             <thead>
                 <tr>
                     <th>Código da Chave</th>
@@ -73,29 +81,36 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>12345</td>
-                    <td>João Silva</td>
-                    <td>101</td>
-                    <td>Aula 1</td>
-                    <td>Sim</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>54321</td>
-                    <td>Maria Lima</td>
-                    <td>202</td>
-                    <td>Aula 2</td>
-                    <td>Não</td>
-                    <td>1</td>
-                </tr>
+                <!-- As chaves serão inseridas aqui -->
             </tbody>
         </table>
         <div class="buttons">
             <button class="edit">Editar</button>
-            <button class="add">Adicionar</button>
+            <button class="add" onclick="window.location.href='cadastrochaves.html'">Adicionar</button>
             <button class="delete">Excluir</button>
         </div>
     </div>
+
+    <script>
+        // Função para carregar as chaves da localStorage e exibir na tabela
+        window.onload = function() {
+            const chaves = JSON.parse(localStorage.getItem('chaves')) || [];
+            const tableBody = document.querySelector('#tableChaves tbody');
+            tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar os novos dados
+
+            chaves.forEach(chave => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${chave.codigo}</td>
+                    <td>${chave.usuario}</td>
+                    <td>${chave.sala}</td>
+                    <td>${chave.sala}</td>
+                    <td>${chave.disponivel}</td>
+                    <td>${chave.copias}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        };
+    </script>
 </body>
 </html>

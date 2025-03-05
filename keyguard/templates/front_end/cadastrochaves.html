@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Cadastro de Chaves</title>
-    <!-- Link para a biblioteca Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -133,7 +132,7 @@
 <body>
     <div class="container">
         <h1><i class="fas fa-key"></i> Cadastro de Chaves</h1>
-        <form>
+        <form id="formCadastroChaves">
             <label for="codigo">Código da Chave:</label>
             <input type="text" id="codigo" name="codigo" placeholder="Digite o código" required>
             
@@ -150,17 +149,48 @@
             <input type="text" id="copias" name="copias" placeholder="Número de cópias" required>
             
             <div class="buttons">
-                <button class="save">
+                <button type="submit" class="save">
                     <i class="fas fa-save"></i> Salvar
                 </button>
                 <button type="reset" class="cancel">
                     <i class="fas fa-times"></i> Cancelar
                 </button>
-                <button type="button" class="back">
+                <button type="button" class="back" onclick="window.location.href='lista_chaves.html'">
                     <i class="fas fa-arrow-left"></i> Voltar
                 </button>
             </div>
         </form>
     </div>
+
+    <script>
+        // Função para salvar a chave na lista localStorage
+        document.getElementById('formCadastroChaves').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar o envio do formulário
+
+            const codigo = document.getElementById('codigo').value;
+            const usuario = document.getElementById('usuario').value;
+            const sala = document.getElementById('sala').value;
+            const disponivel = document.getElementById('disponivel').value;
+            const copias = document.getElementById('copias').value;
+
+            const chave = {
+                codigo: codigo,
+                usuario: usuario,
+                sala: sala,
+                disponivel: disponivel,
+                copias: copias
+            };
+
+            // Pega a lista de chaves do localStorage ou cria uma nova se não existir
+            let chaves = JSON.parse(localStorage.getItem('chaves')) || [];
+            chaves.push(chave);
+
+            // Salva novamente no localStorage
+            localStorage.setItem('chaves', JSON.stringify(chaves));
+
+            // Redireciona para a página de lista de chaves
+            window.location.href = 'lista_chaves.html';
+        });
+    </script>
 </body>
 </html>

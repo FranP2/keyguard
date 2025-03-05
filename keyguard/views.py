@@ -4,16 +4,10 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral
 from .forms import UsuarioForm, SalaForm, ChaveForm, AutorizacaoForm, PosseForm, StatusGeralForm, RegistroForm, LoginForm
 
-
-
-
 def home(request):
     # Renderiza o template base diretamente sem qualquer herança
     return render(request, 'home.html')
-
-# ============================
-# Views para Usuários
-# ============================
+# Views para Usuário
 def lista_usuarios(request):
     query = request.GET.get('q', '')  # Busca dinâmica
     usuarios = Usuario.objects.filter(nome__icontains=query) if query else Usuario.objects.all()
@@ -62,11 +56,11 @@ def lista_salas(request):
     paginator = Paginator(salas, 10)  # Paginação
     page = request.GET.get('page')
     salas = paginator.get_page(page)
-    return render(request, 'keyguard/lista_salas.html', {'salas': salas, 'query': query})
+    return render(request, 'keyguard/listasalas.html', {'salas': salas, 'query': query})
 
 def detalhes_sala(request, pk):
     sala = get_object_or_404(Sala, pk=pk)
-    return render(request, 'keyguard/detalhes_sala.html', {'sala': sala})
+    return render(request, 'keyguard/listasala.html', {'sala': sala})
 
 def nova_sala(request):
     if request.method == "POST":
@@ -316,3 +310,18 @@ def logout_usuario(request):
     logout(request)  # Faz logout
     messages.success(request, "Você saiu com sucesso.")
     return redirect('login_usuario')  # Redireciona para a tela de login
+
+from django.shortcuts import render, redirect
+from .forms import SolicitacaoPosseChaveForm
+from .models import SolicitacaoPosseChave
+
+def nova_solicitacao(request):
+    if request.method == 'POST':
+        form = SolicitacaoPosseChaveForm(request.POST)
+        if form.is_valid():
+            form.save()  # Salva a solicitação no banco de dados
+            return redirect('lista_posses')  # Redireciona para a lista de posses
+    else:
+        form = SolicitacaoPosseChaveForm()  # Exibe o formulário vazio
+
+    return render(request, 'keyguard/nova_solicitacao.html', {'form': form})

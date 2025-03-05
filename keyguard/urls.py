@@ -44,6 +44,7 @@ urlpatterns = [
     path('status/novo/', views.novo_status_geral, name='novo_status_geral'),
     path('status/<int:pk>/editar/', views.editar_status_geral, name='editar_status_geral'),
     path('status/<int:pk>/deletar/', views.deletar_status_geral, name='deletar_status_geral'),
+    path('nova_solicitacao/', views.nova_solicitacao, name='nova_solicitacao'),
 
     # Rotas de Registro e Login
     #path('registro/', views.registro_usuario, name='registro_usuario'),
@@ -58,6 +59,7 @@ urlpatterns = [
     path('registro/', views.registro_usuario, name='registro_usuario'),  # Tela de Registro
     path('logout/', views.logout_usuario, name='logout_usuario'),  # Logout
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),  # Página protegida (exemplo)
+    
 ]
 
 
