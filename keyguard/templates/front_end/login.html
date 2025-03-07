@@ -80,6 +80,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
             outline: none;
+            box-sizing: border-box; /* Garante que o padding não afete a largura total */
             transition: border-color 0.3s ease;
         }
 
@@ -106,6 +107,43 @@
             color: var(--primary-color);
             font-weight: bold;
             text-decoration: underline;
+        }
+
+        .messages {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: var(--font-size-small);
+        }
+
+        .messages .error {
+            color: red;
+            background-color: #f8d7da;
+        }
+
+        .messages .success {
+            color: green;
+            background-color: #d4edda;
+        }
+
+        /* Ajuste no botão para garantir um bom espaçamento */
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            font-size: var(--font-size-medium);
+            color: #ffffff;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: var(--box-shadow);
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #7171b3;
         }
 
         @media (max-width: 600px) {
@@ -135,7 +173,7 @@
 <body>
     <div class="frame-1">
         <!-- Ícone substituindo o logo -->
-        <i class="fas fa-user-circle icon"></i> <!-- Ícone representativo -->
+        <i class="fas fa-user-circle icon"></i>
         <div class="login-title">Login</div>
         
         <!-- Formulário de Login -->
@@ -154,39 +192,36 @@
             </div>
             
             <!-- Botão Entrar -->
-            <button type="submit" style="
-                width: 100%;
-                padding: 12px;
-                font-size: var(--font-size-medium);
-                color: #ffffff;
-                background-color: var(--primary-color);
-                border: none;
-                border-radius: var(--border-radius);
-                cursor: pointer;
-                margin-top: 20px;
-                box-shadow: var(--box-shadow);
-                transition: background-color 0.3s ease;
-            " 
-            onmouseover="this.style.backgroundColor='#7171b3'"
-            onmouseout="this.style.backgroundColor='#9191d0'">
+            <button type="submit" class="login-button">
                 Entrar
             </button>
         </form>
         
         <!-- Exibição de Mensagens -->
         {% if messages %}
-            <ul style="margin-top: 10px;">
+            <div class="messages" id="message-box">
                 {% for message in messages %}
-                <li style="color:{% if message.tags == 'error' %} red { %else%} green{%endif%};">
-
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
                         {{ message }}
-                    </li>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
 
         <!-- Mensagem de criar conta -->
         <div class="signup">Ainda não tem conta? <a href="{% url 'registro_usuario' %}">Cadastre-se</a></div>
     </div>
+
+    <script>
+        // Função para remover as mensagens após 1 segundo
+        window.onload = function() {
+            const messageBox = document.getElementById('message-box');
+            if (messageBox) {
+                setTimeout(function() {
+                    messageBox.style.display = 'none'; // Esconde a caixa de mensagens
+                }, 1000); // Tempo de espera de 1 segundo
+            }
+        }
+    </script>
 </body>
 </html>

@@ -7,6 +7,10 @@ from .forms import UsuarioForm, SalaForm, ChaveForm, AutorizacaoForm, PosseForm,
 def home(request):
     # Renderiza o template base diretamente sem qualquer herança
     return render(request, 'home.html')
+
+def inicio(request):
+    return render(request, 'Inicial_App.html')  # Certifique-se de que o arquivo está na pasta 'templates'
+
 # Views para Usuário
 def lista_usuarios(request):
     query = request.GET.get('q', '')  # Busca dinâmica
@@ -14,21 +18,39 @@ def lista_usuarios(request):
     paginator = Paginator(usuarios, 10)  # Paginação
     page = request.GET.get('page')
     usuarios = paginator.get_page(page)
-    return render(request, 'keyguard/lista_usuarios.html', {'usuarios': usuarios, 'query': query})
+    return render(request, 'listausuario.html', {'usuarios': usuarios, 'query': query})
+
+
+
 
 def detalhes_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
-    return render(request, 'keyguard/detalhes_usuario.html', {'usuario': usuario})
+    return render(request, 'detalhes_usuario.html', {'usuario': usuario})
+
+from django.shortcuts import render, redirect
+from .forms import UsuarioForm
+
+from django.shortcuts import render, redirect
+from .forms import UsuarioForm  # Certifique-se de que o form está importado corretamente
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import UsuarioForm
 
 def novo_usuario(request):
     if request.method == "POST":
         form = UsuarioForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('lista_usuarios')
+            form.save()  # Salva o formulário, criando o novo usuário
+            messages.success(request, "Usuário cadastrado com sucesso!")
+            return redirect('lista_usuarios')  # Redireciona para a lista de usuários após o cadastro
     else:
-        form = UsuarioForm()
-    return render(request, 'keyguard/editar_usuario.html', {'form': form})
+        form = UsuarioForm()  # Cria um formulário vazio quando a página é carregada inicialmente
+
+    # Renderiza o template correto para o cadastro de usuário
+    return render(request, 'UsuárioCadastrado.html', {'form': form})
+
+
 
 def editar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
@@ -56,7 +78,7 @@ def lista_salas(request):
     paginator = Paginator(salas, 10)  # Paginação
     page = request.GET.get('page')
     salas = paginator.get_page(page)
-    return render(request, 'keyguard/listasalas.html', {'salas': salas, 'query': query})
+    return render(request, 'ListaSalas.html', {'salas': salas, 'query': query})
 
 def detalhes_sala(request, pk):
     sala = get_object_or_404(Sala, pk=pk)
@@ -67,11 +89,11 @@ def nova_sala(request):
         form = SalaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_salas')
+            return redirect('lista_salas')  # Redireciona para a página de lista de salas após o sucesso
     else:
         form = SalaForm()
-    return render(request, 'keyguard/editar_sala.html', {'form': form})
 
+    return render(request, 'sala.html', {'form': form})
 def editar_sala(request, pk):
     sala = get_object_or_404(Sala, pk=pk)
     if request.method == "POST":
@@ -81,7 +103,7 @@ def editar_sala(request, pk):
             return redirect('lista_salas')
     else:
         form = SalaForm(instance=sala)
-    return render(request, 'keyguard/editar_sala.html', {'form': form})
+    return render(request, 'sala.html', {'form': form})
 
 def deletar_sala(request, pk):
     sala = get_object_or_404(Sala, pk=pk)
@@ -98,7 +120,7 @@ def lista_chaves(request):
     paginator = Paginator(chaves, 10)  # Paginação
     page = request.GET.get('page')
     chaves = paginator.get_page(page)
-    return render(request, 'keyguard/lista_chaves.html', {'chaves': chaves, 'query': query})
+    return render(request, 'listachaves.html', {'chaves': chaves, 'query': query})
 
 def detalhes_chave(request, pk):
     chave = get_object_or_404(Chave, pk=pk)
@@ -108,12 +130,12 @@ def nova_chave(request):
     if request.method == "POST":
         form = ChaveForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('lista_chaves')
+            form.save()  # Salva o novo cadastro no banco de dados
+            return redirect('lista_chaves')  # Redireciona para a lista de chaves
     else:
         form = ChaveForm()
-    return render(request, 'keyguard/editar_chave.html', {'form': form})
 
+    return render(request, 'cadastrochaves.html', {'form': form})
 def editar_chave(request, pk):
     chave = get_object_or_404(Chave, pk=pk)
     if request.method == "POST":
@@ -140,11 +162,11 @@ def lista_autorizacoes(request):
     paginator = Paginator(autorizacoes, 10)
     page = request.GET.get('page')
     autorizacoes = paginator.get_page(page)
-    return render(request, 'keyguard/lista_autorizacoes.html', {'autorizacoes': autorizacoes, 'query': query})
+    return render(request, 'listaAutorizacao.html', {'autorizacoes': autorizacoes, 'query': query})
 
 def detalhes_autorizacao(request, pk):
     autorizacao = get_object_or_404(Autorizacao, pk=pk)
-    return render(request, 'keyguard/detalhes_autorizacao.html', {'autorizacao': autorizacao})
+    return render(request, 'detalhes_autorizacao.html', {'autorizacao': autorizacao})
 
 def nova_autorizacao(request):
     if request.method == "POST":
@@ -154,7 +176,7 @@ def nova_autorizacao(request):
             return redirect('lista_autorizacoes')
     else:
         form = AutorizacaoForm()
-    return render(request, 'keyguard/editar_autorizacao.html', {'form': form})
+    return render(request, 'Formulárioautorizacao.html', {'form': form})
 
 def editar_autorizacao(request, pk):
     autorizacao = get_object_or_404(Autorizacao, pk=pk)
@@ -165,7 +187,7 @@ def editar_autorizacao(request, pk):
             return redirect('lista_autorizacoes')
     else:
         form = AutorizacaoForm(instance=autorizacao)
-    return render(request, 'keyguard/editar_autorizacao.html', {'form': form})
+    return render(request, 'editar_autorizacao.html', {'form': form})
 
 def deletar_autorizacao(request, pk):
     autorizacao = get_object_or_404(Autorizacao, pk=pk)
@@ -182,7 +204,7 @@ def lista_posses(request):
     paginator = Paginator(posses, 10)
     page = request.GET.get('page')
     posses = paginator.get_page(page)
-    return render(request, 'keyguard/lista_posses.html', {'posses': posses, 'query': query})
+    return render(request, 'possechaves.html', {'posses': posses, 'query': query})
 
 def detalhes_posse(request, pk):
     posse = get_object_or_404(Posse, pk=pk)

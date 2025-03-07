@@ -7,27 +7,28 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
+            margin: 0;
+            background-color: rgb(43, 36, 71);
             color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .container {
             width: 90%;
-            max-width: 600px;
-            background-color: #fff;
+            max-width: 800px;
+            background-color: rgb(206, 199, 206);
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(7, 7, 7, 0.1);
+            overflow-x: auto;
         }
 
         h1 {
             text-align: center;
-            color: #0056b3;
+            color: rgb(93, 74, 116);
         }
 
         table {
@@ -43,7 +44,7 @@
         }
 
         th {
-            background-color: #0056b3;
+            background-color: rgb(80, 60, 92);
             color: #fff;
         }
 
@@ -51,6 +52,7 @@
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         button {
@@ -59,11 +61,49 @@
             border-radius: 5px;
             color: #fff;
             cursor: pointer;
+            flex: 1;
+            margin: 5px;
+            min-width: 100px;
         }
 
-        .edit { background-color: #ffc107; }
-        .add { background-color: #28a745; }
-        .delete { background-color: #dc3545; }
+        .edit { background-color: rgb(79, 70, 82); }
+        .add { background-color: rgb(79, 72, 84); }
+        .delete { background-color: rgb(79, 73, 81); }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            th, td {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            button {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -86,7 +126,7 @@
         </table>
         <div class="buttons">
             <button class="edit">Editar</button>
-            <button class="add" onclick="window.location.href='cadastrochaves.html'">Adicionar</button>
+            <button class="add" onclick="window.location.href='/chaves/nova/'">Adicionar</button>
             <button class="delete">Excluir</button>
         </div>
     </div>

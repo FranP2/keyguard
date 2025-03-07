@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!--!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home App</title>
-    <!-- Link para a biblioteca de ícones Font Awesome -->
+     Link para a biblioteca de ícones Font Awesome 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
@@ -142,7 +142,7 @@
         </div>
     </div>
 
-    <!-- Script para ativar ícones do Font Awesome -->
+     Script para ativar ícones do Font Awesome 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
         // Função para navegação
@@ -150,5 +150,181 @@
             window.location.href = page;
         }
     </script>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #4c8bf5, #d0e1f9);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a4a6a;
+        }
+
+        .header .logo i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #4a4a6a;
+        }
+
+        .header .back-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .header .back-button i {
+            font-size: 20px;
+            color: #4a4a6a;
+        }
+
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #4a4a6a;
+            border-radius: 8px 0 0 8px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            border: none;
+            background-color: #4a4a6a;
+            color: white;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #7171b3;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f7f9fc;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid-item i {
+            font-size: 40px;
+            color: #4a4a6a;
+            margin-bottom: 10px;
+        }
+
+        .grid-item span {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4a4a6a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho com Logo e Botão Voltar -->
+        <div class="header">
+            <button class="back-button" onclick="window.history.back();" title="Voltar à página anterior">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-key"></i>
+                Keyguard
+            </div>
+        </div>
+        <!-- Barra de Pesquisa -->
+        <div class="search-bar">
+            <input type="text" placeholder="Pesquisar...">
+            <button>🔍</button>
+        </div>
+        <!-- Grid de Ícones -->
+        <div class="grid-container">
+            <a class="grid-item" href="{% url 'lista_usuarios' %}">
+                <i class="fas fa-user"></i>
+                <span>Usuários</span>
+            </a>
+            <a class="grid-item" href="{% url 'lista_salas' %}">
+                <i class="fas fa-door-open"></i>
+                <span>Salas</span>
+            </a>
+            <a class="grid-item" href="{% url 'lista_chaves' %}">
+                <i class="fas fa-key"></i>
+                <span>Chaves</span>
+            </a>
+            <a class="grid-item" href="{% url 'lista_autorizacoes' %}">
+                <i class="fas fa-check-circle"></i>
+                <span>Autorizações</span>
+            </a>
+            <a class="grid-item" href="{% url 'lista_posses' %}">
+                <i class="fas fa-user-tag"></i>
+                <span>Posses</span>
+            </a>
+            <a class="grid-item" href="{% url 'lista_status_geral' %}">
+                <i class="fas fa-info-circle"></i>
+                <span>Status Geral</span>
+            </a>
+        </div>
+    </div>
 </body>
 </html>

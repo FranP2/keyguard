@@ -305,23 +305,48 @@ Biblioteca de Ícones Font Awesome
             background-color: #7171b3;
         }
 
-        .add-container {
-            margin-top: 20px;
-        }
-
-        .add-container button {
-            width: 100%;
+        .new-posse-btn {
             background-color: var(--primary-color);
-            color: white;
-            font-size: 16px;
-            padding: 10px;
+            color: #fff;
             border: none;
             border-radius: var(--border-radius);
+            padding: 10px;
             cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
         }
 
-        .add-container button:hover {
+        .new-posse-btn:hover {
             background-color: #7171b3;
+        }
+
+        .new-posse-btn i {
+            font-size: 24px;
+        }
+
+        .history {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .history li {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            padding: 10px;
         }
     </style>
 </head>
@@ -332,39 +357,73 @@ Biblioteca de Ícones Font Awesome
             <i class="fas fa-arrow-left back-icon" onclick="voltarHome()"></i>
             <h2>Posse de Chaves</h2>
         </div>
+
+        <!-- Botão Nova Posse com ícone -->
+        <button class="new-posse-btn" onclick="novaPosse()">
+            <i class="fas fa-plus"></i>
+        </button>
+
         <div class="list-container" id="listaPosse">
             <!-- Lista de posse será gerada dinamicamente -->
         </div>
-        <div class="add-container">
-            <button onclick="adicionarPosse()">Cadastrar Nova Posse</button>
+
+        <!-- Histórico de transferências -->
+        <div class="history" id="historicoTransferencias">
+            <h3 onclick="toggleHistorico()">Histórico de Transferências</h3>
+            <ul style="display: none;">
+                <!-- Histórico de transferências será gerado dinamicamente -->
+            </ul>
         </div>
     </div>
+
     <script>
-        const posses = [
-            { nome: "Carlos", chave: "Laboratório", telefone: "(12) 34567-8910", motivo: "Aula prática" }
-        ]; // Dados iniciais
+        // Verifica se há dados salvos no localStorage, senão inicializa vazio
+        const posses = JSON.parse(localStorage.getItem("posses")) || [];
 
         function voltarHome() {
             window.location.href = "home.html";
-        }
-
-        function adicionarPosse() {
-            window.location.href = "cadastrPosse.html"; // Redireciona para a página de cadastro
         }
 
         function transferirPosse(index) {
             const novoNome = prompt("Digite o nome do novo responsável:");
             const novoTelefone = prompt("Digite o telefone do novo responsável:");
             if (novoNome && novoTelefone) {
+                // Adicionar no histórico
+                const novaTransferencia = {
+                    de: posses[index].nome,
+                    para: novoNome,
+                    telefone: novoTelefone,
+                    data: new Date().toLocaleString()
+                };
+                posses[index].historico.push(novaTransferencia);
+
+                // Atualizar a posse
                 posses[index].nome = novoNome;
                 posses[index].telefone = novoTelefone;
                 alert("Posse transferida com sucesso!");
+                salvarDados();
                 atualizarLista();
+                atualizarHistorico();
             }
         }
 
-        function solicitarTransferencia(index) {
-            alert(`Solicitação de transferência da chave "${posses[index].chave}" enviada com sucesso!`);
+        function consultarPosse(index) {
+            const posse = posses[index];
+            alert(`Detalhes da Posse:\n\nNome: ${posse.nome}\nChave: ${posse.chave}\nTelefone: ${posse.telefone}\nMotivo: ${posse.motivo}`);
+        }
+
+        function novaPosse() {
+            const nome = prompt("Digite o nome do responsável:");
+            const chave = prompt("Digite o nome da chave:");
+            const telefone = prompt("Digite o telefone do responsável:");
+            const motivo = prompt("Digite o motivo da posse:");
+
+            if (nome && chave && telefone && motivo) {
+                posses.push({ nome, chave, telefone, motivo, historico: [] });
+                alert("Nova posse cadastrada com sucesso!");
+                salvarDados();
+                atualizarLista();
+            }
         }
 
         function atualizarLista() {
@@ -383,14 +442,46 @@ Biblioteca de Ícones Font Awesome
                     </div>
                     <div class="actions">
                         <button onclick="transferirPosse(${index})">Transferir</button>
-                        <button onclick="solicitarTransferencia(${index})">Solicitar Transferência</button>
+                        <button onclick="consultarPosse(${index})">Consultar</button>
                     </div>
                 `;
                 lista.appendChild(item);
             });
         }
 
+        function toggleHistorico() {
+            const historicoLista = document.querySelector("#historicoTransferencias ul");
+            const isHidden = historicoLista.style.display === "none";
+            historicoLista.style.display = isHidden ? "block" : "none";
+        }
+
+        function atualizarHistorico() {
+            const historicoDiv = document.getElementById("historicoTransferencias");
+            const historicoLista = historicoDiv.querySelector("ul");
+            historicoLista.innerHTML = "";
+
+            posses.forEach((posse) => {
+                posse.historico.forEach((transferencia) => {
+                    const item = document.createElement("li");
+                    item.innerHTML = `
+                        <strong>De: ${transferencia.de}</strong><br>
+                        Para: ${transferencia.para}<br>
+                        Telefone: ${transferencia.telefone}<br>
+                        Data: ${transferencia.data}
+                    `;
+                    historicoLista.appendChild(item);
+                });
+            });
+        }
+
+        function salvarDados() {
+            // Salva as posses no localStorage
+            localStorage.setItem("posses", JSON.stringify(posses));
+        }
+
+        // Atualiza a lista e o histórico ao carregar a página
         atualizarLista();
+        atualizarHistorico();
     </script>
 </body>
 

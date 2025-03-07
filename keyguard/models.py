@@ -20,7 +20,7 @@ class UsuarioManager(BaseUserManager):
         return user
 
 # Modelo de Usuário
-class Usuario(AbstractBaseUser, PermissionsMixin):
+'''class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     nome = models.CharField(max_length=255)
     matricula = models.CharField(max_length=20, unique=True, blank=True, null=True)
@@ -33,6 +33,28 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome']
+
+    def __str__(self):
+        return self.email'''
+
+
+
+
+
+class Usuario(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    nome = models.CharField(max_length=255)
+    matricula = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    telefone = models.CharField(max_length=15, blank=True, null=True)
+    departamento = models.CharField(max_length=50, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nome']
+
+    objects = UsuarioManager()
 
     def __str__(self):
         return self.email

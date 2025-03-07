@@ -6,6 +6,7 @@
     <title>Página da Sala</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Todo o estilo original foi mantido */
         * {
             margin: 0;
             padding: 0;
@@ -78,13 +79,15 @@
             color: #2e2e71;
         }
 
-        .buttons-container {
+        .buttons-container,
+        .actions-container {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
 
-        .buttons-container button {
+        .buttons-container button,
+        .actions-container button {
             width: 32%;
             padding: 10px;
             border: none;
@@ -92,6 +95,16 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
+        }
+
+        .edit-btn,
+        .save-btn,
+        .cancel-btn,
+        .add-btn,
+        .remove-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
         }
 
         .edit-btn {
@@ -113,11 +126,33 @@
             background-color: #4CAF50;
             color: white;
         }
+
+        .cancel-btn {
+            background-color: #888;
+            color: white;
+        }
+
+        .actions-container button {
+            padding: 10px;
+            margin-right: 10px;
+            width: auto;
+            font-size: 14px;
+        }
+
+        .add-btn {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .remove-btn {
+            background-color: #f44336;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="sala">
-        <div class="arrow-back" onclick="voltarListaSalas()">
+        <div class="arrow-back" onclick="voltarHome()">
             <i class="fas fa-arrow-left"></i>
         </div>
 
@@ -126,73 +161,75 @@
         </div>
 
         <div class="form-container">
-            <div class="form-group">
-                <label for="nome-sala">Nome da Sala</label>
-                <input type="text" id="nome-sala" placeholder="Digite o nome da sala">
-            </div>
+            <!-- Formulário configurado corretamente para usar POST -->
+            <form action="{% url 'nova_sala' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="nome-sala">Nome da Sala</label>
+                    <input type="text" id="nome-sala" name="nome" placeholder="Digite o nome da sala" required>
+                </div>
 
-            <div class="form-group">
-                <label for="tipo-sala">Tipo de Sala</label>
-                <input list="tipos-salas" id="tipo-sala" placeholder="Escolha ou digite o tipo de sala">
-                <datalist id="tipos-salas">
-                    <option value="Aula">
-                    <option value="Reunião">
-                    <option value="Conferência">
-                </datalist>
-            </div>
+                <div class="form-group">
+                    <label for="tipo-sala">Tipo de Sala</label>
+                    <input list="tipos-salas" id="tipo-sala" name="tipo" placeholder="Escolha ou digite o tipo de sala" required>
+                    <datalist id="tipos-salas">
+                        <option value="Aula">
+                        <option value="Reunião">
+                        <option value="Conferência">
+                    </datalist>
+                </div>
 
-            <div class="form-group">
-                <label for="numero-sala">Número da Sala</label>
-                <input type="text" id="numero-sala" placeholder="Digite o número da sala">
-            </div>
+                <div class="form-group">
+                    <label for="numero-sala">Número da Sala</label>
+                    <input type="text" id="numero-sala" name="numero" placeholder="Digite o número da sala" required>
+                </div>
 
-            <div class="buttons-container">
-                <button class="save-btn" onclick="salvarSala()">
-                    <i class="fas fa-save"></i> Salvar
-                </button>
-                <button class="edit-btn" onclick="editarSala()">
-                    <i class="fas fa-pencil-alt"></i> Editar
-                </button>
-                <button class="delete-btn" onclick="excluirSala()">
-                    <i class="fas fa-trash-alt"></i> Excluir
-                </button>
-            </div>
+                <div class="form-group">
+                    <label for="codigo-chave">Código da Chave</label>
+                    <input type="text" id="codigo-chave" name="codigo_chave" placeholder="Digite o código da chave" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="copias-chave">Cópias da Chave</label>
+                    <input type="number" id="copias-chave" name="copias_chave" placeholder="Digite o número de cópias" required>
+                </div>
+
+                <!-- Botões para adicionar e excluir chave -->
+                <div class="actions-container">
+                    <button type="button" class="add-btn" onclick="adicionarChave()">Adicionar Chave</button>
+                    <button type="button" class="remove-btn" onclick="removerChave()">Excluir Chave</button>
+                </div>
+
+                <!-- Botões de salvar e cancelar -->
+                <div class="buttons-container">
+                    <button type="submit" class="save-btn">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <button type="button" class="cancel-btn" onclick="cancelarCadastro()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
-        let salas = []; // Array para armazenar as salas cadastradas
-
-        function voltarListaSalas() {
-            window.location.href = "lista_salas.html"; // Redireciona para a página de lista de salas
+        function voltarHome() {
+            window.location.href = "{% url 'home' %}"; // Redireciona para a página inicial do Django
         }
 
-        function salvarSala() {
-            const nome = document.getElementById("nome-sala").value;
-            const tipo = document.getElementById("tipo-sala").value;
-            const numero = document.getElementById("numero-sala").value;
-
-            if (nome && tipo && numero) {
-                salas.push({ nome, tipo, numero });
-                alert("Sala cadastrada com sucesso!");
-                limparFormulario(); // Limpa o formulário após salvar
-            } else {
-                alert("Todos os campos devem ser preenchidos!");
+        function cancelarCadastro() {
+            if (confirm("Tem certeza que deseja cancelar? Todos os dados serão perdidos.")) {
+                document.querySelector('form').reset(); // Limpa o formulário
             }
         }
 
-        function editarSala() {
-            alert("Função de editar ainda não implementada.");
+        function adicionarChave() {
+            alert("Função para adicionar chave ainda não implementada.");
         }
 
-        function excluirSala() {
-            alert("Função de excluir ainda não implementada.");
-        }
-
-        function limparFormulario() {
-            document.getElementById("nome-sala").value = "";
-            document.getElementById("tipo-sala").value = "";
-            document.getElementById("numero-sala").value = "";
+        function removerChave() {
+            alert("Função para remover chave ainda não implementada.");
         }
     </script>
 </body>

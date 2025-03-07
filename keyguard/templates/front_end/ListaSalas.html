@@ -76,11 +76,17 @@
         <h2>Lista de Salas</h2>
         <div class="list-container" id="listaSalas">
             <h3>Salas Cadastradas:</h3>
-            <ul id="salaLista"></ul>
+            <!-- A lista de salas será renderizada aqui -->
+            <ul id="salaLista">
+                {% for sala in salas %}
+                    <li>Sala {{ forloop.counter }}: Nome - {{ sala.nome }}, Nº - {{ sala.numero }}, Tipo - {{ sala.tipo }}</li>
+                {% empty %}
+                    <li>Não há salas cadastradas.</li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="buttons-container">
-            <!-- Alteração para chamar a função abrirFormulario e redirecionar -->
-            <button onclick="abrirFormulario()">
+            <button onclick="cadastrarSala()">
                 <i class="fas fa-plus-circle"></i>
                 <span>Cadastrar</span>
             </button>
@@ -102,49 +108,16 @@
             window.location.href = "home.html"; // Redireciona para a página inicial
         }
 
-        function abrirFormulario() {
-            window.location.href = "sala.html";  // Redireciona para a página de sala (cadastro)
-        }
-
-        function atualizarLista() {
-            const lista = document.getElementById("salaLista");
-            lista.innerHTML = ""; // Limpa a lista antes de atualizá-la
-
-            salas.forEach((sala, index) => {
-                const item = document.createElement("li");
-                item.innerHTML = `Sala ${index + 1}: Nome - ${sala.nome}, Nº - ${sala.numero}, Tipo - ${sala.tipo}`;
-                lista.appendChild(item);
-            });
+        function cadastrarSala() {
+            window.location.href = "{% url 'nova_sala' %}"; // Redireciona para a página de cadastro
         }
 
         function editarPrimeiraSala() {
-            if (salas.length === 0) {
-                alert("Não há salas para editar!");
-                return;
-            }
-
-            const nome = prompt("Novo nome da sala:", salas[0].nome);
-            const numero = prompt("Novo número da sala:", salas[0].numero);
-            const tipo = prompt("Novo tipo da sala:", salas[0].tipo);
-
-            if (nome && numero && tipo) {
-                salas[0] = { nome, numero, tipo };
-                alert("Sala editada com sucesso!");
-                atualizarLista(); // Atualiza a lista exibida
-            } else {
-                alert("Todos os campos devem ser preenchidos!");
-            }
+            alert("Função de editar a sala a ser implementada.");
         }
 
         function excluirPrimeiraSala() {
-            if (salas.length === 0) {
-                alert("Não há salas para excluir!");
-                return;
-            }
-
-            salas.shift(); // Remove a primeira sala do array
-            alert("Sala excluída com sucesso!");
-            atualizarLista(); // Atualiza a lista exibida
+            alert("Função de excluir a sala a ser implementada.");
         }
     </script>
 </body>

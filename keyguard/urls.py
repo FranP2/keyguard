@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('home/', views.home, name='home'),  # Rota direta para o template base
+    
     # Rotas para Usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
     path('usuarios/<int:pk>/', views.detalhes_usuario, name='detalhes_usuario'),
@@ -59,8 +59,12 @@ urlpatterns = [
     path('registro/', views.registro_usuario, name='registro_usuario'),  # Tela de Registro
     path('logout/', views.logout_usuario, name='logout_usuario'),  # Logout
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),  # Página protegida (exemplo)
-    
+    path('home/', views.home, name='home'),  # Rota direta para o template base
+    path('inicio/', views.inicio, name='inicio'),  # Rota para a tela inicial
 ]
+
+
+
 
 
 

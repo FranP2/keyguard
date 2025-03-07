@@ -118,86 +118,38 @@
         <div class="header">
             <h2>Lista de Autorizações</h2>
         </div>
-        <div class="list-container" id="listaAutorizacoes">
-            <!-- Lista de autorizações será gerada dinamicamente -->
+
+        <!-- Listando as autorizações -->
+        <div class="list-container">
+            {% for autorizacao in autorizacoes %}
+            <div class="list-item">
+                <div class="details">
+                    <strong>{{ autorizacao.nome }}</strong><br>
+                    <small>Matrícula: {{ autorizacao.matricula }}</small><br>
+                    <small>Sala: {{ autorizacao.sala }}</small><br>
+                    <small>Motivo: {{ autorizacao.motivo }}</small><br>
+                    <small>Data: {{ autorizacao.data }}</small>
+                </div>
+                <div class="actions">
+                    <a href="{% url 'detalhes_autorizacao' autorizacao.id %}">
+                        <button>Detalhes de autorização</button>
+                    </a>
+                    <a href="{% url 'solicitar_posse' autorizacao.id %}">
+                        <button>Solicitar posse</button>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p>Nenhuma autorização encontrada.</p>
+            {% endfor %}
         </div>
+
         <div class="add-container">
-            <button onclick="adicionarAutorizacao()">Cadastrar Nova Autorização</button>
+            <a href="{% url 'nova_autorizacao' %}">
+                <button>Cadastrar nova autorização</button>
+            </a>
         </div>
     </div>
-    <script>
-        const autorizacoes = [
-            {
-                nome: "João Silva",
-                matricula: "123456",
-                sala: "Sala 101",
-                motivo: "Reunião",
-                data: "2023-10-01"
-            }
-        ]; // Dados iniciais
-
-        function adicionarAutorizacao() {
-            const nome = prompt("Digite o nome:");
-            const matricula = prompt("Digite a matrícula:");
-            const sala = prompt("Digite o número da sala:");
-            const motivo = prompt("Digite o motivo:");
-            const data = prompt("Digite a data (YYYY-MM-DD):");
-
-            if (nome && matricula && sala && motivo && data) {
-                autorizacoes.push({ nome, matricula, sala, motivo, data });
-                atualizarLista();
-                alert("Nova autorização cadastrada com sucesso!");
-            } else {
-                alert("Todos os campos devem ser preenchidos!");
-            }
-        }
-
-        function consultarAutorizacao(index) {
-            const autorizacao = autorizacoes[index];
-            alert(`
-                Detalhes da Autorização:
-                Nome: ${autorizacao.nome}
-                Matrícula: ${autorizacao.matricula}
-                Sala: ${autorizacao.sala}
-                Motivo: ${autorizacao.motivo}
-                Data: ${autorizacao.data}
-            `);
-        }
-
-        function proximaAutorizacao(index) {
-            if (index + 1 < autorizacoes.length) {
-                consultarAutorizacao(index + 1);
-            } else {
-                alert("Não há mais autorizações.");
-            }
-        }
-
-        function atualizarLista() {
-            const lista = document.getElementById("listaAutorizacoes");
-            lista.innerHTML = "";
-
-            autorizacoes.forEach((autorizacao, index) => {
-                const item = document.createElement("div");
-                item.className = "list-item";
-                item.innerHTML = `
-                    <div class="details">
-                        <strong>${autorizacao.nome}</strong><br>
-                        <small>Matrícula: ${autorizacao.matricula}</small><br>
-                        <small>Sala: ${autorizacao.sala}</small><br>
-                        <small>Motivo: ${autorizacao.motivo}</small><br>
-                        <small>Data: ${autorizacao.data}</small>
-                    </div>
-                    <div class="actions">
-                        <button onclick="consultarAutorizacao(${index})">Detalhar</button>
-                        <button onclick="proximaAutorizacao(${index})">Próximo</button>
-                    </div>
-                `;
-                lista.appendChild(item);
-            });
-        }
-
-        atualizarLista();
-    </script>
 </body>
 
 </html>

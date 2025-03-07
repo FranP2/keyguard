@@ -61,7 +61,7 @@
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* Ajuste aqui o espaçamento inferior */
             font-size: 16px;
             font-weight: bold;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -77,6 +77,8 @@
             color: #e0e0e0; /* Cor do link "cadastre-se" */
             font-weight: bold;
             font-size: 14px;
+            display: block; /* Faz o link ocupar toda a linha */
+            margin-top: 10px; /* Espaço acima do link */
         }
 
         .signup-link:hover {
@@ -106,17 +108,6 @@
             }
         }
     </style>
-    <script>
-        // Função para redirecionar para a página de login
-        function redirectToLogin() {
-            window.location.href = 'login.html'; // Substitua pelo caminho do arquivo de login
-        }
-
-        // Função para redirecionar para a página de cadastro
-        function redirectToSignup() {
-            window.location.href = 'cadastro.html'; // Substitua pelo caminho do arquivo de cadastro
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -124,10 +115,13 @@
         <i class="fas fa-key key-icon"></i>
         <h2 class="title">Key Guard</h2>
         <p class="subtitle">Proteja o que é importante</p>
-        <!-- Botão de login com interação JavaScript -->
-        <button class="login-button" onclick="redirectToLogin()">Login</button>
-        <!-- Link para página de cadastro com interação JavaScript -->
-        <p>Não tem uma conta? <a href="#" class="signup-link" onclick="redirectToSignup()">Cadastre-se</a></p>
+        <!-- Botão de login (não é mais link, é um botão real) -->
+        <form action="{% url 'login_usuario' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        <!-- Link para página de cadastro com interação -->
+        <p>Não tem uma conta? <a href="{% url 'registro_usuario' %}" class="signup-link">Cadastre-se</a></p>
     </div>
 </body>
 </html>

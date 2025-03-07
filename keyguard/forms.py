@@ -2,10 +2,34 @@ from django import forms
 from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral
 
 # Formulário para o modelo Usuario
-class UsuarioForm(forms.ModelForm):
+'''class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['nome', 'matricula', 'email', 'telefone', 'departamento', 'is_staff', 'is_superuser']
+        fields = ['nome', 'matricula', 'email', 'telefone', 'departamento', 'is_staff', 'is_superuser']'''
+
+from django import forms
+from .models import Usuario
+
+class UsuarioForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = Usuario
+        fields = ['nome', 'matricula', 'email', 'telefone', 'departamento', 'is_staff', 'is_superuser', 'password']
+        widgets = {
+            'is_staff': forms.CheckboxInput(),
+            'is_superuser': forms.CheckboxInput(),
+        }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if self.cleaned_data.get('password'):
+            user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
+
+
 
 # Formulário para o modelo Sala
 class SalaForm(forms.ModelForm):
