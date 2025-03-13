@@ -29,7 +29,7 @@ urlpatterns = [
     path('autorizacoes/<int:pk>/', views.detalhes_autorizacao, name='detalhes_autorizacao'),
     path('autorizacoes/nova/', views.nova_autorizacao, name='nova_autorizacao'),
     path('autorizacoes/<int:pk>/editar/', views.editar_autorizacao, name='editar_autorizacao'),
-    path('autorizacoes/<int:pk>/deletar/', views.deletar_autorizacao, name='deletar_autorizacao'),
+    path('excluir_autorizacao/<int:id>/', views.excluir_autorizacao, name='excluir_autorizacao'),
 
     # Rotas para Posses
     path('posses/', views.lista_posses, name='lista_posses'),
@@ -37,6 +37,7 @@ urlpatterns = [
     path('posses/nova/', views.nova_posse, name='nova_posse'),
     path('posses/<int:pk>/editar/', views.editar_posse, name='editar_posse'),
     path('posses/<int:pk>/deletar/', views.deletar_posse, name='deletar_posse'),
+     path('posses/transferir/<int:posse_id>/', views.transferir_posse, name='transferir_posse'),
 
     # Rotas para Status Geral
     path('status/', views.lista_status_geral, name='lista_status_geral'),
@@ -45,6 +46,11 @@ urlpatterns = [
     path('status/<int:pk>/editar/', views.editar_status_geral, name='editar_status_geral'),
     path('status/<int:pk>/deletar/', views.deletar_status_geral, name='deletar_status_geral'),
     path('nova_solicitacao/', views.nova_solicitacao, name='nova_solicitacao'),
+     path('obter_lista/', views.obter_lista, name='obter_lista'),
+    # Outras rotas existentes...
+    path('solicitar_posse/', views.solicitar_posse, name='solicitar_posse'),
+
+
 
     # Rotas de Registro e Login
     #path('registro/', views.registro_usuario, name='registro_usuario'),

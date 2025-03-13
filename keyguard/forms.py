@@ -1,5 +1,9 @@
 from django import forms
-from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral
+from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral,SolicitacaoPosseChave
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
+
+
 
 # Formulário para o modelo Usuario
 '''class UsuarioForm(forms.ModelForm):
@@ -7,7 +11,7 @@ from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral
         model = Usuario
         fields = ['nome', 'matricula', 'email', 'telefone', 'departamento', 'is_staff', 'is_superuser']'''
 
-from django import forms
+'''from django import forms
 from .models import Usuario
 
 class UsuarioForm(forms.ModelForm):
@@ -27,7 +31,47 @@ class UsuarioForm(forms.ModelForm):
             user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
+        return user'''
+
+
+class UsuarioForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(label="Confirme a Senha", widget=forms.PasswordInput())
+
+    class Meta:
+        model = Usuario
+        fields = [
+            'nome', 'matricula', 'email', 'telefone', 
+            'departamento', 'is_staff', 'is_superuser', 'password'
+        ]
+        widgets = {
+            'is_staff': forms.CheckboxInput(),
+            'is_superuser': forms.CheckboxInput(),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get("password") != cleaned_data.get("password2"):
+            raise forms.ValidationError("As senhas não coincidem.")
+        return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        
+        # Define is_staff baseado na lógica do email ou outro critério
+        if user.email.endswith('@admin.com'):  # Exemplo: para marcar empresários
+            user.is_staff = True
+        else:
+            user.is_staff = False  # Clientes padrão
+        
+        if self.cleaned_data.get('password'):
+            user.set_password(self.cleaned_data['password'])
+        
+        if commit:
+            user.save()
         return user
+
+
 
 
 
@@ -54,6 +98,10 @@ class PosseForm(forms.ModelForm):
     class Meta:
         model = Posse
         fields = '__all__'
+        widgets = {
+            'usuario': forms.HiddenInput(),
+        }
+
 
 # Formulário para o modelo StatusGeral
 class StatusGeralForm(forms.ModelForm):
@@ -62,8 +110,7 @@ class StatusGeralForm(forms.ModelForm):
         fields = '__all__'
 
 # Formulário de Registro de Usuário
-from django import forms
-from .models import Usuario
+
 
 class UsuarioForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Senha")
@@ -90,9 +137,6 @@ class UsuarioForm(forms.ModelForm):
         return user
 
 
-from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.models import User
 
 # Formulário de Login
 class LoginForm(AuthenticationForm):
@@ -104,10 +148,14 @@ class RegistroForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']  # Campos do registro
 
-from django import forms
-from .models import SolicitacaoPosseChave
 
 class SolicitacaoPosseChaveForm(forms.ModelForm):
     class Meta:
         model = SolicitacaoPosseChave
         fields = ['nome', 'matricula', 'sala', 'motivo_solicitacao', 'email', 'telefone']
+
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['nome', 'matricula', 'email', 'telefone', 'departamento']

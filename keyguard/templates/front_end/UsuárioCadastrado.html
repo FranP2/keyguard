@@ -78,6 +78,11 @@
             background-color: #f9f9fc;
         }
 
+        .error-messages {
+            color: red;
+            margin-bottom: 15px;
+        }
+
         .usuario-botoes {
             display: flex;
             justify-content: space-between;
@@ -138,22 +143,43 @@
         <!-- Formulário de cadastro de usuário -->
         <form id="usuarioForm" method="POST" action="{% url 'novo_usuario' %}">
             {% csrf_token %}
-            <div class="usuario-form">
-                <div class="input-group">
-                    <label for="id_username">Nome de Usuário</label>
-                    <input type="text" name="username" id="id_username" required>
+
+            <!-- Exibe mensagens de erro -->
+            {% if form.errors %}
+                <div class="error-messages" id="errorMessages">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            <li><strong>{{ field }}:</strong> {{ errors|join:", " }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
+            {% endif %}
+
+            <div class="usuario-form">
+                <!-- Campo Nome -->
+                <div class="input-group">
+                    <label for="id_nome">Nome</label>
+                    <input type="text" name="nome" id="id_nome" required>
+                </div>
+                <!-- Campo Matrícula -->
+                <div class="input-group">
+                    <label for="id_matricula">Matrícula</label>
+                    <input type="text" name="matricula" id="id_matricula">
+                </div>
+                <!-- Campo E-mail -->
                 <div class="input-group">
                     <label for="id_email">E-mail</label>
                     <input type="email" name="email" id="id_email" required>
                 </div>
+                <!-- Campo Telefone -->
                 <div class="input-group">
-                    <label for="id_password1">Senha</label>
-                    <input type="password" name="password1" id="id_password1" required>
+                    <label for="id_telefone">Telefone</label>
+                    <input type="text" name="telefone" id="id_telefone">
                 </div>
+                <!-- Campo Departamento -->
                 <div class="input-group">
-                    <label for="id_password2">Confirmar Senha</label>
-                    <input type="password" name="password2" id="id_password2" required>
+                    <label for="id_departamento">Departamento</label>
+                    <input type="text" name="departamento" id="id_departamento">
                 </div>
             </div>
 
@@ -164,8 +190,8 @@
                 <button type="reset" class="btn">
                     <i class="fas fa-times"></i> Cancelar
                 </button>
-                <!-- Botão de voltar com ícone de seta -->
-                <button type="button" onclick="window.history.back();" class="btn">
+                <!-- Botão de voltar para a lista de usuários -->
+                <button type="button" onclick="window.location.href='{% url 'lista_usuarios' %}';" class="btn">
                     <i class="fas fa-arrow-left"></i> Voltar
                 </button>
             </div>
@@ -173,26 +199,23 @@
     </div>
 
     <script>
-        document.getElementById('usuarioForm').addEventListener('submit', function(event) {
-            event.preventDefault();  // Previne o comportamento padrão do formulário
+        // Remove a mensagem de erro após 3 segundos
+        window.addEventListener('DOMContentLoaded', function () {
+            const errorMessages = document.getElementById('errorMessages');
+            if (errorMessages) {
+                setTimeout(() => {
+                    errorMessages.style.transition = 'opacity 0.3s'; // Transição rápida
+                    errorMessages.style.opacity = '0';
+                    setTimeout(() => {
+                        errorMessages.remove(); // Remove do DOM após a transição
+                    }, 300); // Aguarda a transição antes de remover
+                }, 3000); // Tempo antes de desaparecer: 3 segundos
+            }
+        });
 
-            let form = new FormData(this);  // Cria um objeto FormData com os dados do formulário
-
-            // Envia o formulário via fetch
-            fetch("{% url 'novo_usuario' %}", {
-                method: 'POST',
-                body: form,
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = "{% url 'lista_usuarios' %}";  // Redireciona para a lista de usuários
-                } else {
-                    alert("Erro ao salvar o usuário. Tente novamente.");
-                }
-            })
-            .catch(error => {
-                console.error("Erro na requisição:", error);
-            });
+        // Reinicia o formulário ao clicar em "Cancelar"
+        document.querySelector('.btn[type="reset"]').addEventListener('click', function() {
+            document.getElementById('usuarioForm').reset();
         });
     </script>
 </body>

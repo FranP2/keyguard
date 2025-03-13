@@ -1,8 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth import login, authenticate, logout
-from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral
-from .forms import UsuarioForm, SalaForm, ChaveForm, AutorizacaoForm, PosseForm, StatusGeralForm, RegistroForm, LoginForm
+from .models import Usuario, Sala, Chave, Autorizacao, Posse, StatusGeral, SolicitacaoPosseChave
+from .forms import UsuarioForm, SalaForm, ChaveForm, AutorizacaoForm, PosseForm, StatusGeralForm, RegistroForm, LoginForm, SolicitacaoPosseChaveForm,UserCreationForm,AuthenticationForm,ClienteForm
+from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
+import json
 
 def home(request):
     # Renderiza o template base diretamente sem qualquer herança
@@ -14,43 +20,32 @@ def inicio(request):
 # Views para Usuário
 def lista_usuarios(request):
     query = request.GET.get('q', '')  # Busca dinâmica
-    usuarios = Usuario.objects.filter(nome__icontains=query) if query else Usuario.objects.all()
+    # Filtra apenas os clientes (is_staff=False)
+    usuarios = Usuario.objects.filter(is_staff=False, nome__icontains=query) if query else Usuario.objects.filter(is_staff=False)
     paginator = Paginator(usuarios, 10)  # Paginação
     page = request.GET.get('page')
     usuarios = paginator.get_page(page)
     return render(request, 'listausuario.html', {'usuarios': usuarios, 'query': query})
 
-
-
-
 def detalhes_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
     return render(request, 'detalhes_usuario.html', {'usuario': usuario})
 
-from django.shortcuts import render, redirect
-from .forms import UsuarioForm
-
-from django.shortcuts import render, redirect
-from .forms import UsuarioForm  # Certifique-se de que o form está importado corretamente
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import UsuarioForm
-
 def novo_usuario(request):
     if request.method == "POST":
-        form = UsuarioForm(request.POST)
+        form = ClienteForm(request.POST)
         if form.is_valid():
-            form.save()  # Salva o formulário, criando o novo usuário
+            usuario = form.save(commit=False)  # Evita salvamento automático
+            # Marca o usuário como cliente
+            usuario.is_staff = False
+            usuario.is_superuser = False
+            usuario.save()  # Agora salva no banco
             messages.success(request, "Usuário cadastrado com sucesso!")
-            return redirect('lista_usuarios')  # Redireciona para a lista de usuários após o cadastro
+            return redirect('lista_usuarios')  # Redireciona para a lista de usuários
     else:
-        form = UsuarioForm()  # Cria um formulário vazio quando a página é carregada inicialmente
+        form = UsuarioForm()
 
-    # Renderiza o template correto para o cadastro de usuário
     return render(request, 'UsuárioCadastrado.html', {'form': form})
-
-
 
 def editar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
@@ -63,19 +58,26 @@ def editar_usuario(request, pk):
         form = UsuarioForm(instance=usuario)
     return render(request, 'keyguard/editar_usuario.html', {'form': form})
 
+
+
+@csrf_exempt
 def deletar_usuario(request, pk):
-    usuario = get_object_or_404(Usuario, pk=pk)
-    usuario.delete()
-    return redirect('lista_usuarios')
+    if request.method == 'DELETE':
+        try:
+            usuario = Usuario.objects.get(pk=pk)
+            usuario.delete()
+            return JsonResponse({'message': 'Usuário excluído com sucesso!'})
+        except Usuario.DoesNotExist:
+            return JsonResponse({'error': 'Usuário não encontrado.'}, status=404)
+    return JsonResponse({'error': 'Método não permitido.'}, status=405)
 
 
-# ============================
 # Views para Salas
-# ============================
+
 def lista_salas(request):
     query = request.GET.get('q', '')  # Busca dinâmica
-    salas = Sala.objects.filter(nome__icontains=query) if query else Sala.objects.all()
-    paginator = Paginator(salas, 10)  # Paginação
+    salas = Sala.objects.filter(nome__icontains=query).order_by('-id') if query else Sala.objects.all().order_by('-id')  # Ordenação por ID decrescente
+    paginator = Paginator(salas, 10000)  # Paginação
     page = request.GET.get('page')
     salas = paginator.get_page(page)
     return render(request, 'ListaSalas.html', {'salas': salas, 'query': query})
@@ -94,33 +96,39 @@ def nova_sala(request):
         form = SalaForm()
 
     return render(request, 'sala.html', {'form': form})
+
+
+@csrf_exempt
 def editar_sala(request, pk):
-    sala = get_object_or_404(Sala, pk=pk)
-    if request.method == "POST":
-        form = SalaForm(request.POST, instance=sala)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_salas')
-    else:
-        form = SalaForm(instance=sala)
-    return render(request, 'sala.html', {'form': form})
+    if request.method == 'PUT':
+        sala = Sala.objects.get(pk=pk)
+        data = json.loads(request.body)
+        sala.nome = data.get('nome', sala.nome)
+        sala.save()
+        return JsonResponse({'status': 'success', 'message': 'Sala editada com sucesso!'})
+    return JsonResponse({'status': 'error', 'message': 'Método não permitido.'}, status=405)
 
+@csrf_exempt
 def deletar_sala(request, pk):
-    sala = get_object_or_404(Sala, pk=pk)
-    sala.delete()
-    return redirect('lista_salas')
+    if request.method == 'DELETE':
+        sala = Sala.objects.get(pk=pk)
+        sala.delete()
+        return JsonResponse({'status': 'success', 'message': 'Sala apagada com sucesso!'})
+    return JsonResponse({'status': 'error', 'message': 'Método não permitido.'}, status=405)
 
 
-# ============================
+
 # Views para Chaves
-# ============================
+
 def lista_chaves(request):
     query = request.GET.get('q', '')  # Busca dinâmica
-    chaves = Chave.objects.filter(codigo__icontains=query) if query else Chave.objects.all()
+    # Ordenar pelo campo de criação, mais antigas no final
+    chaves = Chave.objects.filter(codigo__icontains=query).order_by('id') if query else Chave.objects.all().order_by('id')
     paginator = Paginator(chaves, 10)  # Paginação
     page = request.GET.get('page')
     chaves = paginator.get_page(page)
     return render(request, 'listachaves.html', {'chaves': chaves, 'query': query})
+
 
 def detalhes_chave(request, pk):
     chave = get_object_or_404(Chave, pk=pk)
@@ -152,14 +160,13 @@ def deletar_chave(request, pk):
     chave.delete()
     return redirect('lista_chaves')
 
-
-# ============================
 # Views para Autorizações
-# ============================
+
 def lista_autorizacoes(request):
     query = request.GET.get('q', '')  # Busca dinâmica
     autorizacoes = Autorizacao.objects.filter(nome__icontains=query) if query else Autorizacao.objects.all()
-    paginator = Paginator(autorizacoes, 10)
+    autorizacoes = autorizacoes.order_by('-id')  # Ordenação para consistência
+    paginator = Paginator(autorizacoes, 10000)
     page = request.GET.get('page')
     autorizacoes = paginator.get_page(page)
     return render(request, 'listaAutorizacao.html', {'autorizacoes': autorizacoes, 'query': query})
@@ -168,7 +175,7 @@ def detalhes_autorizacao(request, pk):
     autorizacao = get_object_or_404(Autorizacao, pk=pk)
     return render(request, 'detalhes_autorizacao.html', {'autorizacao': autorizacao})
 
-def nova_autorizacao(request):
+'''def nova_autorizacao(request):
     if request.method == "POST":
         form = AutorizacaoForm(request.POST)
         if form.is_valid():
@@ -176,7 +183,20 @@ def nova_autorizacao(request):
             return redirect('lista_autorizacoes')
     else:
         form = AutorizacaoForm()
-    return render(request, 'Formulárioautorizacao.html', {'form': form})
+    return render(request, 'cadastroautorizacao.html', {'form': form})'''
+
+
+def nova_autorizacao(request):
+    if request.method == "POST":
+        form = AutorizacaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_autorizacoes')  # Redireciona para a lista
+    else:
+        form = AutorizacaoForm()
+    
+    salas = Sala.objects.all()  # Busca todas as salas cadastradas
+    return render(request, 'cadastroautorizacao.html', {'form': form, 'salas': salas})
 
 def editar_autorizacao(request, pk):
     autorizacao = get_object_or_404(Autorizacao, pk=pk)
@@ -189,15 +209,20 @@ def editar_autorizacao(request, pk):
         form = AutorizacaoForm(instance=autorizacao)
     return render(request, 'editar_autorizacao.html', {'form': form})
 
-def deletar_autorizacao(request, pk):
-    autorizacao = get_object_or_404(Autorizacao, pk=pk)
-    autorizacao.delete()
-    return redirect('lista_autorizacoes')
 
 
-# ============================
-# Views para Posses
-# ============================
+def excluir_autorizacao(request, id):
+    if request.method == 'POST':  # Aceitamos apenas requisições POST para exclusão
+        try:
+            autorizacao = Autorizacao.objects.get(id=id)
+            autorizacao.delete()
+            return JsonResponse({'status': 'success', 'message': 'Autorização excluída com sucesso!'})
+        except Autorizacao.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Autorização não encontrada!'})
+    return JsonResponse({'status': 'error', 'message': 'Requisição inválida!'})
+
+
+
 def lista_posses(request):
     query = request.GET.get('q', '')
     posses = Posse.objects.filter(usuario__nome__icontains=query) if query else Posse.objects.all()
@@ -206,19 +231,54 @@ def lista_posses(request):
     posses = paginator.get_page(page)
     return render(request, 'possechaves.html', {'posses': posses, 'query': query})
 
+@login_required
+def nova_posse(request):
+    message = ""
+    if request.method == "POST":
+        # Obtenha os valores dos campos enviados
+        nome = request.POST.get('nome', '').strip()      # Se não for utilizado porque usamos request.user, apenas pode ser ignorado.
+        chave_valor = request.POST.get('chave', '').strip()
+        telefone = request.POST.get('telefone', '').strip()
+        motivo = request.POST.get('motivo', '').strip()
+        
+        # Verifica se todos os campos foram preenchidos
+        if not (nome and chave_valor and telefone and motivo):
+            message = "Todos os campos devem ser preenchidos."
+            return render(request, 'cadastrposse.html', {'message': message})
+        
+        # Se "chave" for uma ForeignKey, obtenha a instância correspondente.
+        try:
+            # Supondo que no modelo Chave o campo que identifica seja 'codigo'
+            chave_obj = Chave.objects.get(codigo=chave_valor)
+        except Chave.DoesNotExist:
+            message = "Chave não encontrada."
+            return render(request, 'cadastrposse.html', {'message': message})
+        
+        # Crie o objeto Posse. O campo 'usuario' é atribuído como o usuário logado.
+        try:
+            posse = Posse(
+                usuario=request.user,
+                chave=chave_obj,
+                telefone=telefone,
+                motivo=motivo
+            )
+            posse.save()
+            message = "Posse cadastrada com sucesso!"
+        except Exception as e:
+            message = f"Erro ao salvar: {str(e)}"
+            return render(request, 'cadastrposse.html', {'message': message})
+        
+        # Ao salvar, em vez de redirecionar, re-renderizamos o formulário e exibimos a mensagem
+        return render(request, 'cadastrposse.html', {'message': message})
+    else:
+        return render(request, 'cadastrposse.html')
+
+
+
+
 def detalhes_posse(request, pk):
     posse = get_object_or_404(Posse, pk=pk)
     return render(request, 'keyguard/detalhes_posse.html', {'posse': posse})
-
-def nova_posse(request):
-    if request.method == "POST":
-        form = PosseForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_posses')
-    else:
-        form = PosseForm()
-    return render(request, 'keyguard/editar_posse.html', {'form': form})
 
 def editar_posse(request, pk):
     posse = get_object_or_404(Posse, pk=pk)
@@ -237,16 +297,27 @@ def deletar_posse(request, pk):
     return redirect('lista_posses')
 
 
-# ============================
+def transferir_posse(request, posse_id):
+    posse = get_object_or_404(Posse, id=posse_id)
+    if request.method == 'POST':
+        form = PosseForm(request.POST, instance=posse)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_posses')
+    else:
+        form = PosseForm(instance=posse)
+    return render(request, 'transferir_posse.html', {'form': form})
+
+
 # Views para Status Geral
-# ============================
+
 def lista_status_geral(request):
     query = request.GET.get('q', '')  # Busca dinâmica
     status_geral = StatusGeral.objects.filter(autorizacao__nome__icontains=query) if query else StatusGeral.objects.all()
     paginator = Paginator(status_geral, 10)  # Paginação com 10 itens por página
     page = request.GET.get('page')
     status_geral = paginator.get_page(page)
-    return render(request, 'keyguard/lista_status_geral.html', {'status_geral': status_geral, 'query': query})
+    return render(request, 'statusgeral.html', {'status_geral': status_geral, 'query': query})
 
 def detalhes_status_geral(request, pk):
     status = get_object_or_404(StatusGeral, pk=pk)
@@ -278,20 +349,7 @@ def deletar_status_geral(request, pk):
     status.delete()
     return redirect('lista_status_geral')
 
-
-# ============================
 # Views de Registro e Login
-# ============================
-from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
-from django.contrib import messages
-
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
-from django.contrib import messages
-
 def login_usuario(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)  # Formulário de autenticação padrão do Django
@@ -305,37 +363,25 @@ def login_usuario(request):
         form = AuthenticationForm()
     return render(request, 'front_end/login.html', {'form': form})
 
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
-from django.contrib import messages
-
-from django.shortcuts import render, redirect
-from .forms import UsuarioForm
-
-from django.shortcuts import render, redirect
-from .forms import UsuarioForm  # Certifique-se de que o formulário para registro existe
-
 def registro_usuario(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid():
-            form.save()  # Salva o usuário no banco de dados
-            return redirect('login_usuario')  # Redireciona para a página de login ou outro local
+            usuario = form.save(commit=False)  # Evita salvamento automático
+            # Marca o usuário como administrador
+            usuario.is_staff = True
+            usuario.is_superuser = True
+            usuario.save()  # Salva no banco
+            return redirect('login_usuario')  # Redireciona para login ou outra página
     else:
         form = UsuarioForm()
 
-    return render(request, 'front_end/cadastro.html', {'form': form})
-
+    return render(request, 'cadastro.html', {'form': form})
 
 def logout_usuario(request):
     logout(request)  # Faz logout
     messages.success(request, "Você saiu com sucesso.")
     return redirect('login_usuario')  # Redireciona para a tela de login
-
-from django.shortcuts import render, redirect
-from .forms import SolicitacaoPosseChaveForm
-from .models import SolicitacaoPosseChave
 
 def nova_solicitacao(request):
     if request.method == 'POST':
@@ -347,3 +393,31 @@ def nova_solicitacao(request):
         form = SolicitacaoPosseChaveForm()  # Exibe o formulário vazio
 
     return render(request, 'keyguard/nova_solicitacao.html', {'form': form})
+
+def solicitar_posse(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')  # Captura o nome enviado pelo formulário
+        return render(request, 'solicitarPosse.html', {'nome': nome})
+
+    # Renderiza a página padrão para GET
+    return render(request, 'solicitarPosse.html')
+
+
+
+def obter_lista(request):
+    categoria = request.GET.get('categoria')
+    
+    if categoria == "Sala":
+        dados = list(Sala.objects.values('id', 'nome', 'status'))
+    elif categoria == "Chave":
+        dados = list(Chave.objects.values('id', 'nome'))
+    elif categoria == "Usuario":
+        dados = list(Usuario.objects.values('id', 'nome'))
+    elif categoria == "Posse":
+        dados = list(Posse.objects.values('id', 'chave_id', 'usuario_id'))
+    elif categoria == "Autorizacao":
+        dados = list(Autorizacao.objects.values('id', 'usuario_id', 'sala_id', 'status'))
+    else:
+        dados = []
+    
+    return JsonResponse({'dados': dados})

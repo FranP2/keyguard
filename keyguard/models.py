@@ -19,27 +19,6 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-# Modelo de Usuário
-'''class Usuario(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)
-    nome = models.CharField(max_length=255)
-    matricula = models.CharField(max_length=20, unique=True, blank=True, null=True)
-    telefone = models.CharField(max_length=15, blank=True, null=True)
-    departamento = models.CharField(max_length=50, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-
-    objects = UsuarioManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['nome']
-
-    def __str__(self):
-        return self.email'''
-
-
-
-
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
@@ -67,7 +46,8 @@ class Sala(models.Model):
     descricao = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.numero
+        
+        return f"{self.numero} - {self.nome}"  # Formatação para facilitar a leitura
 
 # Modelo de Chave
 class Chave(models.Model):
@@ -85,8 +65,10 @@ class Autorizacao(models.Model):
     matricula = models.CharField(max_length=20, blank=True, null=True)
     sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
     motivo = models.TextField()
-    data_retirada = models.DateTimeField()
-    data_devolucao = models.DateTimeField()
+    data_retirada = models.DateField()
+    data_devolucao = models.DateField(blank=True, null=True)
+    email = models.EmailField()
+    telefone = models.CharField(max_length=15)
 
     def __str__(self):
         return f"Autorização para {self.nome} - Sala {self.sala.numero}"
@@ -106,14 +88,20 @@ class SolicitacaoPosseChave(models.Model):
         return f"Solicitação de {self.nome} para {self.sala.numero}"
 
 # Modelo de Posse
+# models.py
+from django.db import models
+
 class Posse(models.Model):
     usuario = models.ForeignKey('keyguard.Usuario', on_delete=models.CASCADE)
-    chave = models.ForeignKey(Chave, on_delete=models.CASCADE)
+    chave = models.ForeignKey('Chave', on_delete=models.CASCADE)
+    telefone = models.CharField(max_length=20, blank=True)      # Novo campo para telefone
+    motivo = models.CharField(max_length=255, blank=True)       # Novo campo para motivo
     data_retirada = models.DateTimeField(auto_now_add=True)
     data_devolucao = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f"Posse de {self.usuario.nome} - {self.chave.codigo}"
+
 
 # Modelo de Status Geral
 class StatusGeral(models.Model):

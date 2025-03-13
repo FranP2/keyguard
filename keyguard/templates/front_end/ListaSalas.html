@@ -4,120 +4,305 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Salas</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4a4a6a;
+            --secondary-color: #8a8aab;
+            --background-color: #ffffff;
+            --text-color: #4a4a6a;
+            --border-color: #ddd;
+            --font-family: 'Roboto', sans-serif;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #2d2b4d;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: linear-gradient(to right, #9191d0, #f0f0f7);
+            font-family: var(--font-family);
+            margin: 0;
             padding: 20px;
         }
+
         .container {
-            background: linear-gradient(to bottom, #9999cc, #2d2b4d);
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--background-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            position: relative;
+            margin: 0 auto;
         }
-        .back-arrow {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 20px;
-            cursor: pointer;
-            color: white;
-            text-decoration: none;
-        }
-        h2 {
-            text-align: center;
-            margin: 0 0 20px 0;
-        }
-        .list-container {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #555;
-            color: white;
-            width: 100%;
-            text-align: left;
-        }
-        .buttons-container {
+
+        .header {
             display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-top: 20px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
-        .buttons-container button {
-            background-color: #444;
-            color: white;
+
+        .header h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .back-button {
+            background: none;
             border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
+            color: var(--primary-color);
+            font-size: 24px;
             cursor: pointer;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+
+        .back-button:hover {
+            color: var(--secondary-color);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-container input[type="text"] {
+            padding: 10px;
+            flex: 1;
+            min-width: 200px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+        }
+
+        .add-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            cursor: pointer;
+            min-width: 140px;
         }
-        .buttons-container button:hover {
-            background-color: #666;
+
+        .add-button i {
+            font-size: 20px;
+            margin-right: 5px;
         }
-        .buttons-container i {
+
+        .add-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            vertical-align: middle;
+        }
+
+        table th {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: var(--secondary-color);
+        }
+
+        table td {
+            max-width: 120px;
+            word-wrap: break-word;
+            white-space: normal;
+            text-align: center;
+        }
+
+        table td.actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .actions button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            padding: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .actions button i {
             font-size: 16px;
+        }
+
+        .actions button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header h2 {
+                font-size: 20px;
+            }
+
+            table td {
+                font-size: 12px;
+            }
+
+            .actions {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Botão de voltar -->
+    <button class="back-button" onclick="window.location.href='/home/'">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
     <div class="container">
-        <a href="#" class="back-arrow" onclick="voltarHome()">⬅</a>
-        <h2>Lista de Salas</h2>
-        <div class="list-container" id="listaSalas">
-            <h3>Salas Cadastradas:</h3>
-            <!-- A lista de salas será renderizada aqui -->
-            <ul id="salaLista">
-                {% for sala in salas %}
-                    <li>Sala {{ forloop.counter }}: Nome - {{ sala.nome }}, Nº - {{ sala.numero }}, Tipo - {{ sala.tipo }}</li>
-                {% empty %}
-                    <li>Não há salas cadastradas.</li>
-                {% endfor %}
-            </ul>
+        <div class="header">
+            <h2>Lista de Salas</h2>
         </div>
-        <div class="buttons-container">
-            <button onclick="cadastrarSala()">
-                <i class="fas fa-plus-circle"></i>
-                <span>Cadastrar</span>
+
+        <div class="filter-container">
+            <input type="text" id="filterInput" placeholder="Filtrar por Nome ou Tipo">
+            <button class="add-button" onclick="window.location.href='{% url 'nova_sala' %}'">
+                <i class="fas fa-plus"></i> Nova Sala
             </button>
-            <button onclick="editarPrimeiraSala()">
-                <i class="fas fa-edit"></i>
-                <span>Editar</span>
-            </button>
-            <button onclick="excluirPrimeiraSala()">
-                <i class="fas fa-trash-alt"></i>
-                <span>Excluir</span>
-            </button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Número</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="salaTableBody">
+                    {% for sala in salas %}
+                    <tr id="row-{{ sala.id }}">
+                        <td>{{ sala.nome }}</td>
+                        <td>{{ sala.tipo_sala }}</td>
+                        <td>{{ sala.numero }}</td>
+                        <td>{{ sala.descricao }}</td>
+                        <td class="actions">
+                            <button title="Editar" onclick="editarSala('{{ sala.id }}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button title="Apagar" onclick="apagarSala('{{ sala.id }}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">Nenhuma sala encontrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        const salas = []; // Array dinâmico de salas cadastradas
+        document.getElementById('filterInput').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#salaTableBody tr');
+            rows.forEach(row => {
+                const nome = row.cells[0].textContent.toLowerCase();
+                const tipo = row.cells[1].textContent.toLowerCase();
+                row.style.display = (nome.includes(filter) || tipo.includes(filter)) ? '' : 'none';
+            });
+        });
 
-        function voltarHome() {
-            window.location.href = "home.html"; // Redireciona para a página inicial
+        function editarSala(id) {
+            const novoNome = prompt('Digite o novo nome da sala:');
+            if (novoNome) {
+                fetch(`/salas/${id}/editar/`, {
+                    method: 'PUT',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nome: novoNome })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Sala editada com sucesso!');
+                        location.reload();
+                    } else {
+                        alert('Erro ao editar a sala.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro na edição.');
+                });
+            }
         }
 
-        function cadastrarSala() {
-            window.location.href = "{% url 'nova_sala' %}"; // Redireciona para a página de cadastro
-        }
-
-        function editarPrimeiraSala() {
-            alert("Função de editar a sala a ser implementada.");
-        }
-
-        function excluirPrimeiraSala() {
-            alert("Função de excluir a sala a ser implementada.");
+        function apagarSala(id) {
+            if (confirm('Tem certeza que deseja apagar esta sala?')) {
+                fetch(`/salas/${id}/deletar/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Sala apagada com sucesso!');
+                        document.getElementById(`row-${id}`).remove();
+                    } else {
+                        alert('Erro ao apagar a sala.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro na exclusão.');
+                });
+            }
         }
     </script>
 </body>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autorização</title>
+    <!-- Link para Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #9191d0;
+            --secondary-color: #f0f0f7;
+            --background-color: #ffffff;
+            --border-color: #9191d0;
+            --text-color: #2e2e71;
+            --font-family: 'Roboto', sans-serif;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ocupa 100% da altura da janela */
+            padding: 10px;
+        }
+
+        form {
+            background: var(--background-color);
+            color: var(--text-color);
+            padding: 15px; /* Margem menor para o formulário */
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 600px;
+            width: 100%;
+            height: 90vh; /* Garante que caiba na tela */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 18px; /* Redução do tamanho do título */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 i {
+            margin-right: 8px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 5px; /* Redução do espaçamento entre rótulos e campos */
+            font-size: 12px; /* Tamanho menor para os rótulos */
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 6px; /* Redução do preenchimento interno */
+            margin-top: 3px; /* Redução do espaçamento interno */
+            margin-bottom: 8px; /* Menor espaçamento entre os campos */
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 12px; /* Ajuste do tamanho da fonte */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 50px; /* Altura mínima ajustada */
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px; /* Espaçamento menor entre os botões */
+        }
+
+        button {
+            flex: 1; /* Faz com que os botões se ajustem igualmente */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px; /* Redução do preenchimento interno dos botões */
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 12px; /* Tamanho menor para os botões */
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #7171b3;
+        }
+
+        button i {
+            margin-right: 4px; /* Redução do espaço entre ícone e texto */
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h1><i class="fas fa-file-alt"></i> Formulário de Autorização</h1>
+
+        <!-- Campos do Formulário -->
+        <label for="nome">Nome completo:</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+
+        <label for="matricula">Matrícula:</label>
+        <input type="text" id="matricula" name="matricula" placeholder="Digite sua matrícula" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu email">
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone">
+
+        <label for="sala">Sala n°:</label>
+        <select name="sala" id="sala" required>
+            <option value="" disabled selected>Selecione uma sala</option>
+            {% for sala in salas %}
+            <option value="{{ sala.id }}">{{ sala.numero }} - {{ sala.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="data_retirada">Retirada da chave:</label>
+        <input type="date" id="data_retirada" name="data_retirada">
+
+        <label for="data_devolucao">Devolução da chave:</label>
+        <input type="date" id="data_devolucao" name="data_devolucao">
+
+        <label for="motivo">Descreva o motivo:</label>
+        <textarea id="motivo" name="motivo" placeholder="Informe o motivo da autorização"></textarea>
+
+        <!-- Botões organizados -->
+        <div class="button-group">
+            <button type="submit"><i class="fas fa-paper-plane"></i> Enviar</button>
+            <button type="button" onclick="window.location.href='{% url 'lista_autorizacoes' %}'">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+        </div>
+    </form>
+</body>
+</html>

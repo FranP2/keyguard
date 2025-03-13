@@ -1,212 +1,286 @@
-<!--<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posse</title>
-Biblioteca de Ícones Font Awesome 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            /* Paleta de cores */
-            --primary-color: #9191d0;
-            --secondary-color: #f0f0f7;
-            --text-color: #2e2e71;
-            --background-color: #ffffff;
-            --border-color: #9191d0;
-
-            /* Fontes */
-            --font-family: 'Roboto', sans-serif;
-            --font-size-small: 14px;
-            --font-size-medium: 18px;
-            --font-size-large: 24px;
-
-            /* Estilos Gerais */
-            --border-radius: 12px;
-            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: var(--font-family);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 400px;
-            padding: 20px;
-            background-color: var(--background-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .header .back-icon {
-            font-size: 20px;
-            margin-right: 10px;
-            color: var(--primary-color);
-            cursor: pointer;
-        }
-
-        .header h2 {
-            font-size: var(--font-size-large);
-            font-weight: bold;
-            color: var(--text-color);
-        }
-
-        .profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .profile .profile-icon {
-            font-size: 60px;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--text-color);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            font-size: var(--font-size-medium);
-        }
-
-        .form-group input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 4px rgba(145, 145, 208, 0.5);
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .buttons button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: var(--font-size-medium);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .buttons button:first-child {
-            background-color: #6c757d;
-            color: #ffffff;
-        }
-
-        .buttons button:first-child:hover {
-            background-color: #5a6268;
-        }
-
-        .buttons button:last-child {
-            background-color: var(--primary-color);
-            color: #ffffff;
-        }
-
-        .buttons button:last-child:hover {
-            background-color: #7171b3;
-        }
-
-        .buttons .solicitar-autorizacao {
-            background-color: #28a745;
-            color: #ffffff;
-        }
-
-        .buttons .solicitar-autorizacao:hover {
-            background-color: #218838;
-        }
-
-        @media (max-width: 600px) {
-            .header h2 {
-                font-size: 20px;
-            }
-
-            .buttons button {
-                font-size: 14px;
-                padding: 8px 10px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="header">
-            Ícone de voltar 
-            <i class="fas fa-arrow-left back-icon"></i>
-            <h2>Posse</h2>
-        </div>
-        <div class="profile">
-             Ícone de posse 
-            <i class="fas fa-key profile-icon"></i>  Ícone de chave para representar posse 
-        </div>
-        <form>
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" placeholder="Nome completo" required>
-            </div>
-            <div class="form-group">
-                <label for="chave">Chave</label>
-                <input type="text" id="chave" placeholder="Chave" required>
-            </div>
-            <div class="form-group">
-                <label for="motivo">Motivo</label>
-                <input type="text" id="motivo" placeholder="Motivo para a posse da chave" required>
-            </div>
-            <div class="form-group">
-                <label for="telefone">Telefone</label>
-                <input type="tel" id="telefone" placeholder="(99) 99999-9999" required>
-            </div>
-            <div class="form-group">
-                <label for="data-entrega">Data da Entrega</label>
-                <input type="date" id="data-entrega" required>
-                <label for="data-devolucao">Data Devolução</label>
-                <input type="date" id="data-devolucao" required>
-            </div>
-            <div class="buttons">
-                <button type="button">Cancelar</button>
-                <button type="submit">Enviar</button>
-                <button type="button" class="solicitar-autorizacao">Solicitar Autorização</button>
-            </div>
-        </form>
-    </div>
-</body>
-
-</html >-->
-
-
-
-
 <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Posse de Chaves</title>
+  <!-- Biblioteca de Ícones FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4a4a6a;
+      --secondary-color: #8a8aab;
+      --text-color: #4a4a6a;
+      --background-color: #ffffff;
+      --border-color: #ddd;
+      --font-family: 'Roboto', sans-serif;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --max-container-width: 100%;
+    }
+    body {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      font-family: var(--font-family);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      width: var(--max-container-width);
+      max-width: 1200px;
+      background-color: var(--background-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 20px;
+      margin: 0 auto;
+    }
+    .back-button {
+      margin-bottom: 10px;
+    }
+    .back-button button {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--text-color);
+      margin: 0;
+    }
+    .filter-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .filter-container input[type="text"] {
+      padding: 10px;
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 16px;
+    }
+    .add-button {
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      min-width: 140px;
+    }
+    .add-button i {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+    .add-button:hover {
+      background-color: var(--secondary-color);
+    }
+    .table-container {
+      overflow-x: auto;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table th, table td {
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      vertical-align: middle;
+      text-align: center;
+    }
+    table th {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+    table tbody tr:nth-child(even) {
+      background-color: var(--secondary-color);
+    }
+    table td.actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .actions button {
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      padding: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      width: 40px;
+      height: 40px;
+    }
+    .actions button i {
+      font-size: 16px;
+    }
+    .actions button:hover {
+      background-color: var(--secondary-color);
+    }
+    @media (max-width: 768px) {
+      .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .header h2 {
+        font-size: 20px;
+      }
+      table td {
+        font-size: 12px;
+      }
+      .actions {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Botão de voltar -->
+    <div class="back-button">
+      <button onclick="window.location.href='/home/'" title="Voltar para a página inicial">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+    
+
+    <div class="header">
+      <h2>Lista de Posse de Chaves</h2>
+    </div>
+
+    <!-- Área de filtro e botão "Nova Posse" -->
+    <div class="filter-container">
+      <input type="text" id="filterInput" placeholder="Filtrar por Usuário ou Chave">
+      <button class="add-button" onclick="window.location.href='{% url 'nova_posse' %}'">
+        <i class="fas fa-plus"></i> Nova Posse
+      </button>
+    </div>
+
+    <!-- Tabela de posses -->
+    <div class="table-container">
+      <table id="posseTable">
+        <thead>
+          <tr>
+            <th>Usuário</th>
+            <th>Chave</th>
+            <th>Motivo</th>
+            <th>Telefone</th>
+            <th>Entregue</th>
+            <th>Devolução</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for posse in posses %}
+          <tr id="row-{{ posse.id }}">
+            <td class="usuario">{{ posse.usuario.username }}</td>
+            <td class="chave">{{ posse.chave }}</td>
+            <td>{{ posse.motivo }}</td>
+            <td>{{ posse.telefone }}</td>
+            <td>{{ posse.data_entrega|date:"Y/m/d" }}</td>
+            <td>{{ posse.data_devolucao|date:"Y/m/d" }}</td>
+            <td class="actions">
+              <button title="Transferir" onclick="window.location.href='{% url 'transferir_posse' posse.id %}'"
+              >
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7" style="text-align: center;">Nenhuma posse encontrada.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+
+    <!-- Seção para exibir as transferências realizadas com filtro -->
+    <div class="header">
+      <h2>Transferências Realizadas</h2>
+    </div>
+
+    <div class="filter-container">
+      <input type="text" id="filterTransferInput" placeholder="Filtrar por Antigo ou Novo Responsável">
+    </div>
+
+    <div class="table-container">
+      <table id="transferTable">
+        <thead>
+          <tr>
+            <th>Antigo Responsável</th>
+            <th>Novo Responsável</th>
+            <th>Chave</th>
+            <th>Data da Transferência</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for trans in transferencias %}
+          <tr>
+            <td class="antigo">{{ trans.antigo }}</td>
+            <td class="novo">{{ trans.novo }}</td>
+            <td>{{ trans.chave }}</td>
+            <td>{{ trans.data_transferencia|date:"Y/m/d" }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" style="text-align: center;">Nenhuma transferência encontrada.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Filtro para a tabela de posses
+    document.getElementById('filterInput').addEventListener('keyup', function() {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll('#posseTable tbody tr');
+      rows.forEach(row => {
+        const usuario = row.querySelector('.usuario').textContent.toLowerCase();
+        const chave = row.querySelector('.chave').textContent.toLowerCase();
+        row.style.display = (usuario.includes(filter) || chave.includes(filter)) ? '' : 'none';
+      });
+    });
+
+    // Filtro para a tabela de transferências
+    document.getElementById('filterTransferInput').addEventListener('keyup', function() {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll('#transferTable tbody tr');
+      rows.forEach(row => {
+        const antigo = row.querySelector('.antigo').textContent.toLowerCase();
+        const novo = row.querySelector('.novo').textContent.toLowerCase();
+        row.style.display = (antigo.includes(filter) || novo.includes(filter)) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -216,11 +290,11 @@ Biblioteca de Ícones Font Awesome
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #9191d0;
+            --primary-color: #4a4a6a;
             --secondary-color: #f0f0f7;
-            --text-color: #2e2e71;
+            --text-color: #4a4a6a;
             --background-color: #ffffff;
-            --border-color: #9191d0;
+            --border-color: #ddd;
             --font-family: 'Roboto', sans-serif;
             --border-radius: 12px;
             --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -237,8 +311,8 @@ Biblioteca de Ícones Font Awesome
         }
 
         .container {
-            width: 90%;
-            max-width: 600px;
+            width: 100%;
+            max-width: 1200px;
             padding: 20px;
             background-color: var(--background-color);
             border-radius: var(--border-radius);
@@ -248,21 +322,49 @@ Biblioteca de Ícones Font Awesome
 
         .header {
             display: flex;
+            justify-content: center;
             align-items: center;
             margin-bottom: 20px;
+            position: relative;
         }
 
         .header .back-icon {
             font-size: 20px;
-            margin-right: 10px;
             color: var(--primary-color);
+            position: absolute;
+            left: 10px;
             cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .header .back-icon:hover {
+            color: #8a8aab;
         }
 
         .header h2 {
             font-size: 24px;
             font-weight: bold;
             color: var(--text-color);
+            text-align: center;
+        }
+
+        .header .new-posse-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 16px;
+            box-shadow: var(--box-shadow);
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .new-posse-btn:hover {
+            background-color: #8a8aab;
         }
 
         .list-container {
@@ -271,82 +373,59 @@ Biblioteca de Ícones Font Awesome
 
         .list-item {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
             background-color: var(--secondary-color);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
-            padding: 10px;
+            padding: 20px;
             margin-bottom: 10px;
         }
 
         .list-item .details {
             color: var(--text-color);
-            margin-bottom: 10px;
+            flex: 1;
+            margin-right: 20px;
         }
 
         .list-item .actions {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .list-item .actions button {
             background-color: var(--primary-color);
             color: #fff;
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 5px;
             padding: 8px 15px;
             cursor: pointer;
             font-size: 14px;
+            transition: background-color 0.3s ease;
         }
 
         .list-item .actions button:hover {
-            background-color: #7171b3;
+            background-color: #8a8aab;
         }
 
-        .new-posse-btn {
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 10px;
-            cursor: pointer;
-            font-size: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px;
-            height: 50px;
-            margin-bottom: 20px;
-            box-shadow: var(--box-shadow);
-        }
-
-        .new-posse-btn:hover {
-            background-color: #7171b3;
-        }
-
-        .new-posse-btn i {
-            font-size: 24px;
-        }
-
-        .history {
+        .form-container {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
             margin-top: 20px;
-            font-size: 14px;
-            color: var(--text-color);
         }
 
-        .history ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .history li {
-            background-color: var(--secondary-color);
+        .form-container input {
+            padding: 10px;
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
-            margin-bottom: 10px;
-            padding: 10px;
+            font-size: 14px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
@@ -356,74 +435,89 @@ Biblioteca de Ícones Font Awesome
         <div class="header">
             <i class="fas fa-arrow-left back-icon" onclick="voltarHome()"></i>
             <h2>Posse de Chaves</h2>
+            <button class="new-posse-btn" onclick="novaPosse()">Nova Posse</button>
         </div>
 
-        <!-- Botão Nova Posse com ícone -->
-        <button class="new-posse-btn" onclick="novaPosse()">
-            <i class="fas fa-plus"></i>
-        </button>
+        <div class="list-container" id="listaPosse"></div>
 
-        <div class="list-container" id="listaPosse">
-            <!-- Lista de posse será gerada dinamicamente -->
-        </div>
-
-        <!-- Histórico de transferências -->
-        <div class="history" id="historicoTransferencias">
-            <h3 onclick="toggleHistorico()">Histórico de Transferências</h3>
-            <ul style="display: none;">
-                <!-- Histórico de transferências será gerado dinamicamente -->
-            </ul>
+        <div class="form-container" id="formTransferencia">
+            <input type="text" id="novoNome" placeholder="Nome do novo responsável">
+            <input type="text" id="novoTelefone" placeholder="Telefone do novo responsável">
+            <input type="text" id="novoMotivo" placeholder="Motivo da transferência">
+            <input type="text" id="novaChave" placeholder="Nome da chave">
+            <div class="form-actions">
+                <button onclick="confirmarTransferencia()">OK</button>
+                <button onclick="cancelarTransferencia()">Cancelar</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Verifica se há dados salvos no localStorage, senão inicializa vazio
         const posses = JSON.parse(localStorage.getItem("posses")) || [];
+        let transferenciaAtivaIndex = null;
 
         function voltarHome() {
             window.location.href = "home.html";
         }
 
         function transferirPosse(index) {
-            const novoNome = prompt("Digite o nome do novo responsável:");
-            const novoTelefone = prompt("Digite o telefone do novo responsável:");
-            if (novoNome && novoTelefone) {
-                // Adicionar no histórico
-                const novaTransferencia = {
-                    de: posses[index].nome,
-                    para: novoNome,
-                    telefone: novoTelefone,
-                    data: new Date().toLocaleString()
-                };
-                posses[index].historico.push(novaTransferencia);
-
-                // Atualizar a posse
-                posses[index].nome = novoNome;
-                posses[index].telefone = novoTelefone;
-                alert("Posse transferida com sucesso!");
-                salvarDados();
-                atualizarLista();
-                atualizarHistorico();
-            }
+            transferenciaAtivaIndex = index;
+            document.getElementById("formTransferencia").style.display = "flex";
         }
 
-        function consultarPosse(index) {
-            const posse = posses[index];
-            alert(`Detalhes da Posse:\n\nNome: ${posse.nome}\nChave: ${posse.chave}\nTelefone: ${posse.telefone}\nMotivo: ${posse.motivo}`);
+        function cancelarTransferencia() {
+            document.getElementById("formTransferencia").style.display = "none";
+            transferenciaAtivaIndex = null;
+        }
+
+        function confirmarTransferencia() {
+            const nome = document.getElementById("novoNome").value;
+            const telefone = document.getElementById("novoTelefone").value;
+            const motivo = document.getElementById("novoMotivo").value;
+            const chave = document.getElementById("novaChave").value;
+
+            if (!nome || !telefone || !motivo || !chave) {
+                alert("Todos os campos são obrigatórios!");
+                return;
+            }
+
+            posses[transferenciaAtivaIndex].historico = {
+                antigo: posses[transferenciaAtivaIndex].nome,
+                novo: nome,
+                telefone,
+                motivo,
+                chave,
+                data: new Date().toLocaleString(),
+            };
+
+            posses[transferenciaAtivaIndex].nome = nome;
+            posses[transferenciaAtivaIndex].telefone = telefone;
+            posses[transferenciaAtivaIndex].motivo = motivo;
+            posses[transferenciaAtivaIndex].chave = chave;
+
+            salvarDados();
+            atualizarLista();
+            cancelarTransferencia();
         }
 
         function novaPosse() {
             const nome = prompt("Digite o nome do responsável:");
-            const chave = prompt("Digite o nome da chave:");
             const telefone = prompt("Digite o telefone do responsável:");
             const motivo = prompt("Digite o motivo da posse:");
+            const chave = prompt("Digite o nome da chave:");
 
-            if (nome && chave && telefone && motivo) {
-                posses.push({ nome, chave, telefone, motivo, historico: [] });
-                alert("Nova posse cadastrada com sucesso!");
-                salvarDados();
-                atualizarLista();
+            if (!nome || !telefone || !motivo || !chave) {
+                alert("Cadastro cancelado.");
+                return;
             }
+
+            posses.push({ nome, telefone, motivo, chave, historico: null });
+            salvarDados();
+            atualizarLista();
+        }
+
+        function salvarDados() {
+            localStorage.setItem("posses", JSON.stringify(posses));
         }
 
         function atualizarLista() {
@@ -449,40 +543,30 @@ Biblioteca de Ícones Font Awesome
             });
         }
 
-        function toggleHistorico() {
-            const historicoLista = document.querySelector("#historicoTransferencias ul");
-            const isHidden = historicoLista.style.display === "none";
-            historicoLista.style.display = isHidden ? "block" : "none";
+        function consultarPosse(index) {
+            const posse = posses[index];
+            let mensagem = `
+                Detalhes da Posse:
+                Nome Atual: ${posse.nome}
+                Telefone: ${posse.telefone}
+                Motivo: ${posse.motivo}
+                Chave: ${posse.chave}
+            `;
+
+            if (posse.historico) {
+                mensagem += `
+                    \nTransferência:
+                    De: ${posse.historico.antigo}
+                    Para: ${posse.historico.novo}
+                    Data: ${posse.historico.data}
+                `;
+            }
+
+            alert(mensagem);
         }
 
-        function atualizarHistorico() {
-            const historicoDiv = document.getElementById("historicoTransferencias");
-            const historicoLista = historicoDiv.querySelector("ul");
-            historicoLista.innerHTML = "";
-
-            posses.forEach((posse) => {
-                posse.historico.forEach((transferencia) => {
-                    const item = document.createElement("li");
-                    item.innerHTML = `
-                        <strong>De: ${transferencia.de}</strong><br>
-                        Para: ${transferencia.para}<br>
-                        Telefone: ${transferencia.telefone}<br>
-                        Data: ${transferencia.data}
-                    `;
-                    historicoLista.appendChild(item);
-                });
-            });
-        }
-
-        function salvarDados() {
-            // Salva as posses no localStorage
-            localStorage.setItem("posses", JSON.stringify(posses));
-        }
-
-        // Atualiza a lista e o histórico ao carregar a página
         atualizarLista();
-        atualizarHistorico();
     </script>
 </body>
 
-</html>
+</html>-->

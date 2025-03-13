@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página da Sala</title>
+    <title>Cadastro de Sala</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Todo o estilo original foi mantido */
+        /* Alteração das cores para o modelo de "Usuários" */
         * {
             margin: 0;
             padding: 0;
@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #9191d0, #f0f0f7);
+            background: linear-gradient(to right, #4a4a6a, #8a8aab); /* Cores do modelo de usuários */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -35,11 +35,15 @@
             font-size: 24px;
             margin-bottom: 20px;
             cursor: pointer;
-            color: #9191d0;
+            color: #4a4a6a; /* Azul escuro */
+        }
+
+        .arrow-back:hover {
+            color: #8a8aab; /* Azul claro */
         }
 
         .sala2 {
-            color: #2e2e71;
+            color: #4a4a6a; /* Azul escuro */
             font-size: 36px;
             font-weight: 500;
             display: flex;
@@ -66,7 +70,7 @@
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd; /* Cinza claro */
             border-radius: 8px;
             font-size: 16px;
         }
@@ -76,19 +80,17 @@
             font-weight: bold;
             margin-bottom: 5px;
             display: block;
-            color: #2e2e71;
+            color: #4a4a6a; /* Azul escuro */
         }
 
-        .buttons-container,
-        .actions-container {
+        .buttons-container {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
 
-        .buttons-container button,
-        .actions-container button {
-            width: 32%;
+        .buttons-container button {
+            width: 48%;
             padding: 10px;
             border: none;
             border-radius: 8px;
@@ -97,115 +99,50 @@
             font-weight: 600;
         }
 
-        .edit-btn,
-        .save-btn,
-        .cancel-btn,
-        .add-btn,
-        .remove-btn {
-            display: inline-block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .edit-btn {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .new-btn {
-            background-color: #008CBA;
-            color: white;
-        }
-
-        .delete-btn {
-            background-color: #f44336;
-            color: white;
-        }
-
         .save-btn {
-            background-color: #4CAF50;
+            background-color: #4a4a6a; /* Azul escuro */
             color: white;
+        }
+
+        .save-btn:hover {
+            background-color: #8a8aab; /* Azul claro */
         }
 
         .cancel-btn {
-            background-color: #888;
+            background-color: #888; /* Cinza médio */
             color: white;
         }
 
-        .actions-container button {
-            padding: 10px;
-            margin-right: 10px;
-            width: auto;
-            font-size: 14px;
-        }
-
-        .add-btn {
-            background-color: #008CBA;
-            color: white;
-        }
-
-        .remove-btn {
-            background-color: #f44336;
-            color: white;
+        .cancel-btn:hover {
+            background-color: #666; /* Cinza escuro */
         }
     </style>
 </head>
 <body>
     <div class="sala">
-        <div class="arrow-back" onclick="voltarHome()">
+        <div class="arrow-back" onclick="voltarParaLista()">
             <i class="fas fa-arrow-left"></i>
         </div>
 
         <div class="sala2">
-            <i class="fas fa-home"></i> Sala
+            <i class="fas fa-home"></i> Cadastro de Sala
         </div>
 
         <div class="form-container">
-            <!-- Formulário configurado corretamente para usar POST -->
+            <!-- Seu Estilo Visual Original -->
             <form action="{% url 'nova_sala' %}" method="POST">
                 {% csrf_token %}
+                
+                <!-- Aqui o formulário será renderizado dinamicamente com o estilo -->
                 <div class="form-group">
-                    <label for="nome-sala">Nome da Sala</label>
-                    <input type="text" id="nome-sala" name="nome" placeholder="Digite o nome da sala" required>
+                    {{ form.as_p }}
                 </div>
 
-                <div class="form-group">
-                    <label for="tipo-sala">Tipo de Sala</label>
-                    <input list="tipos-salas" id="tipo-sala" name="tipo" placeholder="Escolha ou digite o tipo de sala" required>
-                    <datalist id="tipos-salas">
-                        <option value="Aula">
-                        <option value="Reunião">
-                        <option value="Conferência">
-                    </datalist>
-                </div>
-
-                <div class="form-group">
-                    <label for="numero-sala">Número da Sala</label>
-                    <input type="text" id="numero-sala" name="numero" placeholder="Digite o número da sala" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="codigo-chave">Código da Chave</label>
-                    <input type="text" id="codigo-chave" name="codigo_chave" placeholder="Digite o código da chave" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="copias-chave">Cópias da Chave</label>
-                    <input type="number" id="copias-chave" name="copias_chave" placeholder="Digite o número de cópias" required>
-                </div>
-
-                <!-- Botões para adicionar e excluir chave -->
-                <div class="actions-container">
-                    <button type="button" class="add-btn" onclick="adicionarChave()">Adicionar Chave</button>
-                    <button type="button" class="remove-btn" onclick="removerChave()">Excluir Chave</button>
-                </div>
-
-                <!-- Botões de salvar e cancelar -->
                 <div class="buttons-container">
                     <button type="submit" class="save-btn">
                         <i class="fas fa-save"></i> Salvar
                     </button>
-                    <button type="button" class="cancel-btn" onclick="cancelarCadastro()">
+                    <button type="button" class="cancel-btn" onclick="voltarParaLista()">
                         <i class="fas fa-times"></i> Cancelar
                     </button>
                 </div>
@@ -214,22 +151,8 @@
     </div>
 
     <script>
-        function voltarHome() {
-            window.location.href = "{% url 'home' %}"; // Redireciona para a página inicial do Django
-        }
-
-        function cancelarCadastro() {
-            if (confirm("Tem certeza que deseja cancelar? Todos os dados serão perdidos.")) {
-                document.querySelector('form').reset(); // Limpa o formulário
-            }
-        }
-
-        function adicionarChave() {
-            alert("Função para adicionar chave ainda não implementada.");
-        }
-
-        function removerChave() {
-            alert("Função para remover chave ainda não implementada.");
+        function voltarParaLista() {
+            window.location.href = "{% url 'lista_salas' %}"; // Redireciona para a lista de salas
         }
     </script>
 </body>

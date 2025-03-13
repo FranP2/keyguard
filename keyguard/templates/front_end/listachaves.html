@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: rgb(43, 36, 71);
-            color: #333;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,89 +18,105 @@
 
         .container {
             width: 90%;
-            max-width: 800px;
+            max-width: 900px;
             background-color: rgb(206, 199, 206);
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(7, 7, 7, 0.1);
-            overflow-x: auto;
+            box-shadow: 0 4px 8px rgba(7, 7, 7, 0.2);
+        }
+
+        .top-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .top-button button {
+            padding: 10px;
+            background-color: rgb(79, 72, 84);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-button button:hover {
+            background-color: rgb(98, 85, 105);
         }
 
         h1 {
             text-align: center;
             color: rgb(93, 74, 116);
+            margin-bottom: 20px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .card {
+            background-color: #fff;
+            color: #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-left: 5px solid rgb(79, 72, 84);
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
+        .card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-content p {
+            margin: 0;
+            flex: 1;
+            font-size: 14px;
             text-align: left;
         }
 
-        th {
-            background-color: rgb(80, 60, 92);
-            color: #fff;
-        }
-
-        .buttons {
+        .card-buttons {
             display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 10px;
         }
 
-        button {
-            padding: 10px 15px;
+        .card-buttons button {
+            padding: 10px;
             border: none;
             border-radius: 5px;
             color: #fff;
             cursor: pointer;
-            flex: 1;
-            margin: 5px;
-            min-width: 100px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .edit { background-color: rgb(79, 70, 82); }
-        .add { background-color: rgb(79, 72, 84); }
         .delete { background-color: rgb(79, 73, 81); }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            th, td {
-                padding: 8px;
-            }
-
-            button {
-                padding: 8px 12px;
-                font-size: 14px;
-            }
-        }
+        .edit:hover { background-color: rgb(98, 85, 105); }
+        .delete:hover { background-color: rgb(120, 63, 70); }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-
             h1 {
-                font-size: 20px;
+                font-size: 18px;
             }
 
-            th, td {
-                padding: 6px;
+            .card-content p {
                 font-size: 12px;
             }
 
-            button {
-                padding: 6px 10px;
+            .card-buttons button {
+                width: 35px;
+                height: 35px;
                 font-size: 12px;
             }
         }
@@ -108,49 +124,292 @@
 </head>
 <body>
     <div class="container">
+        <div class="top-button">
+            <button onclick="window.location.href='/chaves/nova/'">＋</button>
+        </div>
         <h1>Lista de Chaves</h1>
-        <table id="tableChaves">
-            <thead>
-                <tr>
-                    <th>Código da Chave</th>
-                    <th>Usuário</th>
-                    <th>N° Sala</th>
-                    <th>Sala</th>
-                    <th>Disponíveis</th>
-                    <th>Cópias</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- As chaves serão inseridas aqui -->
-            </tbody>
-        </table>
-        <div class="buttons">
-            <button class="edit">Editar</button>
-            <button class="add" onclick="window.location.href='/chaves/nova/'">Adicionar</button>
-            <button class="delete">Excluir</button>
+        <div id="cardList">
+            Os cards serão adicionados aqui 
         </div>
     </div>
 
     <script>
-        // Função para carregar as chaves da localStorage e exibir na tabela
+        // Função para carregar as chaves da localStorage e exibir como cards retangulares
         window.onload = function() {
             const chaves = JSON.parse(localStorage.getItem('chaves')) || [];
-            const tableBody = document.querySelector('#tableChaves tbody');
-            tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar os novos dados
+            const cardList = document.getElementById('cardList');
+            cardList.innerHTML = ''; // Limpa os cards antes de adicionar os novos dados
 
             chaves.forEach(chave => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${chave.codigo}</td>
-                    <td>${chave.usuario}</td>
-                    <td>${chave.sala}</td>
-                    <td>${chave.sala}</td>
-                    <td>${chave.disponivel}</td>
-                    <td>${chave.copias}</td>
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-content">
+                        <p><strong>Código:</strong> ${chave.codigo}</p>
+                        <p><strong>Usuário:</strong> ${chave.usuario}</p>
+                        <p><strong>Sala:</strong> ${chave.sala}</p>
+                        <p><strong>Disponíveis:</strong> ${chave.disponivel}</p>
+                        <p><strong>Cópias:</strong> ${chave.copias}</p>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="edit"><i>✎</i></button>
+                        <button class="delete"><i>🗑</i></button>
+                    </div>
                 `;
-                tableBody.appendChild(row);
+                cardList.appendChild(card);
             });
         };
+    </script>
+</body>
+</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Chaves</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a4a6a;
+            --secondary-color: #8a8aab;
+            --background-color: #ffffff;
+            --text-color: #4a4a6a;
+            --border-color: #ddd;
+        }
+
+        body {
+            background: linear-gradient(to right, #9191d0, #f0f0f7);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background-color: var(--background-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            color: var(--primary-color);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button i {
+            margin-right: 5px;
+        }
+
+        .back-button:hover {
+            color: var(--secondary-color);
+        }
+
+        .top-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .top-button button {
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-button button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-content p {
+            margin: 0;
+            flex: 1;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .card-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .card-buttons button {
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-buttons button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .editable {
+            background-color: #f4f4f4;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 5px;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            .card-content p {
+                font-size: 12px;
+            }
+
+            .card-buttons button {
+                width: 35px;
+                height: 35px;
+                font-size: 12px;
+            }
+
+            .back-button {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Botão para voltar -->
+        <button class="back-button" onclick="window.location.href='/home/'">
+            <i class="fas fa-arrow-left"></i> 
+        </button>
+
+        <div class="top-button">
+            <button onclick="window.location.href='/chaves/nova/'">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <h1>Lista de Chaves</h1>
+        <div id="cardList">
+            <!-- Os cards serão adicionados aqui -->
+        </div>
+    </div>
+
+    <script>
+        // Funções mantêm sua funcionalidade original
+        function carregarChaves() {
+            const chaves = JSON.parse(localStorage.getItem('chaves')) || [];
+            const cardList = document.getElementById('cardList');
+            cardList.innerHTML = ''; // Limpa os cards antes de adicionar os novos dados
+
+            chaves.forEach((chave, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-content">
+                        <p><strong>Código:</strong> ${chave.codigo}</p>
+                        <p><strong>Usuário:</strong> ${chave.usuario}</p>
+                        <p><strong>Sala:</strong> ${chave.sala}</p>
+                        <p><strong>Disponíveis:</strong> ${chave.disponivel}</p>
+                        <p><strong>Cópias:</strong> ${chave.copias}</p>
+                    </div>
+                    <div class="card-buttons">
+                        <button onclick="editarChave(${index}, this)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="excluirChave(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                cardList.appendChild(card);
+            });
+        }
+
+        function excluirChave(index) {
+            if (confirm("Tem certeza que deseja excluir esta chave?")) {
+                const chaves = JSON.parse(localStorage.getItem('chaves')) || [];
+                chaves.splice(index, 1);
+                localStorage.setItem('chaves', JSON.stringify(chaves));
+                carregarChaves();
+                alert("Chave excluída com sucesso!");
+            }
+        }
+
+        function editarChave(index, button) {
+            const chaves = JSON.parse(localStorage.getItem('chaves')) || [];
+            const card = button.parentElement.parentElement;
+            const fields = card.querySelectorAll('.card-content p');
+
+            if (button.querySelector('i').classList.contains('fa-edit')) {
+                fields.forEach(field => field.setAttribute('contenteditable', 'true'));
+                fields.forEach(field => field.classList.add('editable'));
+                button.innerHTML = '<i class="fas fa-save"></i>';
+            } else {
+                const valores = [...fields].map(field => field.textContent.split(': ')[1]);
+
+                chaves[index] = {
+                    codigo: valores[0],
+                    usuario: valores[1],
+                    sala: valores[2],
+                    disponivel: valores[3],
+                    copias: valores[4]
+                };
+
+                localStorage.setItem('chaves', JSON.stringify(chaves));
+                carregarChaves();
+            }
+        }
+
+        carregarChaves();
     </script>
 </body>
 </html>

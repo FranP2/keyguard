@@ -16,10 +16,12 @@
             background: linear-gradient(to right, #9191d0, #f0f0f7);
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
             overflow-x: auto;
+            position: relative;
         }
         .usuario-container {
             background: #ffffff;
@@ -28,7 +30,6 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            overflow-x: auto;
         }
         .usuario-header {
             text-align: center;
@@ -36,6 +37,19 @@
             font-weight: bold;
             color: #4a4a6a;
             margin-bottom: 20px;
+        }
+        .voltar-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            color: #4a4a6a;
+            font-size: 24px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .voltar-btn:hover {
+            color: #8a8aab;
         }
         .novo-btn {
             display: flex;
@@ -54,9 +68,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-        }
-        .btn-novo i {
-            font-size: 16px;
         }
         .btn-novo:hover {
             background: #8a8aab;
@@ -95,16 +106,22 @@
     </style>
 </head>
 <body>
+    <!-- Botão Voltar (somente seta no canto superior esquerdo) -->
+    <a href="/home/" class="voltar-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
     <div class="usuario-container">
         <div class="usuario-header">Lista de Usuários</div>
 
         <!-- Botão Novo -->
         <div class="novo-btn">
-            <button class="btn-novo" onclick="abrirCadastroUsuario()">
+            <button class="btn-novo" onclick="window.location.href='/usuarios/novo/'">
                 <i class="fas fa-plus"></i> Novo
             </button>
         </div>
 
+        <!-- Tabela de Usuários -->
         <div class="table-container">
             <table class="usuario-lista">
                 <thead>
@@ -117,71 +134,52 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="usuarioTabela">
-                    <!-- Os usuários serão carregados dinamicamente aqui -->
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.nome }}</td>
+                            <td>{{ usuario.matricula }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.telefone }}</td>
+                            <td>{{ usuario.departamento }}</td>
+                            <td>
+                                <div class="acoes-btns">
+                                    <i class="fas fa-trash-alt" title="Excluir" onclick="excluirUsuario('{{ usuario.id }}')"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" style="text-align: center;">Nenhum usuário cadastrado</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            carregarUsuarios();
-        });
-
-        function abrirCadastroUsuario() {
-            window.location.href = "/usuarios/novo/"; // Ajuste a URL conforme sua rota Django
-        }
-
-        function carregarUsuarios() {
-            fetch("/usuarios/listar/") // Chama a API do Django
-                .then(response => response.json())
-                .then(data => {
-                    const tabela = document.getElementById("usuarioTabela");
-                    tabela.innerHTML = ""; // Limpa antes de adicionar novos usuários
-
-                    if (data.length === 0) {
-                        tabela.innerHTML = "<tr><td colspan='6' style='text-align: center;'>Nenhum usuário cadastrado</td></tr>";
-                        return;
+        function excluirUsuario(usuarioId) {
+            if (confirm('Tem certeza que deseja excluir este usuário?')) {
+                fetch(`/usuarios/${usuarioId}/deletar/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}', // Adicione o CSRF token para segurança
+                        'Content-Type': 'application/json'
                     }
-
-                    data.forEach(usuario => {
-                        const linha = document.createElement("tr");
-                        linha.innerHTML = `
-                            <td>${usuario.nome}</td>
-                            <td>${usuario.matricula}</td>
-                            <td>${usuario.email}</td>
-                            <td>${usuario.telefone}</td>
-                            <td>${usuario.departamento}</td>
-                            <td>
-                                <div class="acoes-btns">
-                                    <i class="fas fa-edit" title="Editar" onclick="editarUsuario(${usuario.id})"></i>
-                                    <i class="fas fa-trash-alt" title="Excluir" onclick="excluirUsuario(${usuario.id})"></i>
-                                </div>
-                            </td>
-                        `;
-                        tabela.appendChild(linha);
-                    });
                 })
-                .catch(error => console.error("Erro ao carregar usuários:", error));
-        }
-
-        function editarUsuario(id) {
-            window.location.href = `/usuarios/editar/${id}/`; // Ajuste conforme a URL do Django
-        }
-
-        function excluirUsuario(id) {
-            if (confirm("Tem certeza que deseja excluir este usuário?")) {
-                fetch(`/usuarios/excluir/${id}/`, { method: "DELETE" })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("Usuário excluído com sucesso!");
-                            carregarUsuarios();
-                        } else {
-                            alert("Erro ao excluir usuário.");
-                        }
-                    })
-                    .catch(error => console.error("Erro ao excluir usuário:", error));
+                .then(response => {
+                    if (response.ok) {
+                        alert('Usuário excluído com sucesso!');
+                        location.reload(); // Atualiza a tabela após exclusão
+                    } else {
+                        alert('Erro ao excluir o usuário.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Ocorreu um erro. Tente novamente.');
+                });
             }
         }
     </script>
