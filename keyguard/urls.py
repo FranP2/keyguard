@@ -37,7 +37,7 @@ urlpatterns = [
     path('posses/nova/', views.nova_posse, name='nova_posse'),
     path('posses/<int:pk>/editar/', views.editar_posse, name='editar_posse'),
     path('posses/<int:pk>/deletar/', views.deletar_posse, name='deletar_posse'),
-     path('posses/transferir/<int:posse_id>/', views.transferir_posse, name='transferir_posse'),
+    path('posses/transferir/<int:posse_id>/', views.transferir_posse, name='transferir_posse'),
 
     # Rotas para Status Geral
     path('status/', views.lista_status_geral, name='lista_status_geral'),

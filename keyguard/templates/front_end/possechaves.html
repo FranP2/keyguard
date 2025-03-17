@@ -160,8 +160,6 @@
         <i class="fas fa-arrow-left"></i>
       </button>
     </div>
-    
-
     <div class="header">
       <h2>Lista de Posse de Chaves</h2>
     </div>
@@ -198,8 +196,7 @@
             <td>{{ posse.data_entrega|date:"Y/m/d" }}</td>
             <td>{{ posse.data_devolucao|date:"Y/m/d" }}</td>
             <td class="actions">
-              <button title="Transferir" onclick="window.location.href='{% url 'transferir_posse' posse.id %}'"
-              >
+              <button title="Transferir" onclick="window.location.href='{% url 'transferir_posse' posse.id %}'">
                 <i class="fas fa-exchange-alt"></i>
               </button>
             </td>
@@ -271,12 +268,13 @@
       rows.forEach(row => {
         const antigo = row.querySelector('.antigo').textContent.toLowerCase();
         const novo = row.querySelector('.novo').textContent.toLowerCase();
-        row.style.display = (antigo.includes(filter) || novo.includes(filter)) ? '' : 'none';
+        row.style.display =        row.style.display = (antigo.includes(filter) || novo.includes(filter)) ? '' : 'none';
       });
     });
   </script>
 </body>
 </html>
+
 
 
 
